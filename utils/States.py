@@ -33,7 +33,7 @@ class AnimatedState(EntityState):
         self.current_sprite = self.images.subsurface(0, 0,
                                                      self.images.get_width() / self.number_of_sprites,
                                                      self.images.get_height())
-        self.width = self.images.get_width()/ self.number_of_sprites
+        self.width = self.images.get_width() / self.number_of_sprites
         self.height = self.images.get_height()
         self.is_loop = True
         self.current_delta = 0

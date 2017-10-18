@@ -15,8 +15,14 @@ pygame.display.set_caption("Platformer Example")
 bg_intro = pygame.image.load("assets/images/intro/escenario_fondo_v2.jpg").convert()
 bg_intro = pygame.transform.scale(bg_intro, SIZE)
 
-img_titulo = pygame.image.load("assets/images/intro/titulo_juego.gif").convert()
-img_titulo = pygame.transform.scale(img_titulo, (300, 200))
+#img_titulo = pygame.image.load("assets/images/intro/titulo_juego.gif").convert()
+#img_titulo = pygame.transform.scale(img_titulo, (300, 200))
+
+titulo_img_sheet = pygame.image.load("assets/images/intro/titulo_juego_sheet.png").convert_alpha()
+width_img_sheet = titulo_img_sheet.get_width()
+sprites_image_sheet = []
+for i in range(int(width_img_sheet/200)):
+    sprites_image_sheet.append(titulo_img_sheet.subsurface(i*200, 0, 200, 200))
 
 """---------------------------------------------------------------"""
 """------------------BACKGROUND IMAGES----------------------------"""
@@ -38,11 +44,24 @@ mode_arcade = pygame.image.load("assets/images/intro/modo_arcade.gif").convert()
 mode_arcade = pygame.transform.scale(mode_arcade, (300, 300))
 mode_single = pygame.image.load("assets/images/intro/modo_single.gif").convert()
 mode_single = pygame.transform.scale(mode_single, (300, 300))
-title_arcade = pygame.image.load("assets/images/intro/title_arcade.png").convert()
-title_arcade = pygame.transform.scale(title_arcade, (300, 100))
-title_single = pygame.image.load("assets/images/intro/title_single.png").convert()
-title_single = pygame.transform.scale(title_single, (300, 100))
+title_arcade = pygame.image.load("assets/images/intro/title_arcade.gif").convert()
+title_arcade = pygame.transform.scale(title_arcade, (300, 300))
+title_single = pygame.image.load("assets/images/intro/title_single.gif").convert()
+title_single = pygame.transform.scale(title_single, (300, 300))
 
+mode_single_sheet = pygame.image.load("assets/images/intro/mode_single_sheet.png").convert_alpha()
+width_mode_single_sheet = mode_single_sheet.get_width()
+sprites_mode_sigle_sheet = []
+for i in range(int(width_mode_single_sheet/200)):
+    sprites_mode_sigle_sheet\
+        .append(pygame.transform.scale(mode_single_sheet.subsurface(i*200, 0, 200, 200), (300, 300)))
+
+mode_arcade_sheet = pygame.image.load("assets/images/intro/mode_arcade_sheet.png").convert_alpha()
+width_mode_arcade_sheet = mode_arcade_sheet.get_width()
+sprites_mode_arcade_sheet = []
+for i in range(int(width_mode_arcade_sheet/200)):
+    sprites_mode_arcade_sheet\
+        .append(pygame.transform.scale(mode_arcade_sheet.subsurface(i*200, 0, 200, 200), (300, 300)))
 """---------------------------------------------------------------"""
 """------------------INTRO ESCENARIO IMAGES-----------------------"""
 """---------------------------------------------------------------"""
@@ -92,6 +111,9 @@ pequenafont = pygame.font.SysFont("comicsansms", 25)
 medianofont = pygame.font.SysFont("comicsansms", 50)
 largofont = pygame.font.SysFont("comicsansms", 80)
 
+
+def showTitle(posicion):
+    pass
 
 def message_to_screen(msg, color, y_displace=0, tamano_letra="pequena"):
     textSur, textRect = text_objetos(msg, color, tamano_letra)
@@ -164,28 +186,41 @@ def pausa():
 
 
 def intro_modo(intro):
+    i2, i3, i4 = 0, 0, 0
     while intro:
+        mx, my = pygame.mouse.get_pos()
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                mx, my = pygame.mouse.get_pos()
                 modo = seleccionarModo(mx, my)
                 if modo > 0: return modo
         screen.blit(bg_intro, (0, 0))
         screen.blit(mode_arcade, (70, 250))
         screen.blit(mode_single, (450, 250))
-        screen.blit(title_arcade, (70, 170))
-        screen.blit(title_single, (450, 170))
-        screen.blit(img_titulo, (250, -30))
+        if 483 <= mx <= 659 and 275 <= my <= 537:
+            screen.blit(sprites_mode_sigle_sheet[i3], (440, 80))
+            i3 = (i3 + 1) % 4
+            screen.blit(title_arcade, (70, 80))
+
+        elif 164 <= mx <= 262 and 275 <= my <= 537:
+            screen.blit(sprites_mode_arcade_sheet[i4], (70, 80))
+            i4 = (i4 + 1) % 4
+            screen.blit(title_single, (440, 80))
+        else:
+            screen.blit(title_single, (440, 80))
+            screen.blit(title_arcade, (70, 80))
+        screen.blit(sprites_image_sheet[i2], (300, -30))
+        i2 = (i2 + 1) % 2
         message_to_screen("Escoger un modo de juego", BLACK, -160, "pequena")
         pygame.display.update()
         reloj.tick(5)
 
 
 def intro_escenario(intro):
+    i2 = 0
     while intro:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -201,13 +236,15 @@ def intro_escenario(intro):
         screen.blit(escenario_tiahua, (490, 220))
         screen.blit(escenario_paracas, (110, 400))
         screen.blit(escenario_wari, (490, 400))
-        screen.blit(img_titulo, (250, -30))
+        screen.blit(sprites_image_sheet[i2], (300, -30))
+        i2 = (i2 + 1) % 2
         message_to_screen("Escoger un escenario", BLACK, -160, "pequena")
         pygame.display.update()
         reloj.tick(5)
 
 
 def intro_personaje(intro):
+    i2 = 0
     while intro:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -223,7 +260,8 @@ def intro_personaje(intro):
         screen.blit(perso_paracas, (490, 200))
         screen.blit(perso_tiahua, (180, 400))
         screen.blit(perso_wari, (490, 400))
-        screen.blit(img_titulo, (250, -30))
+        screen.blit(sprites_image_sheet[i2], (300, -30))
+        i2 = (i2 + 1) % 2
         message_to_screen("Elegir un personaje", BLACK, -160, "pequena")
         pygame.display.update()
         reloj.tick(5)
