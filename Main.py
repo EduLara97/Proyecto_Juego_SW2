@@ -1,119 +1,123 @@
-import pygame
-from Entities.Entities import Character
-from GeneralInformation import SKY_BLUE, SIZE, WHITE, ORANGE, BLACK, ORANGE_LIGTH
+import pygame as pg
+from pygame import *
+# from Entities.Entities import Character, Platform, Roca
+from Entities.Entities import *
+from GeneralInformation import *
+import random
+from os import *
 
-pygame.init()
-pygame.mixer.pre_init(44100, -16, 2, 4096)
-pygame.mixer.init()
+game_folder = path.dirname(__file__)
+img_folder = path.join(game_folder, "assets/images")
+img_enemigos_folder = path.join(img_folder, "enemigos")
+img_escenarios_folder = path.join(img_folder, "escenarios")
+img_intro_folder = path.join(img_folder, "intro")
+img_objetos_folder = path.join(img_folder, "objetos")
+img_obstaculos_folder = path.join(img_folder, "obstaculos")
+img_personajes_folder = path.join(img_folder, "personajes")
 
-screen = pygame.display.set_mode(SIZE)
-pygame.display.set_caption("Platformer Example")
+pg.init()
+pg.mixer.init()
+pg.display.set_caption(TITLE)
+screen = pg.display.set_mode(SIZE)
+reloj = pg.time.Clock()
+
+display_ancho = 800
+display_altura = 600
+pequenafont = pg.font.SysFont("comicsansms", 25)
+medianofont = pg.font.SysFont("comicsansms", 50)
+largofont = pg.font.SysFont("comicsansms", 80)
 
 """---------------------------------------------------------------"""
 """------------------INTRO GENERAL IMG----------------------------"""
 """---------------------------------------------------------------"""
-bg_intro = pygame.image.load("assets/images/intro/escenario_fondo_v2.jpg").convert()
-bg_intro = pygame.transform.scale(bg_intro, SIZE)
+bg_intro = pg.image.load("assets/images/intro/escenario_fondo_v2.jpg").convert()
+bg_intro = pg.transform.scale(bg_intro, SIZE)
 
-#img_titulo = pygame.image.load("assets/images/intro/titulo_juego.gif").convert()
-#img_titulo = pygame.transform.scale(img_titulo, (300, 200))
-
-titulo_img_sheet = pygame.image.load("assets/images/intro/titulo_juego_sheet.png").convert_alpha()
+titulo_img_sheet = pg.image.load("assets/images/intro/titulo_juego_sheet.png").convert_alpha()
 width_img_sheet = titulo_img_sheet.get_width()
 sprites_image_sheet = []
-for i in range(int(width_img_sheet/200)):
-    sprites_image_sheet.append(titulo_img_sheet.subsurface(i*200, 0, 200, 200))
+for i in range(int(width_img_sheet / 200)):
+    sprites_image_sheet.append(titulo_img_sheet.subsurface(i * 200, 0, 200, 200))
 
 """---------------------------------------------------------------"""
 """------------------BACKGROUND IMAGES----------------------------"""
 """---------------------------------------------------------------"""
-bg_moche = pygame.image.load("assets/images/escenarios/escenario_mochica.png").convert()
-bg_moche = pygame.transform.scale(bg_moche, SIZE)
-bg_paracas = pygame.image.load("assets/images/escenarios/escenario_paracas.png").convert()
-bg_paracas = pygame.transform.scale(bg_paracas, SIZE)
-bg_tiahua = pygame.image.load("assets/images/escenarios/escenario_tiahua.png").convert()
-bg_tiahua = pygame.transform.scale(bg_tiahua, SIZE)
-bg_wari = pygame.image.load("assets/images/escenarios/escenario_chavin.png").convert()
-bg_wari = pygame.transform.scale(bg_wari, SIZE)
-
+bg_moche = pg.image.load("assets/images/escenarios/escenario_mochica.png").convert()
+bg_moche = pg.transform.scale(bg_moche, SIZE)
+bg_paracas = pg.image.load("assets/images/escenarios/escenario_paracas.png").convert()
+bg_paracas = pg.transform.scale(bg_paracas, SIZE)
+bg_tiahua = pg.image.load("assets/images/escenarios/escenario_tiahua.png").convert()
+bg_tiahua = pg.transform.scale(bg_tiahua, SIZE)
+bg_wari = pg.image.load("assets/images/escenarios/escenario_chavin.png").convert()
+bg_wari = pg.transform.scale(bg_wari, SIZE)
 
 """---------------------------------------------------------------"""
 """------------------INTRO MODO IMAGES----------------------------"""
 """---------------------------------------------------------------"""
-mode_arcade = pygame.image.load("assets/images/intro/modo_arcade.gif").convert()
-mode_arcade = pygame.transform.scale(mode_arcade, (300, 300))
-mode_single = pygame.image.load("assets/images/intro/modo_single.gif").convert()
-mode_single = pygame.transform.scale(mode_single, (300, 300))
-title_arcade = pygame.image.load("assets/images/intro/title_arcade.gif").convert()
-title_arcade = pygame.transform.scale(title_arcade, (300, 300))
-title_single = pygame.image.load("assets/images/intro/title_single.gif").convert()
-title_single = pygame.transform.scale(title_single, (300, 300))
+mode_arcade = pg.image.load("assets/images/intro/modo_arcade.gif").convert()
+mode_arcade = pg.transform.scale(mode_arcade, (300, 300))
+mode_single = pg.image.load("assets/images/intro/modo_single.gif").convert()
+mode_single = pg.transform.scale(mode_single, (300, 300))
+title_arcade = pg.image.load("assets/images/intro/title_arcade.gif").convert()
+title_arcade = pg.transform.scale(title_arcade, (300, 300))
+title_single = pg.image.load("assets/images/intro/title_single.gif").convert()
+title_single = pg.transform.scale(title_single, (300, 300))
 
-mode_single_sheet = pygame.image.load("assets/images/intro/mode_single_sheet.png").convert_alpha()
+mode_single_sheet = pg.image.load("assets/images/intro/mode_single_sheet.png").convert_alpha()
 width_mode_single_sheet = mode_single_sheet.get_width()
 sprites_mode_sigle_sheet = []
-for i in range(int(width_mode_single_sheet/200)):
-    sprites_mode_sigle_sheet\
-        .append(pygame.transform.scale(mode_single_sheet.subsurface(i*200, 0, 200, 200), (300, 300)))
+for i in range(int(width_mode_single_sheet / 200)):
+    sprites_mode_sigle_sheet \
+        .append(pg.transform.scale(mode_single_sheet.subsurface(i * 200, 0, 200, 200), (300, 300)))
 
-mode_arcade_sheet = pygame.image.load("assets/images/intro/mode_arcade_sheet.png").convert_alpha()
+mode_arcade_sheet = pg.image.load("assets/images/intro/mode_arcade_sheet.png").convert_alpha()
 width_mode_arcade_sheet = mode_arcade_sheet.get_width()
 sprites_mode_arcade_sheet = []
-for i in range(int(width_mode_arcade_sheet/200)):
-    sprites_mode_arcade_sheet\
-        .append(pygame.transform.scale(mode_arcade_sheet.subsurface(i*200, 0, 200, 200), (300, 300)))
+for i in range(int(width_mode_arcade_sheet / 200)):
+    sprites_mode_arcade_sheet \
+        .append(pg.transform.scale(mode_arcade_sheet.subsurface(i * 200, 0, 200, 200), (300, 300)))
 """---------------------------------------------------------------"""
 """------------------INTRO ESCENARIO IMAGES-----------------------"""
 """---------------------------------------------------------------"""
 altEs = 100
 anchEs = 200
-escenario_moche = pygame.image.load("assets/images/escenarios/escenario_mochica.png").convert()
-escenario_moche = pygame.transform.scale(escenario_moche, (anchEs, altEs))
-escenario_tiahua = pygame.image.load("assets/images/escenarios/escenario_tiahua.png").convert()
-escenario_tiahua = pygame.transform.scale(escenario_tiahua, (anchEs, altEs))
-escenario_paracas = pygame.image.load("assets/images/escenarios/escenario_paracas.png").convert()
-escenario_paracas = pygame.transform.scale(escenario_paracas, (anchEs, altEs))
-escenario_wari = pygame.image.load("assets/images/escenarios/escenario1.png").convert()
-escenario_wari = pygame.transform.scale(escenario_wari, (anchEs, altEs))
+escenario_moche = pg.image.load("assets/images/escenarios/escenario_mochica.png").convert()
+escenario_moche = pg.transform.scale(escenario_moche, (anchEs, altEs))
+escenario_tiahua = pg.image.load("assets/images/escenarios/escenario_tiahua.png").convert()
+escenario_tiahua = pg.transform.scale(escenario_tiahua, (anchEs, altEs))
+escenario_paracas = pg.image.load("assets/images/escenarios/escenario_paracas.png").convert()
+escenario_paracas = pg.transform.scale(escenario_paracas, (anchEs, altEs))
+escenario_wari = pg.image.load("assets/images/escenarios/escenario1.png").convert()
+escenario_wari = pg.transform.scale(escenario_wari, (anchEs, altEs))
 
 """---------------------------------------------------------------"""
 """------------------INTRO PERSONAJE IMAGES-----------------------"""
 """---------------------------------------------------------------"""
 altPer = 150
 anchPer = 150
-perso_moche = pygame.image.load("assets/images/intro/perso_moche.gif").convert()
-perso_moche = pygame.transform.scale(perso_moche, (anchPer, altPer))
-perso_paracas = pygame.image.load("assets/images/intro/perso_paracas.gif").convert()
-perso_paracas = pygame.transform.scale(perso_paracas, (anchPer, altPer))
-perso_tiahua = pygame.image.load("assets/images/intro/perso_tiahua.gif").convert()
-perso_tiahua = pygame.transform.scale(perso_tiahua, (anchPer, altPer))
-perso_wari = pygame.image.load("assets/images/intro/perso_wari.png").convert()
-perso_wari = pygame.transform.scale(perso_wari, (anchPer, altPer))
+perso_moche = pg.image.load("assets/images/intro/perso_moche.gif").convert()
+perso_moche = pg.transform.scale(perso_moche, (anchPer, altPer))
+perso_paracas = pg.image.load("assets/images/intro/perso_paracas.gif").convert()
+perso_paracas = pg.transform.scale(perso_paracas, (anchPer, altPer))
+perso_tiahua = pg.image.load("assets/images/intro/perso_tiahua.gif").convert()
+perso_tiahua = pg.transform.scale(perso_tiahua, (anchPer, altPer))
+perso_wari = pg.image.load("assets/images/intro/perso_wari.png").convert()
+perso_wari = pg.transform.scale(perso_wari, (anchPer, altPer))
 
 """---------------------------------------------------------------"""
 """---------------------------------------------------------------"""
 """---------------------------------------------------------------"""
 
-lista_perso= ["assets/images/personajes/inca_mochica.png",
-              "assets/images/personajes/inca_paracas.png",
-              "assets/images/personajes/inca_tiahuanaco.png",
-              "assets/images/personajes/inca_wari.png"]
+lista_perso = ["assets/images/personajes/inca_mochica.png",
+               "assets/images/personajes/inca_paracas.png",
+               "assets/images/personajes/inca_tiahuanaco.png",
+               "assets/images/personajes/inca_wari.png"]
 
 lista_escenarios = [bg_moche,
                     bg_paracas,
                     bg_tiahua,
                     bg_wari]
 
-reloj = pygame.time.Clock()
-display_ancho = 800
-display_altura = 600
-pequenafont = pygame.font.SysFont("comicsansms", 25)
-medianofont = pygame.font.SysFont("comicsansms", 50)
-largofont = pygame.font.SysFont("comicsansms", 80)
-
-
-def showTitle(posicion):
-    pass
 
 def message_to_screen(msg, color, y_displace=0, tamano_letra="pequena"):
     textSur, textRect = text_objetos(msg, color, tamano_letra)
@@ -165,36 +169,55 @@ def seleccionarPersonaje(mx, my):
     else:
         return 0
 
+
 def pausa():
     pausado = True
     while pausado:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
                 quit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_c:
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_c:
                     pausado = False
                 """elif event.key == pygame.K_q:
                     pygame.quit()
                     quit()"""
         screen.blit(bg_intro, (0, 0))
         message_to_screen("Pausado", ORANGE, -100, "mediano")
-        message_to_screen("Presiona C para continuar",BLACK, 25, "pequena")
-        pygame.display.update()
+        message_to_screen("Presiona C para continuar", BLACK, 25, "pequena")
+        pg.display.update()
+        reloj.tick(5)
+
+
+def pantalla_info():
+    pausado = True
+    while pausado:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                quit()
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_c:
+                    pausado = False
+        screen.blit(bg_intro, (0, 0))
+        message_to_screen("Información de la cultura", ORANGE, -100, "mediano")
+        message_to_screen("Aqui se mostrara información acerca de la cultura", BLACK, 25, "pequena")
+        message_to_screen("Presiona C para continuar", BLACK, 125, "pequena")
+        pg.display.update()
         reloj.tick(5)
 
 
 def intro_modo(intro):
     i2, i3, i4 = 0, 0, 0
     while intro:
-        mx, my = pygame.mouse.get_pos()
-        for event in pygame.event.get():
+        mx, my = pg.mouse.get_pos()
+        for event in pg.event.get():
 
-            if event.type == pygame.QUIT:
-                pygame.quit()
+            if event.type == pg.QUIT:
+                pg.quit()
                 quit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pg.MOUSEBUTTONDOWN:
                 modo = seleccionarModo(mx, my)
                 if modo > 0: return modo
         screen.blit(bg_intro, (0, 0))
@@ -215,19 +238,19 @@ def intro_modo(intro):
         screen.blit(sprites_image_sheet[i2], (300, -30))
         i2 = (i2 + 1) % 2
         message_to_screen("Escoger un modo de juego", BLACK, -160, "pequena")
-        pygame.display.update()
+        pg.display.update()
         reloj.tick(5)
 
 
 def intro_escenario(intro):
     i2 = 0
     while intro:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
                 quit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mx, my = pygame.mouse.get_pos()
+            if event.type == pg.MOUSEBUTTONDOWN:
+                mx, my = pg.mouse.get_pos()
                 escenario = seleccionarEscenario(mx, my)
                 if escenario > 0: return escenario
 
@@ -239,19 +262,19 @@ def intro_escenario(intro):
         screen.blit(sprites_image_sheet[i2], (300, -30))
         i2 = (i2 + 1) % 2
         message_to_screen("Escoger un escenario", BLACK, -160, "pequena")
-        pygame.display.update()
+        pg.display.update()
         reloj.tick(5)
 
 
 def intro_personaje(intro):
     i2 = 0
     while intro:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
                 quit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mx, my = pygame.mouse.get_pos()
+            if event.type == pg.MOUSEBUTTONDOWN:
+                mx, my = pg.mouse.get_pos()
                 personaje = seleccionarPersonaje(mx, my)
                 if personaje > 0: return personaje
 
@@ -263,7 +286,25 @@ def intro_personaje(intro):
         screen.blit(sprites_image_sheet[i2], (300, -30))
         i2 = (i2 + 1) % 2
         message_to_screen("Elegir un personaje", BLACK, -160, "pequena")
-        pygame.display.update()
+        pg.display.update()
+        reloj.tick(5)
+
+
+def intro_final(intro):
+    while intro:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                quit()
+            if event.type == pg.KEYUP:
+                intro = False
+        screen.blit(bg_intro, (0, 0))
+        message_to_screen(TITLE, ORANGE, -160, "mediano")
+        message_to_screen(
+            "Arrows to move, Space to jump", BLACK, -50, "pequena")
+        message_to_screen(
+            "Press a key to play", BLACK, 100, "pequena")
+        pg.display.update()
         reloj.tick(5)
 
 
@@ -272,58 +313,313 @@ def into_juego():
     modo = intro_modo(intro)
     escenario = intro_escenario(intro)
     personaje = intro_personaje(intro)
-    perso = lista_perso[personaje-1]
-    esce = lista_escenarios[escenario-1]
+    intro_final(intro)
+    perso = lista_perso[personaje - 1]
+    esce = lista_escenarios[escenario - 1]
     return esce, perso
 
 
-class Main(object):
-    def __init__(self, esce, perso):
-        self.runing = True
-        self.clock = pygame.time.Clock()
-        self.drawable_sprites = pygame.sprite.Group()
-        self.character = Character(screen, SIZE[0] / 2, 0, perso)
-        self.drawable_sprites.add(self.character)
-        self.escenario = esce
+def gameOver(score):
+    intro = True
+    while intro:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                quit()
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_c:
+                    intro = False
+        screen.blit(bg_intro, (0, 0))
+        message_to_screen("GAME OVER", ORANGE, -100, "mediano")
+        message_to_screen("Score: " + str(score), BLACK, -60, "pequena")
+        message_to_screen(
+            "Presiona C para volver a jugar", BLACK, 25, "pequena")
+        pg.display.update()
+        reloj.tick(5)
 
-    def keydown(self, event_key):
-        """Cada vez que se oprime una tecla"""
-        self.character.key_down(event_key)
 
-    def keyup(self, event_key):
-        """Cada vez que se deja de oprimir"""
-        self.character.key_up(event_key)
+class Game:
+    def __init__(self, escena):
+        # initialize game window, etc
+        self.dir = path.dirname(__file__)
+        self.platforms = pg.sprite.Group()
+        self.all_sprites = pg.sprite.Group()
+        self.coins = pg.sprite.Group()
+        self.carteles = pg.sprite.Group()
+        self.checkpoints = pg.sprite.Group()
+        self.score = 0
+        self.escenario = escena
+        self.show_cartel = True
+        self.posCheckpoint = (0, 0)
+        self.confirmCheckpoint = False
+        pg.init()
+        pg.mixer.init()
+        self.screen = pg.display.set_mode(SIZE)
+        pg.display.set_caption(TITLE)
+        self.clock = pg.time.Clock()
+        self.running = True
+        self.font_name = pg.font.match_font(FONT_NAME)
+        self.img_dir = path.join(self.dir, "assets/images/personajes")
+        self.sprites = Spritesheet(path.join(self.img_dir, SPRITESHEET))
+        self.player = Player(self)
+        self.load_data()
 
-    def main(self):
-        pygame.mixer.music.load("assets/audio/bg_opcion2.wav")
-        pygame.mixer.music.set_volume(0.5)
-        pygame.mixer.music.play(-1)
-        x = 0
-        while self.runing:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.runing = False
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RIGHT:
-                        x = - 4
-                    elif event.key == pygame.K_p:
-                        pausa()
-                    self.keydown(event.key)
+    def load_data(self):
+        # load spritesheet image
+        pass
 
-                if event.type == pygame.KEYUP:
-                    x = 0
-                    self.keyup(event.key)
+    def new(self):
+        # start a new game
+        self.all_sprites.add(self.player)
+        t = Terreno(*PLATFORM_GROUND)
+        c = Cartel(*CARTEL_LIST)
+        ch = Checkpoint(*LLAMA_LIST)
+        self.all_sprites.add(t)
+        self.platforms.add(t)
+        self.all_sprites.add(c)
+        self.carteles.add(c)
+        self.all_sprites.add(ch)
+        self.checkpoints.add(ch)
+        for coin in COINS_LIST:
+            m = Moneda(*coin)
+            self.all_sprites.add(m)
+            self.coins.add(m)
+        for plat in PLATFORM_LIST:
+            p = Platform(*plat)
+            self.all_sprites.add(p)
+            self.platforms.add(p)
+        self.run()
 
-            screen.fill(SKY_BLUE)
-            screen.blit(self.escenario, (0, 0))
-            dt = self.clock.tick(60)
-            self.character.update(dt)
-            self.drawable_sprites.draw(screen)
-            pygame.display.flip()
-        pygame.quit()
+    def run(self):
+        # Game Loop
+        self.playing = True
+        while self.playing:
+            self.clock.tick(FPS)
+            self.events()
+            self.update()
+            self.draw()
+
+    def update(self):
+        # Game Loop - Update
+        self.all_sprites.update()
+        # check if player hits a platform - only if folling
+
+        if self.player.vel.y > 0:
+            hits = pg.sprite.spritecollide(self.player, self.platforms, False)
+            if hits:
+                self.player.pos.y = hits[0].rect.top
+                self.player.vel.y = 0
+
+        hits_coin = pg.sprite.spritecollide(self.player, self.coins, False)
+        if hits_coin:
+            for coin in self.coins:
+                if self.player.rect.right >= coin.rect.center[0]:
+                    coin.kill()
+                    pg.mixer.Sound.play(pg.mixer.Sound("assets/audio/coin_sound.wav"))
+                    self.score += 10
+
+        hits_cartel = pg.sprite.spritecollide(self.player, self.carteles, False)
+        if hits_cartel:
+            for cartel in self.carteles:
+                if self.player.rect.center[0] >= cartel.rect.center[0] and self.show_cartel:
+                    pantalla_info()
+                    self.show_cartel = False
+
+        hits_checkpoint = pg.sprite.spritecollide(self.player, self.checkpoints, False)
+        if hits_checkpoint:
+            self.posCheckpoint = (self.player.rect.x, self.player.rect.y)
+            self.confirmCheckpoint = True
+
+        # If player reaches top 1/4 of screen
+        if self.player.rect.right >= WIDTH - (WIDTH / 4):
+            self.player.pos.x -= abs(self.player.vel.x)
+            for plat in self.platforms:
+                plat.rect.x -= abs(self.player.vel.x)
+                if plat.rect.right <= 0:
+                    # Si ya no aparece en la pantalla la plataforma desaparece
+                    plat.kill()
+            for coin in self.coins:
+                coin.rect.x -= abs(self.player.vel.x)
+
+            for cartel in self.carteles:
+                cartel.rect.x -= abs(self.player.vel.x)
+
+            for llama in self.checkpoints:
+                llama.rect.x -= abs(self.player.vel.x)
+        if self.player.rect.top > HEIGHT:
+            for plat in self.platforms:
+                plat.kill()
+            for coin in self.coins:
+                coin.kill()
+
+            for cartel in self.carteles:
+                cartel.kill()
+
+            for llama in self.checkpoints:
+                llama.kill()
+            self.player.pos = self.posCheckpoint
+            self.show_cartel = True
+            self.playing = False
+
+    def events(self):
+        # Game Loop - events
+        for event in pg.event.get():
+            # check for closing window
+            if event.type == pg.QUIT:
+                if self.playing:
+                    self.playing = False
+                self.running = False
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_SPACE:
+                    self.player.jump()
+                if event.key == pg.K_p:
+                    pausa()
+
+    def draw(self):
+        # Game Loop - draw
+        self.screen.blit(self.escenario, (0, 0))
+        self.all_sprites.draw(self.screen)
+        self.draw_text(str(self.score), 22, BLACK, WIDTH / 2, 15)
+        pg.display.flip()
+
+    def show_start_screen(self):
+        # game splash/start screen
+        self.screen.fill(SKY_BLUE)
+        self.draw_text(TITLE, 48, WHITE, WIDTH / 2, HEIGHT / 4)
+        self.draw_text("Arrows to move, Space to jump", 22, WHITE, WIDTH / 2,
+                       HEIGHT / 2)
+        self.draw_text("Press a key to play", 22, WHITE, WIDTH / 2, HEIGHT * 3 / 4)
+        pg.display.flip()
+        self.wait_for_key()
+
+    def show_go_screen(self):
+        # game over/continue
+        # if not self.running:
+        #     return
+        # gameOver(self.score)
+        pass
+
+    def wait_for_key(self):
+        waiting = True
+        while waiting:
+            self.clock.tick(FPS)
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    waiting = False
+                    self.running = False
+                if event.type == pg.KEYUP:
+                    waiting = False
+
+    def draw_text(self, text, size, color, x, y):
+        font = pg.font.Font(self.font_name, size)
+        text_surface = font.render(text, True, color)
+        text_rect = text_surface.get_rect()
+        text_rect.midtop = (x, y)
+        self.screen.blit(text_surface, text_rect)
+
+
+def main(escena):
+    g = Game(escena)
+    # g.show_start_screen()
+    pg.mixer.music.load("assets/audio/bg_opcion2.wav")
+    pg.mixer.music.set_volume(0.5)
+    pg.mixer.music.play(-1)
+    while g.running:
+        g.new()
+        g.show_go_screen()
+
+    pg.quit()
+
+
+# class Main(object):
+#     def __init__(self, esce, perso):
+#         self.runing = True
+#         self.clock = pygame.time.Clock()
+#         self.drawable_sprites = pygame.sprite.Group()
+#         self.character = Character(screen, 100, 0, perso)
+#         self.drawable_sprites.add(self.character)
+#         self.escenario = esce
+#
+#     def keydown(self, event_key):
+#         """"""Cada vez que se oprime una tecla""""""
+#         self.character.key_down(event_key)
+#
+#     def keyup(self, event_key):
+#         """"""Cada vez que se deja de oprimir""""""
+#         self.character.key_up(event_key)
+#
+#     def main(self):
+#         pygame.mixer.music.load("assets/audio/bg_opcion2.wav")
+#         pygame.mixer.music.set_volume(0.5)
+#         pygame.mixer.music.play(-1)
+#
+#         entities = pygame.sprite.Group()
+#         platforms =[]
+#         level = [
+#
+#             "P                                          P",
+#             "P                                          P",
+#             "P                                          P",
+#             "P                    PPPPPPPPPPP           P",
+#             "P                                          P",
+#             "P                                          P",
+#             "P                                          P",
+#             "P    PPPPPPPP                              P",
+#             "P                                          P",
+#             "P                          PPPPPPP         P",
+#             "P                 PPPPPP                   P",
+#             "P                                          P",
+#             "P         PPPPPPP                          P",
+#             "P                                          P",
+#             "P                     PPPPPP               P",
+#             "P                                          P",
+#             "P   PPPPPPPPPPP                            P",
+#             "P                                          P",
+#             "P                 PPPPPPPPPPP              P",
+#             "P                                          P",
+#             "P                                          P",
+#             "P                                          P",
+#             "P                                          P",
+#             "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP", ]
+#         x = y = 0
+#         #w = z = 400
+#         for row in level:
+#             for col in row:
+#                 if col == "P":
+#                     p = Platform(x, y)
+#                     platforms.append(p)
+#                     entities.add(p)
+#                 x += 20
+#             y += 20
+#             x = 0
+#
+#         entities.add(self.character)
+#
+#         while self.runing:
+#             for event in pygame.event.get():
+#                 if event.type == pygame.QUIT:
+#                     self.runing = False
+#                 if event.type == pygame.KEYDOWN:
+#                     if event.key == pygame.K_RIGHT:
+#                         pass
+#                     elif event.key == pygame.K_p:
+#                         pausa()
+#                     self.keydown(event.key)
+#
+#                 if event.type == pygame.KEYUP:
+#                     self.keyup(event.key)
+#             screen.fill(SKY_BLUE)
+#             screen.blit(self.escenario, (0, 0))
+#             dt = self.clock.tick(50)
+#             self.character.update(dt, platforms)
+#             self.drawable_sprites.draw(screen)
+#             entities.draw(screen)
+#             pygame.display.flip()
+#         pygame.quit()
 
 
 if __name__ == "__main__":
     ese, perso = into_juego()
-    m = Main(ese, perso)
-    m.main()
+    # m = Main(ese, perso)
+    # m.main()
+    main(ese)
