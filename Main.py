@@ -227,7 +227,6 @@ def intro_modo(intro):
             screen.blit(sprites_mode_sigle_sheet[i3], (440, 80))
             i3 = (i3 + 1) % 4
             screen.blit(title_arcade, (70, 80))
-
         elif 164 <= mx <= 262 and 275 <= my <= 537:
             screen.blit(sprites_mode_arcade_sheet[i4], (70, 80))
             i4 = (i4 + 1) % 4
@@ -440,10 +439,8 @@ class Game:
                     plat.kill()
             for coin in self.coins:
                 coin.rect.x -= abs(self.player.vel.x)
-
             for cartel in self.carteles:
                 cartel.rect.x -= abs(self.player.vel.x)
-
             for llama in self.checkpoints:
                 llama.rect.x -= abs(self.player.vel.x)
         if self.player.rect.top > HEIGHT:
@@ -451,10 +448,8 @@ class Game:
                 plat.kill()
             for coin in self.coins:
                 coin.kill()
-
             for cartel in self.carteles:
                 cartel.kill()
-
             for llama in self.checkpoints:
                 llama.kill()
             self.player.pos = self.posCheckpoint
@@ -493,10 +488,6 @@ class Game:
         self.wait_for_key()
 
     def show_go_screen(self):
-        # game over/continue
-        # if not self.running:
-        #     return
-        # gameOver(self.score)
         pass
 
     def wait_for_key(self):
@@ -530,96 +521,6 @@ def main(escena):
 
     pg.quit()
 
-
-# class Main(object):
-#     def __init__(self, esce, perso):
-#         self.runing = True
-#         self.clock = pygame.time.Clock()
-#         self.drawable_sprites = pygame.sprite.Group()
-#         self.character = Character(screen, 100, 0, perso)
-#         self.drawable_sprites.add(self.character)
-#         self.escenario = esce
-#
-#     def keydown(self, event_key):
-#         """"""Cada vez que se oprime una tecla""""""
-#         self.character.key_down(event_key)
-#
-#     def keyup(self, event_key):
-#         """"""Cada vez que se deja de oprimir""""""
-#         self.character.key_up(event_key)
-#
-#     def main(self):
-#         pygame.mixer.music.load("assets/audio/bg_opcion2.wav")
-#         pygame.mixer.music.set_volume(0.5)
-#         pygame.mixer.music.play(-1)
-#
-#         entities = pygame.sprite.Group()
-#         platforms =[]
-#         level = [
-#
-#             "P                                          P",
-#             "P                                          P",
-#             "P                                          P",
-#             "P                    PPPPPPPPPPP           P",
-#             "P                                          P",
-#             "P                                          P",
-#             "P                                          P",
-#             "P    PPPPPPPP                              P",
-#             "P                                          P",
-#             "P                          PPPPPPP         P",
-#             "P                 PPPPPP                   P",
-#             "P                                          P",
-#             "P         PPPPPPP                          P",
-#             "P                                          P",
-#             "P                     PPPPPP               P",
-#             "P                                          P",
-#             "P   PPPPPPPPPPP                            P",
-#             "P                                          P",
-#             "P                 PPPPPPPPPPP              P",
-#             "P                                          P",
-#             "P                                          P",
-#             "P                                          P",
-#             "P                                          P",
-#             "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP", ]
-#         x = y = 0
-#         #w = z = 400
-#         for row in level:
-#             for col in row:
-#                 if col == "P":
-#                     p = Platform(x, y)
-#                     platforms.append(p)
-#                     entities.add(p)
-#                 x += 20
-#             y += 20
-#             x = 0
-#
-#         entities.add(self.character)
-#
-#         while self.runing:
-#             for event in pygame.event.get():
-#                 if event.type == pygame.QUIT:
-#                     self.runing = False
-#                 if event.type == pygame.KEYDOWN:
-#                     if event.key == pygame.K_RIGHT:
-#                         pass
-#                     elif event.key == pygame.K_p:
-#                         pausa()
-#                     self.keydown(event.key)
-#
-#                 if event.type == pygame.KEYUP:
-#                     self.keyup(event.key)
-#             screen.fill(SKY_BLUE)
-#             screen.blit(self.escenario, (0, 0))
-#             dt = self.clock.tick(50)
-#             self.character.update(dt, platforms)
-#             self.drawable_sprites.draw(screen)
-#             entities.draw(screen)
-#             pygame.display.flip()
-#         pygame.quit()
-
-
 if __name__ == "__main__":
     ese, perso = into_juego()
-    # m = Main(ese, perso)
-    # m.main()
     main(ese)
