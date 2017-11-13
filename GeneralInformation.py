@@ -15,20 +15,33 @@ FONT_NAME = 'arial'
 SPRITESHEET = "inca_mochica.png"
 
 # Starting platforms
-PLATFORM_GROUND = 0, HEIGHT - 40, WIDTH, 40
-COINS_LIST = [(340, 100, 150, 150),
-              (400, 0, 150, 150)]
-PLATFORM_LIST = [(WIDTH / 2 - 50, HEIGHT * 3 / 4, 100, 20),
-                 (125, HEIGHT - 350, 100, 20),
-                 (350, 200, 100, 20),
-                 (445, 100, 50, 20)]
+PLATFORM_GROUND = [(0, HEIGHT - 40, 2000, 80),
+                   (2150, HEIGHT - 40, 2000, 80)]
+COINS_LIST = [(880, 160, 30, 30),
+              (950, 60, 30, 30),
+              (920, 160, 30, 30),
+              (990, 60, 30, 30),
+              (1380, 160, 30, 30),
+              (1450, 60, 30, 30),
+              (1410, 160, 30, 30),
+              (1490, 60, 30, 30),
+              (1810, 160, 30, 30),
+              (1950, 60, 30, 30)]
+PLATFORM_LIST = [(WIDTH / 2 - 50 + 500, HEIGHT * 3 / 4, 100, 20),
+                 (625, 350, 100, 20),
+                 (850, 200, 100, 20),
+                 (945, 100, 50, 20),
+                 (1125, HEIGHT - 350, 100, 20),
+                 (1350, 200, 100, 20),
+                 (1445, 100, 50, 20)]
 
 CARTEL_LIST = 600, HEIGHT - 80, 100, 40
 
-LLAMA_LIST = 400, HEIGHT - 120, 100, 90
+LLAMA_LIST = 3400, HEIGHT - 120, 100, 90
 
 # Player properties
 PLAYER_ACC = 0.5
+SERP_ACC = 0.2
 PLAYER_FRICTION = -0.12
 PLAYER_GRAV = 0.8
-PLAYER_JUMP = 20
+PLAYER_JUMP = 15
