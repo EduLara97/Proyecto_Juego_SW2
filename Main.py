@@ -180,12 +180,15 @@ def pausa():
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_c:
                     pausado = False
+                    return event.key
+                if event.key == pg.K_x:
+                    return event.key
                 """elif event.key == pygame.K_q:
                     pygame.quit()
                     quit()"""
         screen.blit(bg_intro, (0, 0))
         message_to_screen("Pausado", ORANGE, -100, "mediano")
-        message_to_screen("Presiona C para continuar", BLACK, 25, "pequena")
+        message_to_screen("Presiona C para continuar y X para salir", BLACK, 25, "pequena")
         pg.display.update()
         reloj.tick(5)
 
@@ -375,6 +378,8 @@ class Game:
 
     def new(self):
         # start a new game
+        if self.posCheckpoint == (0, 0):
+            self.score = 0
         x = y = 0
         for row in self.level:
             for col in row:
@@ -405,11 +410,25 @@ class Game:
             if hits:
                 self.player.pos.y = hits[0].rect.top
                 self.player.vel.y = 0
-            hits_saltar_serpiente = pg.sprite.spritecollide(self.player, self.serpientes, False)
+
+        hits_saltar_serpiente = pg.sprite.spritecollide(self.player, self.serpientes, False)
         if self.player.vel.y > 0:
             if hits_saltar_serpiente:
                 if self.player.rect.bottom >= hits_saltar_serpiente[0].rect.top:
                     hits_saltar_serpiente[0].kill()
+                    self.score += 20
+
+        hits_serpiente = pg.sprite.spritecollide(self.player, self.serpientes, False)
+        if hits_serpiente:
+            if self.player.vel.x >= 0 \
+                    and self.player.rect.right >= hits_serpiente[0].rect.left:
+                self.player.vel.x = -15
+                self.player.vel.y = -12
+                vida = self.player.disminuirVida(SERPIENTE_FUERZA)
+                print(vida)
+                if vida == 0:
+                    self.kill_all()
+                    self.playing = False
 
         for serpiente in self.serpientes:
             if serpiente.vel.y > 0:
@@ -417,6 +436,7 @@ class Game:
                 if hits:
                     serpiente.pos.y = hits[0].rect.top
                     serpiente.vel.y = 0
+
         for serpiente in self.serpientes:
             hit_serpiente_roca = pg.sprite.spritecollide(serpiente, self.rocones, False)
             if hit_serpiente_roca:
@@ -462,17 +482,7 @@ class Game:
 
 
         if self.player.rect.top > HEIGHT:
-            for plat in self.platforms:
-                plat.kill()
-            for coin in self.coins:
-                coin.kill()
-            for cartel in self.carteles:
-                cartel.kill()
-            for serp in self.serpientes:
-                serp.kill()
-            for llama in self.checkpoints:
-                llama.kill()
-            self.player.kill()
+            self.kill_all()
             self.show_cartel = True
             self.playing = False
 
@@ -488,7 +498,10 @@ class Game:
                 if event.key == pg.K_SPACE:
                     self.player.jump()
                 if event.key == pg.K_p:
-                    pausa()
+                    e = pausa()
+                    if e == pg.K_x:
+                        self.playing = False
+                        self.running = False
 
     def draw(self):
         # Game Loop - draw
@@ -496,6 +509,7 @@ class Game:
         for sprite in self.all_sprites:
             self.screen.blit(sprite.image, self.camera.apply(sprite))
         self.draw_text(str(self.score), 22, BLACK, WIDTH / 2, 15)
+        self.draw_text("Vidas: " + str(self.player.vida), 22, BLACK, 200, 15)
         pg.display.flip()
 
     def show_start_screen(self):
@@ -558,6 +572,19 @@ class Game:
             c = Cartel(x, y)
             self.carteles.add(c)
             self.all_sprites.add(c)
+
+    def kill_all(self):
+        for plat in self.platforms:
+            plat.kill()
+        for coin in self.coins:
+            coin.kill()
+        for cartel in self.carteles:
+            cartel.kill()
+        for serp in self.serpientes:
+            serp.kill()
+        for llama in self.checkpoints:
+            llama.kill()
+        self.player.kill()
 
 
 def main(escena, perso):

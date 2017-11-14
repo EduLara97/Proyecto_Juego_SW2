@@ -32,6 +32,7 @@ class Player(pg.sprite.Sprite):
         self.image = self.standing_frames[0]
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH / 2, HEIGHT / 2)
+        self.vida = VIDA_PERSONAJE
         self.pos = vec(x, y)
         self.vel = vec(0, 0)
         self.acc = vec(0, 0)
@@ -113,6 +114,9 @@ class Player(pg.sprite.Sprite):
                 self.rect = self.image.get_rect()
                 self.rect.bottom = bottom
 
+    def disminuirVida(self, disminucion):
+        self.vida -= disminucion
+        return self.vida
 
 class Serpiente(pg.sprite.Sprite):
     def __init__(self, game, x, y):
@@ -153,10 +157,8 @@ class Serpiente(pg.sprite.Sprite):
         self.acc = vec(0, PLAYER_GRAV)
         if self.movimiento:
             self.acc.x = -SERP_ACC
-            print("aqui")
         else:
             self.acc.x = SERP_ACC
-            print("por aqui")
         # APPLY FRICTION
         self.acc.x += self.vel.x * PLAYER_FRICTION
         # equations of motion
@@ -251,6 +253,7 @@ class Checkpoint(pg.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
+
 class Rocon(pg.sprite.Sprite):
     def __init__(self, x, y):
         pg.sprite.Sprite.__init__(self)
@@ -260,6 +263,7 @@ class Rocon(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+
 
 class Camera:
     def __init__(self, width, height):
