@@ -22,7 +22,7 @@ class Spritesheet:
 
 
 class Player(pg.sprite.Sprite):
-    def __init__(self, game):
+    def __init__(self, game, x, y):
         pg.sprite.Sprite.__init__(self)
         self.game = game
         self.walking = False
@@ -32,7 +32,7 @@ class Player(pg.sprite.Sprite):
         self.image = self.standing_frames[0]
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH / 2, HEIGHT / 2)
-        self.pos = vec(20, 0)
+        self.pos = vec(x, y)
         self.vel = vec(0, 0)
         self.acc = vec(0, 0)
 
@@ -115,7 +115,7 @@ class Player(pg.sprite.Sprite):
 
 
 class Serpiente(pg.sprite.Sprite):
-    def __init__(self, game):
+    def __init__(self, game, x, y):
         pg.sprite.Sprite.__init__(self)
         self.game = game
         self.walking = False
@@ -125,18 +125,18 @@ class Serpiente(pg.sprite.Sprite):
         self.image = self.standing_frames[0]
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH / 2, HEIGHT / 2)
-        self.pos = vec(200, 200)
+        self.pos = vec(x, y)
         self.vel = vec(0, 0)
         self.acc = vec(0, 0)
         self.movimiento = True
 
     def load_images(self):
-        self.standing_frames = [self.game.sprites_serpientes.get_image(0, 0, 167.5, 90.5)]
+        self.standing_frames = [pg.transform.scale(self.game.sprites_serpientes.get_image(0, 0, 165, 90.5), SERPIENTE_PROP)]
         for frame in self.standing_frames:
             frame.set_colorkey(WHITE)
-        self.walk_frames_r = [self.game.sprites_serpientes.get_image(167.5, 0, 167.5, 90.5),
-                              self.game.sprites_serpientes.get_image(335, 0, 167.5, 90.5),
-                              self.game.sprites_serpientes.get_image(502.5, 0, 167.5, 90.5)]
+        self.walk_frames_r = [pg.transform.scale(self.game.sprites_serpientes.get_image(165, 0, 165, 90.5), SERPIENTE_PROP),
+                              pg.transform.scale(self.game.sprites_serpientes.get_image(330, 0, 165, 90.5), SERPIENTE_PROP),
+                              pg.transform.scale(self.game.sprites_serpientes.get_image(495, 0, 165, 90.5), SERPIENTE_PROP)]
 
         self.walk_frames_l = []
 
@@ -197,42 +197,6 @@ class Serpiente(pg.sprite.Sprite):
                 self.image = self.standing_frames[self.current_frame]
                 self.rect = self.image.get_rect()
                 self.rect.bottom = bottom
-    """def __init__(self):
-        pg.sprite.Sprite.__init__(self)
-        self.sspritesheet = pg.image.load("assets/images/enemigos/serpiente.png").convert()
-        self.current_frame = 0
-        self.last_update = 0
-        self.load_images()
-        self.image = self.standing_frames[0]
-        self.rect = self.image.get_rect()
-        self.rect.center = (WIDTH / 2, HEIGHT / 2)
-        self.pos = vec(20, 0)
-        self.vel = vec(0, 0)
-
-    def get_image(self, x, y, width, height):
-        # grab an image out of a larger spritesheet
-        image = pg.Surface((width, height))
-        image.blit(self.sspritesheet, (0, 0), (x, y, width, height))
-        image = pg.transform.scale(image, (60, 80))
-        return image
-
-    def load_images(self):
-        self.standing_frames = [self.get_image(0, 0, 167.5, 90.5)]
-        for frame in self.standing_frames:
-            frame.set_colorkey(BLACK)
-        self.walk_frames_r = [self.get_image(167.5, 0, 167.5, 90.5),
-                              self.get_image(335, 0, 167.5, 90.5),
-                              self.get_image(502.5, 0, 167.5, 90.5)]
-
-        #self.game.sprites.get_image(200, 0, 200, 200),
-        #                     self.game.sprites.get_image(200, 200, 200, 200),
-        #                      self.game.sprites.get_image(200, 400, 200, 200),
-        #                      self.game.sprites.get_image(200, 600, 200, 200)
-        self.walk_frames_l = []
-
-        for frame in self.walk_frames_r:
-            frame.set_colorkey(BLACK)
-            self.walk_frames_l.append(pg.transform.flip(frame, True, False))"""
 
 
 class Platform(pg.sprite.Sprite):
@@ -246,10 +210,10 @@ class Platform(pg.sprite.Sprite):
 
 
 class Moneda(pg.sprite.Sprite):
-    def __init__(self, x, y, w, h):
+    def __init__(self, x, y):
         pg.sprite.Sprite.__init__(self)
         self.image = pg.image.load("assets/images/objetos/moneda.gif").convert()
-        self.image = pg.transform.scale(self.image, (w, h))
+        self.image = pg.transform.scale(self.image, COINS_PROP)
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -267,10 +231,10 @@ class Terreno(pg.sprite.Sprite):
 
 
 class Cartel(pg.sprite.Sprite):
-    def __init__(self, x, y, w, h):
+    def __init__(self, x, y):
         pg.sprite.Sprite.__init__(self)
         self.image = pg.image.load("assets/images/objetos/cartel1.png").convert()
-        self.image = pg.transform.scale(self.image, (w, h))
+        self.image = pg.transform.scale(self.image, CARTEL_PROP)
         self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -278,11 +242,21 @@ class Cartel(pg.sprite.Sprite):
 
 
 class Checkpoint(pg.sprite.Sprite):
-    def __init__(self, x, y, w, h):
+    def __init__(self, x, y):
         pg.sprite.Sprite.__init__(self)
         self.image = pg.image.load("assets/images/objetos/llama_1.gif").convert()
-        self.image = pg.transform.scale(self.image, (w, h))
+        self.image = pg.transform.scale(self.image, (100, 80))
         self.image.set_colorkey(WHITE)
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+class Rocon(pg.sprite.Sprite):
+    def __init__(self, x, y):
+        pg.sprite.Sprite.__init__(self)
+        self.image = pg.image.load("assets/images/obstaculos/rocon.png").convert()
+        self.image = pg.transform.scale(self.image, (50, 80))
+        #self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y

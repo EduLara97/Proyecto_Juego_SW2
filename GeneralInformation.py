@@ -14,6 +14,17 @@ FPS = 60
 FONT_NAME = 'arial'
 SPRITESHEET = "inca_mochica.png"
 
+LEVEL_PRUEBA=[
+        "                                                                                                                             ",
+        "                                                                                                                             ",
+        "                    MM        PP                   MM                                                                        ",
+        "                   PPPP                  L       PPPPPP                     MMMMMM        MMMMMM                             ",
+        "                                      PPPPPP                             PPPPPPPPPPPPPPPPPPPPPPPPPPPP                        ",
+        "                P                        MM                                             MMM                                  ",
+        "            P                           PPPP                                   PPPPPPPPPPPPPPPPPPPPPP                        ",
+        " F  R    S  C  R                                                                                                             ",
+        "PPPPPPPPPPPPPPPPPPP          PPPPPPPPPPPPPPPPPPPPPPPPPP        P      PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP        PPPPPPPPPPPPPPPP"]
+
 # Starting platforms
 PLATFORM_GROUND = [(0, HEIGHT - 40, 2000, 80),
                    (2150, HEIGHT - 40, 2000, 80)]
@@ -45,3 +56,12 @@ SERP_ACC = 0.2
 PLAYER_FRICTION = -0.12
 PLAYER_GRAV = 0.8
 PLAYER_JUMP = 15
+
+# Coins properties
+COINS_PROP = (30, 30)
+
+# Cartel properties
+CARTEL_PROP = (100, 80)
+
+# Enemies properties
+SERPIENTE_PROP = (40, 40)

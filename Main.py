@@ -347,6 +347,7 @@ class Game:
         self.carteles = pg.sprite.Group()
         self.serpientes = pg.sprite.Group()
         self.checkpoints = pg.sprite.Group()
+        self.rocones = pg.sprite.Group()
         self.score = 0
         self.escenario = escena
         self.show_cartel = True
@@ -361,11 +362,11 @@ class Game:
         self.font_name = pg.font.match_font(FONT_NAME)
         self.img_dir = path.join(self.dir, "assets/images/personajes")
         self.sprites = Spritesheet(path.join(self.img_dir, lista_perso[perso]))
-        self.player = Player(self)
         self.img_dir_serpiente = path.join(self.dir, "assets/images/enemigos")
         self.sprites_serpientes = Spritesheet(path.join(self.img_dir_serpiente, "serpiente.png"))
-        self.serpiente = Serpiente(self)
-        self.serpientes.add(self.serpiente)
+        # self.serpiente = Serpiente(self)
+        # self.serpientes.add(self.serpiente)
+        self.level = LEVEL_PRUEBA
         self.load_data()
 
     def load_data(self):
@@ -374,29 +375,14 @@ class Game:
 
     def new(self):
         # start a new game
-        self.all_sprites.add(self.player)
-        self.all_sprites.add(self.serpiente)
-        c = Cartel(*CARTEL_LIST)
-        ch = Checkpoint(*LLAMA_LIST)
-        self.all_sprites.add(c)
-        self.carteles.add(c)
-        self.all_sprites.add(ch)
-        self.checkpoints.add(ch)
-        for plat_ground in PLATFORM_GROUND:
-            t = Terreno(*plat_ground)
-            self.all_sprites.add(t)
-            self.platforms.add(t)
-        for coin in COINS_LIST:
-            m = Moneda(*coin)
-            self.all_sprites.add(m)
-            self.coins.add(m)
-        for plat in PLATFORM_LIST:
-            p = Platform(*plat)
-            self.all_sprites.add(p)
-            self.platforms.add(p)
-
+        x = y = 0
+        for row in self.level:
+            for col in row:
+                self.construir(x, y, col)
+                x += 32
+            y += 72
+            x = 0
         self.camera= Camera(0, 0)
-
         self.run()
 
     def run(self):
@@ -419,36 +405,51 @@ class Game:
             if hits:
                 self.player.pos.y = hits[0].rect.top
                 self.player.vel.y = 0
+            hits_saltar_serpiente = pg.sprite.spritecollide(self.player, self.serpientes, False)
+        if self.player.vel.y > 0:
+            if hits_saltar_serpiente:
+                if self.player.rect.bottom >= hits_saltar_serpiente[0].rect.top:
+                    hits_saltar_serpiente[0].kill()
 
-        if self.serpiente.vel.y > 0:
-            hits = pg.sprite.spritecollide(self.serpiente, self.platforms, False)
-            if hits:
-                self.serpiente.pos.y = hits[0].rect.top
-                self.serpiente.vel.y = 0
+        for serpiente in self.serpientes:
+            if serpiente.vel.y > 0:
+                hits = pg.sprite.spritecollide(serpiente, self.platforms, False)
+                if hits:
+                    serpiente.pos.y = hits[0].rect.top
+                    serpiente.vel.y = 0
+        for serpiente in self.serpientes:
+            hit_serpiente_roca = pg.sprite.spritecollide(serpiente, self.rocones, False)
+            if hit_serpiente_roca:
+                if serpiente.vel.x > 0 and serpiente.rect.right >= hit_serpiente_roca[0].rect.left:
+                    serpiente.pos.x += abs(serpiente.vel.x)
+                    serpiente.vel.x = -3
+                elif serpiente.vel.x < 0 and serpiente.rect.left <= hit_serpiente_roca[0].rect.right:
+                    serpiente.pos.x -= abs(serpiente.vel.x)
+                    serpiente.vel.x = 3
+                serpiente.cambiarMovimiento()
 
-        hit_personaje = pg.sprite.spritecollide(self.player, self.serpientes, False)
+        # Cuando choque de costado con el personaje pasara esto
+        """hit_personaje = pg.sprite.spritecollide(self.player, self.serpientes, False)
         if hit_personaje:
             for serp in self.serpientes:
                 if self.player.rect.right >= self.serpiente.rect.left:
                     self.serpiente.pos.x += abs(self.serpiente.vel.x)
                 elif self.player.rect.left <= self.serpiente.rect.right:
                     self.serpiente.pos.x -= abs(self.serpiente.vel.x)
-                serp.cambiarMovimiento()
+                serp.cambiarMovimiento()"""
 
         hits_coin = pg.sprite.spritecollide(self.player, self.coins, False)
         if hits_coin:
-            for coin in self.coins:
-                if self.player.rect.right >= coin.rect.center[0]:
-                    coin.kill()
-                    pg.mixer.Sound.play(pg.mixer.Sound("assets/audio/coin_sound.wav"))
-                    self.score += 10
+            if self.player.rect.right >= hits_coin[0].rect.center[0]:
+                hits_coin[0].kill()
+                pg.mixer.Sound.play(pg.mixer.Sound("assets/audio/coin_sound.wav"))
+                self.score += 10
 
         hits_cartel = pg.sprite.spritecollide(self.player, self.carteles, False)
         if hits_cartel:
-            for cartel in self.carteles:
-                if self.player.rect.center[0] >= cartel.rect.center[0] and self.show_cartel:
-                    pantalla_info()
-                    self.show_cartel = False
+            if self.player.rect.center[0] >= hits_cartel[0].rect.center[0] and self.show_cartel:
+                pantalla_info()
+                self.show_cartel = False
 
         hits_checkpoint = pg.sprite.spritecollide(self.player, self.checkpoints, False)
         if hits_checkpoint:
@@ -467,9 +468,11 @@ class Game:
                 coin.kill()
             for cartel in self.carteles:
                 cartel.kill()
+            for serp in self.serpientes:
+                serp.kill()
             for llama in self.checkpoints:
                 llama.kill()
-            self.player.pos = self.posCheckpoint
+            self.player.kill()
             self.show_cartel = True
             self.playing = False
 
@@ -490,7 +493,6 @@ class Game:
     def draw(self):
         # Game Loop - draw
         self.screen.blit(self.escenario, (0, 0))
-        #self.all_sprites.draw(self.screen)
         for sprite in self.all_sprites:
             self.screen.blit(sprite.image, self.camera.apply(sprite))
         self.draw_text(str(self.score), 22, BLACK, WIDTH / 2, 15)
@@ -505,9 +507,6 @@ class Game:
         self.draw_text("Press a key to play", 22, WHITE, WIDTH / 2, HEIGHT * 3 / 4)
         pg.display.flip()
         self.wait_for_key()
-
-    def show_go_screen(self):
-        pass
 
     def wait_for_key(self):
         waiting = True
@@ -527,17 +526,48 @@ class Game:
         text_rect.midtop = (x, y)
         self.screen.blit(text_surface, text_rect)
 
+    def construir(self, x, y, col):
+        if col == "P":
+            p = Platform(x, y, 50, 50)
+            self.platforms.add(p)
+            self.all_sprites.add(p)
+        elif col == "F":
+            if self.posCheckpoint == (0, 0):
+                self.player = Player(self, x, y)
+                self.all_sprites.add(self.player)
+            else:
+                self.player = Player(self, self.posCheckpoint[0], self.posCheckpoint[1])
+                self.all_sprites.add(self.player)
+        elif col == "L":
+            l = Checkpoint(x, y)
+            self.checkpoints.add(l)
+            self.all_sprites.add(l)
+        elif col == "S":
+            s = Serpiente(self, x, y)
+            self.serpientes.add(s)
+            self.all_sprites.add(s)
+        elif col == "R":
+            r = Rocon(x, y)
+            self.rocones.add(r)
+            self.all_sprites.add(r)
+        elif col == "M":
+            m = Moneda(x, y)
+            self.coins.add(m)
+            self.all_sprites.add(m)
+        elif col == "C":
+            c = Cartel(x, y)
+            self.carteles.add(c)
+            self.all_sprites.add(c)
+
 
 def main(escena, perso):
     g = Game(escena, perso)
     # g.show_start_screen()
-    #pg.mixer.music.load("assets/audio/bg_opcion2.wav")
-    #pg.mixer.music.set_volume(0.5)
-    #pg.mixer.music.play(-1)
+    pg.mixer.music.load("assets/audio/bg_opcion2.wav")
+    pg.mixer.music.set_volume(0.5)
+    pg.mixer.music.play(-1)
     while g.running:
         g.new()
-        g.show_go_screen()
-
     pg.quit()
 
 if __name__ == "__main__":
