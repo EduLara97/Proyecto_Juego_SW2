@@ -220,10 +220,91 @@ class Soldado(pg.sprite.Sprite):
     def load_images(self):
         self.standing_frames = [pg.transform.scale(self.game.sprites_soldado.get_image(0, 0, 200, 200), SOLDADO_PROP)]
         for frame in self.standing_frames:
-            frame.set_colorkey(WHITE)
+            frame.set_colorkey(BLACK)
         self.walk_frames_r = [pg.transform.scale(self.game.sprites_soldado.get_image(200, 0, 200, 200), SOLDADO_PROP),
                               pg.transform.scale(self.game.sprites_soldado.get_image(400, 0, 200, 200), SOLDADO_PROP),
                               pg.transform.scale(self.game.sprites_soldado.get_image(600, 0, 200, 200), SOLDADO_PROP)]
+
+        self.walk_frames_l = []
+
+        for frame in self.walk_frames_r:
+            frame.set_colorkey(BLACK)
+            self.walk_frames_l.append(pg.transform.flip(frame, True, False))
+
+    def update(self):
+        self.animate()
+        self.acc = vec(0, PLAYER_GRAV)
+        if self.movimiento:
+            self.acc.x = -SERP_ACC
+        else:
+            self.acc.x = SERP_ACC
+        # APPLY FRICTION
+        self.acc.x += self.vel.x * PLAYER_FRICTION
+        # equations of motion
+        self.vel += self.acc
+        if abs(self.vel.x) < 0.1:
+            self.vel.x = 0
+        self.pos += self.vel + 0.5 * self.acc
+        self.rect.midbottom = self.pos
+
+    def cambiarMovimiento(self):
+        self.movimiento = not self.movimiento
+
+    def animate(self):
+        now = pg.time.get_ticks()
+        if self.vel.x != 0:
+            self.walking = True
+        else:
+            self.walking = False
+
+        # show walk animation
+        if self.walking:
+            if now - self.last_update > 200:
+                self.last_update = now
+                self.current_frame = (self.current_frame + 1) % \
+                                     len(self.walk_frames_l)
+                bottom = self.rect.bottom
+                if self.vel.x > 0:
+                    self.image = self.walk_frames_r[self.current_frame]
+                else:
+                    self.image = self.walk_frames_l[self.current_frame]
+
+                self.rect = self.image.get_rect()
+                self.rect.bottom = bottom
+
+        # show idle animation
+        if not self.walking:
+            if now - self.last_update > 200:
+                self.last_update = now
+                self.current_frame = (self.current_frame + 1) % len(self.standing_frames)
+                bottom = self.rect.bottom
+                self.image = self.standing_frames[self.current_frame]
+                self.rect = self.image.get_rect()
+                self.rect.bottom = bottom
+
+
+class Boss(pg.sprite.Sprite):
+    def __init__(self, game, x, y):
+        pg.sprite.Sprite.__init__(self)
+        self.game = game
+        self.current_frame = 0
+        self.last_update = 0
+        self.load_images()
+        self.image = self.standing_frames[0]
+        self.rect = self.image.get_rect()
+        self.rect.center = (WIDTH / 2, HEIGHT / 2)
+        self.pos = vec(x, y)
+        self.vel = vec(0, 0)
+        self.acc = vec(0, 0)
+        self.movimiento = True
+
+    def load_images(self):
+        self.standing_frames = [pg.transform.scale(self.game.sprites_boss.get_image(0, 0, 200, 200), SOLDADO_PROP)]
+        for frame in self.standing_frames:
+            frame.set_colorkey(BLACK)
+        self.walk_frames_r = [pg.transform.scale(self.game.sprites_boss.get_image(200, 0, 200, 200), SOLDADO_PROP),
+                              pg.transform.scale(self.game.sprites_boss.get_image(400, 0, 200, 200), SOLDADO_PROP),
+                              pg.transform.scale(self.game.sprites_boss.get_image(600, 0, 200, 200), SOLDADO_PROP)]
 
         self.walk_frames_l = []
 

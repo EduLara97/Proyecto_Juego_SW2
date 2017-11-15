@@ -369,8 +369,7 @@ class Game:
         self.img_dir_enemigos = path.join(self.dir, "assets/images/enemigos")
         self.sprites_serpientes = Spritesheet(path.join(self.img_dir_enemigos, "serpiente.png"))
         self.sprites_soldado = Spritesheet(path.join(self.img_dir_enemigos, "espanol_normal.png"))
-        # self.serpiente = Serpiente(self)
-        # self.serpientes.add(self.serpiente)
+        self.sprites_boss = Spritesheet(path.join(self.img_dir_enemigos, "espanol_boss.png"))
         self.level = LEVEL_PRUEBA
         self.load_data()
 
@@ -487,6 +486,21 @@ class Game:
                     self.kill_all()
                     self.playing = False
 
+        if self.boss.vel.y > 0:
+            hits = pg.sprite.spritecollide(self.boss, self.platforms, False)
+            if hits:
+                self.boss.pos.y = hits[0].rect.top
+                self.boss.vel.y = 0
+
+        hit_boss_roca = pg.sprite.spritecollide(self.boss, self.rocones, False)
+        if hit_boss_roca:
+            if self.boss.vel.x > 0 and self.boss.rect.right >= hit_boss_roca[0].rect.left:
+                self.boss.pos.x += abs(self.boss.vel.x)
+                self.boss.vel.x = -5
+            elif self.boss.vel.x < 0 and self.boss.rect.left <= hit_boss_roca[0].rect.right:
+                self.boss.pos.x -= abs(self.boss.vel.x)
+                self.boss.vel.x = 5
+            self.boss.cambiarMovimiento()
 
         # Cuando choque de costado con el personaje pasara esto
         """hit_personaje = pg.sprite.spritecollide(self.player, self.serpientes, False)
@@ -525,6 +539,10 @@ class Game:
             self.kill_all()
             self.show_cartel = True
             self.playing = False
+
+        for serp in self.serpientes:
+            if serp.rect.top > HEIGHT:
+                serp.kill()
 
     def events(self):
         # Game Loop - events
@@ -600,6 +618,10 @@ class Game:
             s = Serpiente(self, x, y)
             self.serpientes.add(s)
             self.all_sprites.add(s)
+        elif col == "E":
+            e = Soldado(self, x, y)
+            self.soldados.add(e)
+            self.all_sprites.add(e)
         elif col == "R":
             r = Rocon(x, y)
             self.rocones.add(r)
@@ -612,10 +634,9 @@ class Game:
             c = Cartel(x, y)
             self.carteles.add(c)
             self.all_sprites.add(c)
-        elif col == "E":
-            e = Soldado(self, x, y)
-            self.soldados.add(e)
-            self.all_sprites.add(e)
+        elif col == "B":
+            self.boss = Boss(self, x, y)
+            self.all_sprites.add(self.boss)
 
     def kill_all(self):
         for plat in self.platforms:
@@ -632,6 +653,7 @@ class Game:
             roca.kill()
         for espanol in self.soldados:
             espanol.kill()
+        self.boss.kill()
         self.player.kill()
 
 
