@@ -318,7 +318,7 @@ def into_juego():
     intro_final(intro)
     perso = personaje - 1
     esce = lista_escenarios[escenario - 1]
-    return esce, perso
+    return esce, perso, escenario
 
 
 def gameOver(score):
@@ -341,7 +341,7 @@ def gameOver(score):
 
 
 class Game:
-    def __init__(self, escena, perso):
+    def __init__(self, escena, perso, mapa):
         # initialize game window, etc
         self.dir = path.dirname(__file__)
         self.platforms = pg.sprite.Group()
@@ -370,7 +370,8 @@ class Game:
         self.sprites_serpientes = Spritesheet(path.join(self.img_dir_enemigos, "serpiente.png"))
         self.sprites_soldado = Spritesheet(path.join(self.img_dir_enemigos, "espanol_normal.png"))
         self.sprites_boss = Spritesheet(path.join(self.img_dir_enemigos, "espanol_boss.png"))
-        self.level = LEVEL_PRUEBA
+        
+        self.level=LEVELS[mapa]
         self.load_data()
 
     def load_data(self):
@@ -657,8 +658,8 @@ class Game:
         self.player.kill()
 
 
-def main(escena, perso):
-    g = Game(escena, perso)
+def main(escena, perso, mapa):
+    g = Game(escena, perso, mapa)
     # g.show_start_screen()
     pg.mixer.music.load("assets/audio/bg_opcion2.wav")
     pg.mixer.music.set_volume(0.5)
@@ -668,5 +669,5 @@ def main(escena, perso):
     pg.quit()
 
 if __name__ == "__main__":
-    ese, perso = into_juego()
-    main(ese, perso)
+    ese, perso, mapa = into_juego()
+    main(ese, perso, mapa)
