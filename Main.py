@@ -351,6 +351,7 @@ class Game:
         self.serpientes = pg.sprite.Group()
         self.checkpoints = pg.sprite.Group()
         self.rocones = pg.sprite.Group()
+        self.soldados = pg.sprite.Group()
         self.score = 0
         self.escenario = escena
         self.show_cartel = True
@@ -365,8 +366,9 @@ class Game:
         self.font_name = pg.font.match_font(FONT_NAME)
         self.img_dir = path.join(self.dir, "assets/images/personajes")
         self.sprites = Spritesheet(path.join(self.img_dir, lista_perso[perso]))
-        self.img_dir_serpiente = path.join(self.dir, "assets/images/enemigos")
-        self.sprites_serpientes = Spritesheet(path.join(self.img_dir_serpiente, "serpiente.png"))
+        self.img_dir_enemigos = path.join(self.dir, "assets/images/enemigos")
+        self.sprites_serpientes = Spritesheet(path.join(self.img_dir_enemigos, "serpiente.png"))
+        self.sprites_soldado = Spritesheet(path.join(self.img_dir_enemigos, "espanol_normal.png"))
         # self.serpiente = Serpiente(self)
         # self.serpientes.add(self.serpiente)
         self.level = LEVEL_PRUEBA
@@ -426,7 +428,7 @@ class Game:
                 self.player.vel.y = -12
                 vida = self.player.disminuirVida(SERPIENTE_FUERZA)
                 print(vida)
-                if vida == 0:
+                if vida <= 0:
                     self.kill_all()
                     self.playing = False
 
@@ -447,6 +449,44 @@ class Game:
                     serpiente.pos.x -= abs(serpiente.vel.x)
                     serpiente.vel.x = 3
                 serpiente.cambiarMovimiento()
+
+        for soldado in self.soldados:
+            if soldado.vel.y > 0:
+                hits = pg.sprite.spritecollide(soldado, self.platforms, False)
+                if hits:
+                    soldado.pos.y = hits[0].rect.top
+                    soldado.vel.y = 0
+
+        for soldado in self.soldados:
+            hit_soldado_roca = pg.sprite.spritecollide(soldado, self.rocones, False)
+            if hit_soldado_roca:
+                if soldado.vel.x > 0 and soldado.rect.right >= hit_soldado_roca[0].rect.left:
+                    soldado.pos.x += abs(soldado.vel.x)
+                    soldado.vel.x = -5
+                elif soldado.vel.x < 0 and soldado.rect.left <= hit_soldado_roca[0].rect.right:
+                    soldado.pos.x -= abs(soldado.vel.x)
+                    soldado.vel.x = 5
+                soldado.cambiarMovimiento()
+
+        hits_saltar_soldado = pg.sprite.spritecollide(self.player, self.soldados, False)
+        if self.player.vel.y > 0:
+            if hits_saltar_soldado:
+                if self.player.rect.bottom >= hits_saltar_soldado[0].rect.top:
+                    hits_saltar_soldado[0].kill()
+                    self.score += 40
+
+        hits_soldado = pg.sprite.spritecollide(self.player, self.soldados, False)
+        if hits_soldado:
+            if self.player.vel.x >= 0 \
+                    and self.player.rect.right >= hits_soldado[0].rect.left:
+                self.player.vel.x = -15
+                self.player.vel.y = -12
+                vida = self.player.disminuirVida(SOLDADO_FUERZA)
+                print(vida)
+                if vida <= 0:
+                    self.kill_all()
+                    self.playing = False
+
 
         # Cuando choque de costado con el personaje pasara esto
         """hit_personaje = pg.sprite.spritecollide(self.player, self.serpientes, False)
@@ -572,6 +612,10 @@ class Game:
             c = Cartel(x, y)
             self.carteles.add(c)
             self.all_sprites.add(c)
+        elif col == "E":
+            e = Soldado(self, x, y)
+            self.soldados.add(e)
+            self.all_sprites.add(e)
 
     def kill_all(self):
         for plat in self.platforms:
@@ -584,6 +628,10 @@ class Game:
             serp.kill()
         for llama in self.checkpoints:
             llama.kill()
+        for roca in self.rocones:
+            roca.kill()
+        for espanol in self.soldados:
+            espanol.kill()
         self.player.kill()
 
 

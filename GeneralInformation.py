@@ -22,7 +22,7 @@ LEVEL_PRUEBA=[
         "                                      PPPPPP                             PPPPPPPPPPPPPPPPPPPPPPPPPPPP                        ",
         "                P                        MM                                             MMM                                  ",
         "            P                           PPPP                                   PPPPPPPPPPPPPPPPPPPPPP                        ",
-        " F  R    S  C  R                                                                                                             ",
+        " F  R    S  C  E R                                                                                                           ",
         "PPPPPPPPPPPPPPPPPPP          PPPPPPPPPPPPPPPPPPPPPPPPPP        P      PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP        PPPPPPPPPPPPPPPP"]
 
 # Starting platforms
@@ -67,3 +67,5 @@ CARTEL_PROP = (100, 80)
 # Enemies properties
 SERPIENTE_PROP = (40, 40)
 SERPIENTE_FUERZA = 1
+SOLDADO_PROP = (60, 80)
+SOLDADO_FUERZA = 2
