@@ -25,6 +25,49 @@ LEVEL_PRUEBA=[
         "F   R    S  C  E R                                                                                 S         R            B R",
         "PPPPPPPPPPPPPPPPPPP          PPPPPPPPPPPPPPPPPPPPPPPPPP       PP      PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP        PPPPPPPPPPPPPPPP"]
 
+LEVEL_ONE=[
+        "                                                                                                                                  ",
+        "                                                                                                                                  ",
+        "                                                                                           PP                                     ",
+        "                                                       L                             PP                                           ",
+        "                                        C              P                       PP                                                 ",
+        "                             M          P          P                       P                                                      ",
+        "        M       M        M   P     P          P                      PP                                         P                 ",
+        "F       M       M        M           R  SR        RM    EMR                R S R     R  E R       MMMMMMMMM          R         B R",
+        "PPPP   PPP     PP       PP           PPPPP        PPPPPPPPP    PPPP     PPPPPPPP     PPPPPP      PPPPPPPPPP          PPPPPPPPPPPPP"]
+
+LEVEL_TWO=[
+        "                                                                                                                                                     ",
+        "                                                                          SSSMM          L                                                           ",
+        "                                                                         PPPPPP        PPPM                                   P                      ",
+        "                                                                                                                         P                           ",
+        "                  MMM                                                 M                                              P                               ",
+        "                                                                     PPP                    M        MM   MM    P                                    ",
+        "             M   PMPMP                                                                                                                               ",
+        "  F                S     R  C     R  S     R   ES    RMCMMM               R E   R              S S                SR               R          B     R",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP   PPPPPPPPPPPPPPPPPPP      PPPPPPPPPPPPPPPPPPPPPPPPPPPP               PPPPPPPPPPPPPPPPPP"]
+
+LEVEL_THREE=[
+        "                                                                                                                                   ",
+        "                                                                                MMM                                                ",
+        "                                                                           MMM                                                     ",
+        "                                                                           PPP                                                     ",
+        "       M                                  MMMM                                                        MMMMMMMMM                    ",
+        "PP    PP   PPP                  MM             C                         M                           PPPPPPPPPPPP                  ",
+        "                               PPP       P     P                        PP                                                         ",
+        "R SSS      R        MMMMMM      SR      PR SS  RP                L                  R E     R  MMMMMMMMMM S R      R            B R",      
+        "PPPPPPPPPPPP       PPPPPPPPPPPPPPP     P PPPPPPP PPPPPP   P  MM  P  PPPPP          PPPPPPPPPPPPPPPPPPPPPPPPPP      PPPPPPPPPPPPPPPP"]
+
+LEVEL_FOUR=[
+        "                                                      MMMMMM                                                        ",
+        "                                                     PPPPPPPP                                       MMM             ",
+        "                                                                                         M        PPPPP             ",
+        "                            M     M   M         MMMM  RS      R                         M MM     P                  ",
+        "PP                      M   M     M    M    C  PPPPPPPPPPPPPPPP              M     PP           P                   ",
+        "PPP                     M   P     P    P    P                           L    P                  P                   ",
+        "PPPP                    P                                               P                       P                   ",
+        "PPPPP     MMMM R S   R S  S  R    E    R                        MMM M                           P       R         BR",
+        "PPPPP     PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP                       PPPPPP             PPPPPPPPPPPPPP       PPPPPPPPPPPP"]
 
 # Player properties
 PLAYER_ACC = 0.5
