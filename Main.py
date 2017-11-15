@@ -63,6 +63,13 @@ title_arcade = pg.transform.scale(title_arcade, (300, 300))
 title_single = pg.image.load("assets/images/intro/title_single.gif").convert()
 title_single = pg.transform.scale(title_single, (300, 300))
 
+# llama_checkpoint_sheet = pg.image.load("assets/images/objetos/llama_checkpoint.png").convert_alpha()
+# height_llama_checkpoint_sheet = llama_checkpoint_sheet.get_height()
+# sprites_llama_checkpoint_sheet = []
+# for i in range(int(height_llama_checkpoint_sheet / 38)):
+#     sprites_llama_checkpoint_sheet\
+#         .append(pg.transform.scale(llama_checkpoint_sheet.subsurface(0, i * 38, 48, 38), (60, 80)))
+
 mode_single_sheet = pg.image.load("assets/images/intro/mode_single_sheet.png").convert_alpha()
 width_mode_single_sheet = mode_single_sheet.get_width()
 sprites_mode_sigle_sheet = []
@@ -103,6 +110,7 @@ perso_tiahua = pg.image.load("assets/images/intro/perso_tiahua.gif").convert()
 perso_tiahua = pg.transform.scale(perso_tiahua, (anchPer, altPer))
 perso_wari = pg.image.load("assets/images/intro/perso_wari.png").convert()
 perso_wari = pg.transform.scale(perso_wari, (anchPer, altPer))
+perso_wari.set_colorkey(WHITE)
 
 """---------------------------------------------------------------"""
 """---------------------------------------------------------------"""
@@ -112,6 +120,10 @@ lista_perso = ["inca_mochica.png",
                "inca_paracas.png",
                "inca_tiahuanaco.png",
                "inca_wari.png"]
+lista_plataformas =["plataforma_mochica.png",
+                    "plataforma_paracas.png",
+                    "plataforma_tiahuanaco.png",
+                    "plataforma_chavin.png"]
 
 lista_escenarios = [bg_moche,
                     bg_paracas,
@@ -317,7 +329,7 @@ def into_juego():
     personaje = intro_personaje(intro)
     intro_final(intro)
     perso = personaje - 1
-    esce = lista_escenarios[escenario - 1]
+    esce = escenario - 1
     return esce, perso
 
 
@@ -332,7 +344,7 @@ def gameOver(score):
                 if event.key == pg.K_c:
                     intro = False
         screen.blit(bg_intro, (0, 0))
-        message_to_screen("GAME OVER", ORANGE, -100, "mediano")
+        message_to_screen("VICTORIA", ORANGE, -100, "mediano")
         message_to_screen("Score: " + str(score), BLACK, -60, "pequena")
         message_to_screen(
             "Presiona C para volver a jugar", BLACK, 25, "pequena")
@@ -352,11 +364,13 @@ class Game:
         self.checkpoints = pg.sprite.Group()
         self.rocones = pg.sprite.Group()
         self.soldados = pg.sprite.Group()
+        self.bosses = pg.sprite.Group()
         self.score = 0
         self.escenario = escena
         self.show_cartel = True
         self.posCheckpoint = (0, 0)
         self.confirmCheckpoint = False
+        self.llama_pibot = 0
         pg.init()
         pg.mixer.init()
         self.screen = pg.display.set_mode(SIZE)
@@ -370,7 +384,7 @@ class Game:
         self.sprites_serpientes = Spritesheet(path.join(self.img_dir_enemigos, "serpiente.png"))
         self.sprites_soldado = Spritesheet(path.join(self.img_dir_enemigos, "espanol_normal.png"))
         self.sprites_boss = Spritesheet(path.join(self.img_dir_enemigos, "espanol_boss.png"))
-        self.level = LEVEL_PRUEBA
+        self.level = LEVELS[escena]
         self.load_data()
 
     def load_data(self):
@@ -426,8 +440,8 @@ class Game:
                 self.player.vel.x = -15
                 self.player.vel.y = -12
                 vida = self.player.disminuirVida(SERPIENTE_FUERZA)
-                print(vida)
                 if vida <= 0:
+                    self.player.vida = 0
                     self.kill_all()
                     self.playing = False
 
@@ -472,7 +486,7 @@ class Game:
             if hits_saltar_soldado:
                 if self.player.rect.bottom >= hits_saltar_soldado[0].rect.top:
                     hits_saltar_soldado[0].kill()
-                    self.score += 40
+                    self.score += 20
 
         hits_soldado = pg.sprite.spritecollide(self.player, self.soldados, False)
         if hits_soldado:
@@ -481,8 +495,8 @@ class Game:
                 self.player.vel.x = -15
                 self.player.vel.y = -12
                 vida = self.player.disminuirVida(SOLDADO_FUERZA)
-                print(vida)
                 if vida <= 0:
+                    self.player.vida = 0
                     self.kill_all()
                     self.playing = False
 
@@ -502,15 +516,39 @@ class Game:
                 self.boss.vel.x = 5
             self.boss.cambiarMovimiento()
 
+        hits_saltar_boss = pg.sprite.spritecollide(self.player, self.bosses, False)
+        if self.player.vel.y > 0:
+            if hits_saltar_boss:
+                if self.player.rect.bottom >= hits_saltar_boss[0].rect.top:
+                    hits_saltar_boss[0].kill()
+                    self.score += 40
+                    gameOver(self.score)
+                    self.playing = False
+                    self.running = False
+
+        hits_boss = pg.sprite.spritecollide(self.player, self.bosses, False)
+        if hits_boss:
+            if self.player.vel.x >= 0 \
+                    and self.player.rect.right >= hits_boss[0].rect.left:
+                self.player.vel.x = -15
+                self.player.vel.y = -12
+                vida = self.player.disminuirVida(BOSS_FUERZA)
+                if vida <= 0:
+                    self.player.vida = 0
+                    self.kill_all()
+                    self.playing = False
+
         # Cuando choque de costado con el personaje pasara esto
-        """hit_personaje = pg.sprite.spritecollide(self.player, self.serpientes, False)
-        if hit_personaje:
-            for serp in self.serpientes:
-                if self.player.rect.right >= self.serpiente.rect.left:
-                    self.serpiente.pos.x += abs(self.serpiente.vel.x)
-                elif self.player.rect.left <= self.serpiente.rect.right:
-                    self.serpiente.pos.x -= abs(self.serpiente.vel.x)
-                serp.cambiarMovimiento()"""
+        hit_roca = pg.sprite.spritecollide(self.player, self.rocones, False)
+        if hit_roca:
+            if self.player.vel.x > 0:
+                if self.player.rect.right >= hit_roca[0].rect.left:
+                    print("CHOCA DERECHA")
+                    self.player.pos.x -= abs(self.player.vel.x)
+            elif self.player.vel.x < 0:
+                if self.player.rect.left <= hit_roca[0].rect.right:
+                    print("CHOCA IZQUIERDA")
+                    self.player.pos.x += abs(self.player.vel.x)
 
         hits_coin = pg.sprite.spritecollide(self.player, self.coins, False)
         if hits_coin:
@@ -552,6 +590,7 @@ class Game:
                 if self.playing:
                     self.playing = False
                 self.running = False
+                pg.quit()
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_SPACE:
                     self.player.jump()
@@ -563,9 +602,16 @@ class Game:
 
     def draw(self):
         # Game Loop - draw
-        self.screen.blit(self.escenario, (0, 0))
+        self.screen.blit(lista_escenarios[self.escenario], (0, 0))
         for sprite in self.all_sprites:
             self.screen.blit(sprite.image, self.camera.apply(sprite))
+        """if self.confirmCheckpoint:
+            for llama in self.checkpoints:
+                print(str(llama.rect.x) + " : " + str(llama.rect.y))
+                self.screen.blit(sprites_llama_checkpoint_sheet[self.llama_pibot], self.camera.apply(llama))
+                self.llama_pibot = (self.llama_pibot + 1) % 6"""
+
+
         self.draw_text(str(self.score), 22, BLACK, WIDTH / 2, 15)
         self.draw_text("Vidas: " + str(self.player.vida), 22, BLACK, 200, 15)
         pg.display.flip()
@@ -597,10 +643,9 @@ class Game:
         text_rect = text_surface.get_rect()
         text_rect.midtop = (x, y)
         self.screen.blit(text_surface, text_rect)
-
     def construir(self, x, y, col):
         if col == "P":
-            p = Platform(x, y, 50, 50)
+            p = Platform( lista_plataformas[self.escenario], x, y, 50, 50)
             self.platforms.add(p)
             self.all_sprites.add(p)
         elif col == "F":
@@ -636,6 +681,7 @@ class Game:
             self.all_sprites.add(c)
         elif col == "B":
             self.boss = Boss(self, x, y)
+            self.bosses.add(self.boss)
             self.all_sprites.add(self.boss)
 
     def kill_all(self):
@@ -657,16 +703,17 @@ class Game:
         self.player.kill()
 
 
+
 def main(escena, perso):
     g = Game(escena, perso)
-    # g.show_start_screen()
     pg.mixer.music.load("assets/audio/bg_opcion2.wav")
     pg.mixer.music.set_volume(0.5)
     pg.mixer.music.play(-1)
     while g.running:
         g.new()
-    pg.quit()
+    pg.mixer.quit()
 
 if __name__ == "__main__":
-    ese, perso = into_juego()
-    main(ese, perso)
+    while True:
+        ese, perso = into_juego()
+        main(ese, perso)
