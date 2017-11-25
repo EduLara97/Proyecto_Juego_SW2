@@ -4,6 +4,7 @@ from pygame import *
 from Entities.Entities import *
 from GeneralInformation import *
 import random
+import requests
 from os import *
 
 game_folder = path.dirname(__file__)
@@ -613,7 +614,7 @@ class Game:
 
 
         self.draw_text(str(self.score), 22, BLACK, WIDTH / 2, 15)
-        self.draw_text("Vidas: " + str(self.player.vida), 22, BLACK, 200, 15)
+        self.draw_text("Corazones: " + str(self.player.vida), 22, BLACK, 200, 15)
         pg.display.flip()
 
     def show_start_screen(self):
@@ -714,6 +715,31 @@ def main(escena, perso):
     pg.mixer.quit()
 
 if __name__ == "__main__":
-    while True:
+    url = "https://mighty-river-82103.herokuapp.com/api"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        results = response.json()[len(response.json())-1]
+        print(results)
+        escenario = results['escenario']
+        personajes = results['personaje']
+        modo_juego = results['modo_juego']
+        dificultad = results['dificultad']
+        intro_background = results['intro_background']
+        speed_player = results['speed_player']
+        life = results['life']
+        game_time = results['game_time']
+        musica = results['musica']
+        print(escenario)
+        print(personajes)
+        print(modo_juego)
+        print(dificultad)
+        print(intro_background)
+        print(speed_player)
+        print(life)
+        print(game_time)
+        print(musica)
+
+    """while True:
         ese, perso = into_juego()
-        main(ese, perso)
+        main(ese, perso)"""
