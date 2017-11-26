@@ -9,6 +9,8 @@ import random
 import requests
 from os import *
 
+posturl="http://runinkarun.herokuapp.com/score/api"
+
 URL_IMAGE = "http://res.cloudinary.com/dfktnvqxe/image/upload/v1511719844/escenario_fondo_v2_ikkq4e.jpg"
 IMAGE_STR = urlopen(URL_IMAGE).read()
 IMAGE_FILE = io.BytesIO(IMAGE_STR)
@@ -405,6 +407,7 @@ def into_juego(modo_juego, escenario, persons):
 
 def gameOver(score):
     intro = True
+    payload ={"playerName": "Bot", "acumScore": str(score)}
     while intro:
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -416,6 +419,7 @@ def gameOver(score):
         screen.blit(bg_intro, (0, 0))
         message_to_screen("VICTORIA", ORANGE, -100, "mediano")
         message_to_screen("Score: " + str(score), BLACK, -60, "pequena")
+        r = requests.post(posturl, data=payload)        
         message_to_screen(
             "Presiona C para volver a jugar", BLACK, 25, "pequena")
         pg.display.update()
