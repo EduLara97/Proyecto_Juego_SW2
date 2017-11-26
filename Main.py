@@ -421,7 +421,6 @@ class Game:
         self.sprites_soldado = Spritesheet(path.join(self.img_dir_enemigos, "espanol_normal.png"))
         self.sprites_boss = Spritesheet(path.join(self.img_dir_enemigos, "espanol_boss.png"))
         self.level = LEVELS[escena]
-        self.load_data()
 
     def new(self):
         # Se incia un nuevo juego
@@ -584,7 +583,7 @@ class Game:
                         gameOver(self.score)
                         self.playing = False
                         self.running = False
-        
+
         hits_boss = pg.sprite.spritecollide(self.player, self.bosses, False)
         if hits_boss:
             if self.player.vel.x >= 0 \
