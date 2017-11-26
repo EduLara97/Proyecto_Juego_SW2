@@ -1,11 +1,17 @@
 import pygame as pg
 from pygame import *
 # from Entities.Entities import Character, Platform, Roca
+import io
 from Entities.Entities import *
 from GeneralInformation import *
+from urllib.request import urlopen
 import random
 import requests
 from os import *
+
+URL_IMAGE = "http://res.cloudinary.com/dfktnvqxe/image/upload/v1511719844/escenario_fondo_v2_ikkq4e.jpg"
+IMAGE_STR = urlopen(URL_IMAGE).read()
+IMAGE_FILE = io.BytesIO(IMAGE_STR)
 
 game_folder = path.dirname(__file__)
 img_folder = path.join(game_folder, "assets/images")
@@ -29,7 +35,8 @@ medianofont = pg.font.SysFont("comicsansms", 50)
 largofont = pg.font.SysFont("comicsansms", 80)
 
 # Se realiza la carga del fondo (background) que tendran todas las pantallas de la intro
-bg_intro = pg.image.load("assets/images/intro/escenario_fondo_v2.jpg").convert()
+#bg_intro = pg.image.load("assets/images/intro/escenario_fondo_v2.jpg").convert()
+bg_intro = pg.image.load(IMAGE_FILE).convert()
 bg_intro = pg.transform.scale(bg_intro, SIZE)
 
 # Se realiza la carga del titulo del juego, para la animación de este, se tiene un sprite sheet
@@ -416,14 +423,13 @@ class Game:
         self.level = LEVELS[escena]
         self.load_data()
 
-    def load_data(self):
-        # load spritesheet image
-        pass
-
     def new(self):
-        # start a new game
+        # Se incia un nuevo juego
         if self.posCheckpoint == (0, 0):
             self.score = 0
+
+        # Se construye el escenario, las plataformas, objetos y personajes
+        # según el mapa que fue pasado
         x = y = 0
         for row in self.level:
             for col in row:
@@ -431,11 +437,15 @@ class Game:
                 x += 32
             y += 72
             x = 0
+
+        # Camara que seguira el personaje durante el juego
         self.camera= Camera(0, 0)
         self.run()
 
     def run(self):
-        # Game Loop
+        # Loop del juego, aqui se realizaran todos los updates de los eventos que ocurren durante el juego
+        # además de dibujar a los personajes, este Loop terminara si la variable self.playing es setada
+        # como False por algún evento ocurrido
         self.playing = True
         while self.playing:
             self.clock.tick(FPS)
@@ -444,17 +454,22 @@ class Game:
             self.draw()
 
     def update(self):
-        # Game Loop - Update
+        # Esta es la sección donde se defininen todos los accionares dentro del juego, por ejemplo
+        # si el personaje choca contra una roca, este se detiene y no puede seguir avanzando
+
         self.all_sprites.update()
         self.camera.update(self.player)
-        # check if player hits a platform - only if folling
 
+        # Aqui se determina si es que el personaje salta encima de una plataforma,
+        # este queda por encima de ella
         if self.player.vel.y > 0:
             hits = pg.sprite.spritecollide(self.player, self.platforms, False)
             if hits:
                 self.player.pos.y = hits[0].rect.top
                 self.player.vel.y = 0
 
+        # Se determina el accionar cuando se salta encima de la serpiente, en este caso
+        # la serpiente morira
         hits_saltar_serpiente = pg.sprite.spritecollide(self.player, self.serpientes, False)
         if self.player.vel.y > 0:
             if hits_saltar_serpiente:
@@ -462,6 +477,9 @@ class Game:
                     hits_saltar_serpiente[0].kill()
                     self.score += 20
 
+        # Se determina el accionar cada vez que la serpiente choque de costado con el inca
+        # cada golpe disminuira cierta cantidad de vida al personaje, cuando la vida llegue a
+        # 0, el personaje morira y el juego terminara
         hits_serpiente = pg.sprite.spritecollide(self.player, self.serpientes, False)
         if hits_serpiente:
             if self.player.vel.x >= 0 \
@@ -474,6 +492,7 @@ class Game:
                     self.kill_all()
                     self.playing = False
 
+        # Se determina que las serpientes siempre se posicionaran encima de las plataformas
         for serpiente in self.serpientes:
             if serpiente.vel.y > 0:
                 hits = pg.sprite.spritecollide(serpiente, self.platforms, False)
@@ -481,6 +500,8 @@ class Game:
                     serpiente.pos.y = hits[0].rect.top
                     serpiente.vel.y = 0
 
+        # Si la serpinete llega a impactar contra una roca, la dirección a la cual se dirige
+        # cambia, y esta sale con una acceleracion determinada
         for serpiente in self.serpientes:
             hit_serpiente_roca = pg.sprite.spritecollide(serpiente, self.rocones, False)
             if hit_serpiente_roca:
@@ -492,6 +513,7 @@ class Game:
                     serpiente.vel.x = 3
                 serpiente.cambiarMovimiento()
 
+        # Se determina que los soldados se mantendran encima de las plataformas
         for soldado in self.soldados:
             if soldado.vel.y > 0:
                 hits = pg.sprite.spritecollide(soldado, self.platforms, False)
@@ -499,6 +521,7 @@ class Game:
                     soldado.pos.y = hits[0].rect.top
                     soldado.vel.y = 0
 
+        # Al igual que con las serpientes, los soldados cambiaran la dirección si chocan contra una roca
         for soldado in self.soldados:
             hit_soldado_roca = pg.sprite.spritecollide(soldado, self.rocones, False)
             if hit_soldado_roca:
@@ -510,6 +533,8 @@ class Game:
                     soldado.vel.x = 5
                 soldado.cambiarMovimiento()
 
+        # Se determina que cuando el personaje salte sobre algun soldado, este soldado morira
+        # y además seran sumados 20 puntos al score del jugador
         hits_saltar_soldado = pg.sprite.spritecollide(self.player, self.soldados, False)
         if self.player.vel.y > 0:
             if hits_saltar_soldado:
@@ -517,6 +542,7 @@ class Game:
                     hits_saltar_soldado[0].kill()
                     self.score += 20
 
+        # Se determina que cuando
         hits_soldado = pg.sprite.spritecollide(self.player, self.soldados, False)
         if hits_soldado:
             if self.player.vel.x >= 0 \
@@ -549,16 +575,21 @@ class Game:
         if self.player.vel.y > 0:
             if hits_saltar_boss:
                 if self.player.rect.bottom >= hits_saltar_boss[0].rect.top:
-                    hits_saltar_boss[0].kill()
-                    self.score += 40
-                    gameOver(self.score)
-                    self.playing = False
-                    self.running = False
-
+                    self.player.vel.y = -12
+                    vida_boss = self.boss.disminuirVida()
+                    print(vida_boss)
+                    if vida_boss <= 0:
+                        hits_saltar_boss[0].kill()
+                        self.score += 40
+                        gameOver(self.score)
+                        self.playing = False
+                        self.running = False
+        
         hits_boss = pg.sprite.spritecollide(self.player, self.bosses, False)
         if hits_boss:
             if self.player.vel.x >= 0 \
-                    and self.player.rect.right >= hits_boss[0].rect.left:
+                    and self.player.rect.right >= hits_boss[0].rect.left \
+                    and self.player.rect.bottom >= hits_boss[0].rect.bottom:
                 self.player.vel.x = -15
                 self.player.vel.y = -12
                 vida = self.player.disminuirVida(BOSS_FUERZA)
@@ -634,13 +665,6 @@ class Game:
         self.screen.blit(lista_escenarios[self.escenario], (0, 0))
         for sprite in self.all_sprites:
             self.screen.blit(sprite.image, self.camera.apply(sprite))
-        """if self.confirmCheckpoint:
-            for llama in self.checkpoints:
-                print(str(llama.rect.x) + " : " + str(llama.rect.y))
-                self.screen.blit(sprites_llama_checkpoint_sheet[self.llama_pibot], self.camera.apply(llama))
-                self.llama_pibot = (self.llama_pibot + 1) % 6"""
-
-
         self.draw_text(str(self.score), 22, BLACK, WIDTH / 2, 15)
         self.draw_text("Corazones: " + str(self.player.vida), 22, BLACK, 200, 15)
         pg.display.flip()
@@ -735,6 +759,7 @@ class Game:
 
 def main(escena, perso):
     g = Game(escena, perso)
+    # Carga de la musica que sonara de fondo cuando comienze el juego
     pg.mixer.music.load("assets/audio/bg_opcion2.wav")
     pg.mixer.music.set_volume(0.5)
     pg.mixer.music.play(-1)

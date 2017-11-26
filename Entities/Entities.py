@@ -297,6 +297,7 @@ class Boss(pg.sprite.Sprite):
         self.pos = vec(x, y)
         self.vel = vec(0, 0)
         self.acc = vec(0, 0)
+        self.vida = BOOS_VIDA
         self.movimiento = True
 
     def load_images(self):
@@ -364,6 +365,9 @@ class Boss(pg.sprite.Sprite):
                 self.rect = self.image.get_rect()
                 self.rect.bottom = bottom
 
+    def disminuirVida(self):
+        self.vida -= 1
+        return self.vida
 
 class Platform(pg.sprite.Sprite):
     def __init__(self, esce, x, y, w, h):
