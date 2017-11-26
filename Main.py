@@ -170,6 +170,8 @@ def seleccionarModo(mx, my):
         return 2
     elif 164 <= mx <= 262 and 275 <= my <= 537:
         return 0
+    elif 323 <= mx <= 460 and 500 <= my <= 550:
+        return 4
     else:
         return 0
 
