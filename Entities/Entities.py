@@ -363,10 +363,11 @@ class Boss(pg.sprite.Sprite):
                 self.rect = self.image.get_rect()
                 self.rect.bottom = bottom
 
+
 class Platform(pg.sprite.Sprite):
-    def __init__(self, x, y, w, h):
+    def __init__(self, esce, x, y, w, h):
         pg.sprite.Sprite.__init__(self)
-        self.image = pg.image.load("assets/images/terrenos/plataforma1.png").convert()
+        self.image = pg.image.load("assets/images/terrenos/" + esce).convert()
         self.image = pg.transform.scale(self.image, (w, h))
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -415,13 +416,42 @@ class Checkpoint(pg.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
+    """def update(self):
+        self.animate()
+    
+    def animate(self):
+        now = pg.time.get_ticks()
+        # show walk animation
+        if self.walking:
+            if now - self.last_update > 200:
+                self.last_update = now
+                self.current_frame = (self.current_frame + 1) % \
+                                     len(self.walk_frames_l)
+                bottom = self.rect.bottom
+                if self.vel.x > 0:
+                    self.image = self.walk_frames_r[self.current_frame]
+                else:
+                    self.image = self.walk_frames_l[self.current_frame]
+
+                self.rect = self.image.get_rect()
+                self.rect.bottom = bottom
+
+        # show idle animation
+        if not self.walking:
+            if now - self.last_update > 200:
+                self.last_update = now
+                self.current_frame = (self.current_frame + 1) % len(self.standing_frames)
+                bottom = self.rect.bottom
+                self.image = self.standing_frames[self.current_frame]
+                self.rect = self.image.get_rect()
+                self.rect.bottom = bottom"""
+
 
 class Rocon(pg.sprite.Sprite):
     def __init__(self, x, y):
         pg.sprite.Sprite.__init__(self)
         self.image = pg.image.load("assets/images/obstaculos/rocon.png").convert()
-        self.image = pg.transform.scale(self.image, (50, 80))
-        #self.image.set_colorkey(WHITE)
+        self.image = pg.transform.scale(self.image, (50, 200))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
