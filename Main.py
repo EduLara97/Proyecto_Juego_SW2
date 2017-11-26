@@ -158,15 +158,16 @@ def seleccionarModo(mx, my):
 
 
 def seleccionarEscenario(mx, my, escenario):
+    print(str(mx) + " : " + str(my))
     id_escenario = 0
     for escena in escenario:
-        if 211 <= mx <= 292 and 202 <= my <= 344 and escena == "MOC":
+        if 108 <= mx <= 313 and 219 <= my <= 321 and escena == "MOC":
             id_escenario = 1
-        elif 512 <= mx <= 615 and 202 <= my <= 344 and escena == "PAR":
-            id_escenario = 2
-        elif 211 <= mx <= 292 and 413 <= my <= 546and escena == "TIA":
+        elif 478 <= mx <= 695 and 219 <= my <= 324 and escena == "TIA":
             id_escenario = 3
-        elif 512 <= mx <= 615 and 413 <= my <= 546 and escena == "WAR":
+        elif 108 <= mx <= 313 and 397 <= my <= 505 and escena == "PAR":
+            id_escenario = 2
+        elif 478 <= mx <= 695 and 401 <= my <= 502 and escena == "WAR":
             id_escenario = 4
     return id_escenario
 
@@ -177,10 +178,10 @@ def seleccionarPersonaje(mx, my, persons):
         print(personaje)
         if 211 <= mx <= 292 and 202 <= my <= 344 and personaje == "inmoc":
             id_personaje = 1
-        elif 512 <= mx <= 615 and 202 <= my <= 344 and personaje == "inpar":
-            id_personaje = 2
-        elif 211 <= mx <= 292 and 413 <= my <= 546and personaje == "intia":
+        elif 512 <= mx <= 615 and 202 <= my <= 344 and personaje == "intia":
             id_personaje = 3
+        elif 211 <= mx <= 292 and 413 <= my <= 546 and personaje == "inpar":
+            id_personaje = 2
         elif 512 <= mx <= 615 and 413 <= my <= 546 and personaje == "inwar":
             id_personaje = 4
     return id_personaje
@@ -228,7 +229,7 @@ def pantalla_info():
         reloj.tick(5)
 
 
-def intro_modo(intro):
+def intro_modo(intro, modo_juego):
     i2, i3, i4 = 0, 0, 0
     while intro:
         mx, my = pg.mouse.get_pos()
@@ -241,19 +242,32 @@ def intro_modo(intro):
                 modo = seleccionarModo(mx, my)
                 if modo > 0: return modo
         screen.blit(bg_intro, (0, 0))
-        screen.blit(mode_arcade, (70, 250))
-        screen.blit(mode_single, (450, 250))
-        if 483 <= mx <= 659 and 275 <= my <= 537:
-            screen.blit(sprites_mode_sigle_sheet[i3], (440, 80))
-            i3 = (i3 + 1) % 4
-            screen.blit(title_arcade, (70, 80))
-        elif 164 <= mx <= 262 and 275 <= my <= 537:
-            screen.blit(sprites_mode_arcade_sheet[i4], (70, 80))
-            i4 = (i4 + 1) % 4
-            screen.blit(title_single, (440, 80))
-        else:
-            screen.blit(title_single, (440, 80))
-            screen.blit(title_arcade, (70, 80))
+
+        for mod in modo_juego:
+            if mod == "single":
+                screen.blit(mode_single, (450, 250))
+            if mod == "arcade":
+                screen.blit(mode_arcade, (70, 250))
+        for mod in modo_juego:
+            if 483 <= mx <= 659 and 275 <= my <= 537 and mod == "single":
+                screen.blit(sprites_mode_sigle_sheet[i3], (440, 80))
+                i3 = (i3 + 1) % 4
+                if len(modo_juego) > 1:
+                    screen.blit(title_arcade, (70, 80))
+                break
+            elif 164 <= mx <= 262 and 275 <= my <= 537 and mod == "arcade":
+                screen.blit(sprites_mode_arcade_sheet[i4], (70, 80))
+                i4 = (i4 + 1) % 4
+                if len(modo_juego) > 1:
+                    screen.blit(title_single, (440, 80))
+                break
+            else:
+                if mod == "single":
+                    screen.blit(title_single, (440, 80))
+                elif mod == "arcade":
+                    screen.blit(title_arcade, (70, 80))
+
+
         screen.blit(sprites_image_sheet[i2], (300, -30))
         i2 = (i2 + 1) % 2
         message_to_screen("Escoger un modo de juego", BLACK, -160, "pequena")
@@ -308,9 +322,9 @@ def intro_personaje(intro, persons):
             if personaje == "inmoc":
                 screen.blit(perso_moche, (180, 200))
             elif personaje == "inpar":
-                screen.blit(perso_paracas, (490, 200))
+                screen.blit(perso_paracas, (180, 400))
             elif personaje == "intia":
-                screen.blit(perso_tiahua, (180, 400))
+                screen.blit(perso_tiahua, (490, 200))
             elif personaje == "inwar":
                 screen.blit(perso_wari, (490, 400))
 
@@ -339,9 +353,9 @@ def intro_final(intro):
         reloj.tick(5)
 
 
-def into_juego(escenario, persons):
+def into_juego(modo_juego, escenario, persons):
     intro = True
-    modo = intro_modo(intro)
+    modo = intro_modo(intro, modo_juego)
     escenario = intro_escenario(intro, escenario)
     personaje = intro_personaje(intro, persons)
     intro_final(intro)
@@ -757,5 +771,5 @@ if __name__ == "__main__":
         print(musica)
 
     while True:
-        ese, perso = into_juego(escenario, personajes)
+        ese, perso = into_juego(modo_juego, escenario, personajes)
         main(ese, perso)
