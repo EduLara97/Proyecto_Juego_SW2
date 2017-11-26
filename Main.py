@@ -157,31 +157,33 @@ def seleccionarModo(mx, my):
         return 0
 
 
-def seleccionarEscenario(mx, my):
-    if 110 <= mx <= 310 and 219 <= my <= 322:
-        return 1
-    elif 489 <= mx <= 690 and 219 <= my <= 322:
-        return 2
-    elif 110 <= mx <= 310 and 399 <= my <= 500:
-        return 3
-    elif 489 <= mx <= 690 and 399 <= my <= 500:
-        return 4
-    else:
-        return 0
+def seleccionarEscenario(mx, my, escenario):
+    id_escenario = 0
+    for escena in escenario:
+        if 211 <= mx <= 292 and 202 <= my <= 344 and escena == "MOC":
+            id_escenario = 1
+        elif 512 <= mx <= 615 and 202 <= my <= 344 and escena == "PAR":
+            id_escenario = 2
+        elif 211 <= mx <= 292 and 413 <= my <= 546and escena == "TIA":
+            id_escenario = 3
+        elif 512 <= mx <= 615 and 413 <= my <= 546 and escena == "WAR":
+            id_escenario = 4
+    return id_escenario
 
 
 def seleccionarPersonaje(mx, my, persons):
+    id_personaje = 0
     for personaje in persons:
+        print(personaje)
         if 211 <= mx <= 292 and 202 <= my <= 344 and personaje == "inmoc":
-            return 1
+            id_personaje = 1
         elif 512 <= mx <= 615 and 202 <= my <= 344 and personaje == "inpar":
-            return 2
-        elif 211 <= mx <= 292 and 413 <= my <= 546 and personaje == "intia":
-            return 3
+            id_personaje = 2
+        elif 211 <= mx <= 292 and 413 <= my <= 546and personaje == "intia":
+            id_personaje = 3
         elif 512 <= mx <= 615 and 413 <= my <= 546 and personaje == "inwar":
-            return 4
-        else:
-            return 0
+            id_personaje = 4
+    return id_personaje
 
 
 
@@ -259,7 +261,7 @@ def intro_modo(intro):
         reloj.tick(5)
 
 
-def intro_escenario(intro):
+def intro_escenario(intro, escenarios):
     i2 = 0
     while intro:
         for event in pg.event.get():
@@ -268,14 +270,20 @@ def intro_escenario(intro):
                 quit()
             if event.type == pg.MOUSEBUTTONDOWN:
                 mx, my = pg.mouse.get_pos()
-                escenario = seleccionarEscenario(mx, my)
+                escenario = seleccionarEscenario(mx, my, escenarios)
                 if escenario > 0: return escenario
 
         screen.blit(bg_intro, (0, 0))
-        screen.blit(escenario_moche, (110, 220))
-        screen.blit(escenario_tiahua, (490, 220))
-        screen.blit(escenario_paracas, (110, 400))
-        screen.blit(escenario_wari, (490, 400))
+        for escena in escenarios:
+            if escena == "MOC":
+                screen.blit(escenario_moche, (110, 220))
+            elif escena == "PAR":
+                screen.blit(escenario_paracas, (110, 400))
+            elif escena == "TIA":
+                screen.blit(escenario_tiahua, (490, 220))
+            elif escena == "WAR":
+                screen.blit(escenario_wari, (490, 400))
+
         screen.blit(sprites_image_sheet[i2], (300, -30))
         i2 = (i2 + 1) % 2
         message_to_screen("Escoger un escenario", BLACK, -160, "pequena")
@@ -331,10 +339,10 @@ def intro_final(intro):
         reloj.tick(5)
 
 
-def into_juego(persons):
+def into_juego(escenario, persons):
     intro = True
     modo = intro_modo(intro)
-    escenario = intro_escenario(intro)
+    escenario = intro_escenario(intro, escenario)
     personaje = intro_personaje(intro, persons)
     intro_final(intro)
     perso = personaje - 1
@@ -749,5 +757,5 @@ if __name__ == "__main__":
         print(musica)
 
     while True:
-        ese, perso = into_juego(personajes)
+        ese, perso = into_juego(escenario, personajes)
         main(ese, perso)
