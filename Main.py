@@ -90,7 +90,15 @@ sprites_mode_arcade_sheet = []
 for i in range(int(width_mode_arcade_sheet / 200)):
     sprites_mode_arcade_sheet \
         .append(pg.transform.scale(mode_arcade_sheet.subsurface(i * 200, 0, 200, 200), (300, 300)))
-
+        
+# el sprite sheet de las imagenes del modo arcade se pasan a un array de imagenes, donde
+# se contiene cada una de las secciones que conformaban el sprite sheet
+mode_ranking_sheet = pg.image.load("assets/images/intro/ranking.png").convert_alpha()
+width_mode_ranking_sheet = mode_ranking_sheet.get_width()
+sprites_mode_ranking_sheet = []
+for i in range(int(width_mode_ranking_sheet / 200)):
+    sprites_mode_ranking_sheet \
+        .append(pg.transform.scale(mode_ranking_sheet.subsurface(i * 200, 0, 200, 200), (300, 300)))       
 
 # En esta sección se realiza la carga de los escenarios que podran estar incluidos en el juego,
 # estas son imagenes unicas (no sprite sheets), ya que solo van a ir en la intro del modo soigle
