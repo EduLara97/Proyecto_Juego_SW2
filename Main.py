@@ -69,6 +69,9 @@ title_arcade = pg.image.load("assets/images/intro/title_arcade.gif").convert()
 title_arcade = pg.transform.scale(title_arcade, (300, 300))
 title_single = pg.image.load("assets/images/intro/title_single.gif").convert()
 title_single = pg.transform.scale(title_single, (300, 300))
+title_ranking = pg.image.load("assets/images/intro/ranking.gif").convert()
+title_ranking = pg.transform.scale(title_ranking, (300, 300))
+
 
 # el sprite sheet de las imagenes del modo single se pasan a un array de imagenes, donde
 # se contiene cada una de las secciones que conformaban el sprite sheet
