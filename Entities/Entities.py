@@ -32,7 +32,8 @@ class Player(pg.sprite.Sprite):
         self.image = self.standing_frames[0]
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH / 2, HEIGHT / 2)
-        self.vida = VIDA_PERSONAJE
+        self.propiedades = Propiedades.get_instance()
+        self.vida = self.propiedades.vida_personaje
         self.pos = vec(x, y)
         self.vel = vec(0, 0)
         self.acc = vec(0, 0)
@@ -69,9 +70,9 @@ class Player(pg.sprite.Sprite):
         self.acc = vec(0, PLAYER_GRAV)
         keys = pg.key.get_pressed()
         if keys[pg.K_LEFT]:
-            self.acc.x = -PLAYER_ACC
+            self.acc.x = - self.propiedades.player_acc
         if keys[pg.K_RIGHT]:
-            self.acc.x = PLAYER_ACC
+            self.acc.x = self.propiedades.player_acc
 
         # APPLY FRICTION
         self.acc.x += self.vel.x * PLAYER_FRICTION

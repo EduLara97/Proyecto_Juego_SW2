@@ -574,11 +574,11 @@ class Game:
         if hit_roca:
             if self.player.vel.x > 0:
                 if self.player.rect.right >= hit_roca[0].rect.left:
-                    print("CHOCA DERECHA")
+                    #print("CHOCA DERECHA")
                     self.player.pos.x -= abs(self.player.vel.x)
             elif self.player.vel.x < 0:
                 if self.player.rect.left <= hit_roca[0].rect.right:
-                    print("CHOCA IZQUIERDA")
+                    #print("CHOCA IZQUIERDA")
                     self.player.pos.x += abs(self.player.vel.x)
 
         hits_coin = pg.sprite.spritecollide(self.player, self.coins, False)
@@ -771,5 +771,7 @@ if __name__ == "__main__":
         print(musica)
 
     while True:
+        propiedades = Propiedades.get_instance()
+        propiedades.propiedades_personaje(life, speed_player)
         ese, perso = into_juego(modo_juego, escenario, personajes)
         main(ese, perso)

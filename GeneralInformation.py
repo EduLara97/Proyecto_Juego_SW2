@@ -66,12 +66,45 @@ LEVELS = [[
         "PPPPP     PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP                       PPPPPP             PPPPPPPPPPPPPP       PPPPPPPPPPPP"]]
 
 # Player properties
+
 PLAYER_ACC = 0.5
 PLAYER_FRICTION = -0.12
 PLAYER_GRAV = 0.8
 PLAYER_JUMP = 15
 VIDA_PERSONAJE = 5
 
+
+class Propiedades:
+        instancia = None
+
+
+        @classmethod
+        def get_instance(cls):
+                if cls.instancia == None:
+                        cls.instancia = Propiedades()
+                return cls.instancia
+
+
+        def __init__(self):
+                self.player_acc = 1
+                self.player_friction = -0.12
+                self.player_grav = 0.8
+                self.player_jump = 15
+                self.vida_personaje = 5
+
+
+        def propiedades_personaje(self, vida, velocidad):
+                self.vida_personaje = vida
+                if velocidad == 1:
+                        self.player_acc = 0.5
+                elif velocidad == 2:
+                        self.player_acc = 0.55
+                elif velocidad == 3:
+                        self.player_acc == 0.6
+                elif velocidad == 4:
+                        self.player_acc == 0.65
+                elif velocidad == 5:
+                        self.player_acc == 0.7
 # Coins properties
 COINS_PROP = (30, 30)
 
