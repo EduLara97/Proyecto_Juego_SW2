@@ -249,6 +249,7 @@ def intro_modo(intro, modo_juego):
         screen.blit(bg_intro, (0, 0))
 
         for mod in modo_juego:
+            print(mod)
             if mod == "single":
                 screen.blit(mode_single, (450, 250))
             if mod == "arcade":
@@ -386,6 +387,14 @@ def gameOver(score):
             "Presiona C para volver a jugar", BLACK, 25, "pequena")
         pg.display.update()
         reloj.tick(5)
+
+
+def transformarApiToArray(str):
+    str1 = str.replace("[", "")
+    str2 = str1.replace("]", "")
+    str3 = str2.replace("'", "")
+    str4 = str3.split(",")
+    return str4
 
 
 class Game:
@@ -795,5 +804,7 @@ if __name__ == "__main__":
     while True:
         propiedades = Propiedades.get_instance()
         propiedades.propiedades_personaje(life, speed_player)
-        ese, perso = into_juego(modo_juego, escenario, personajes)
+        ese, perso = into_juego(transformarApiToArray(modo_juego),
+                                transformarApiToArray(escenario),
+                                transformarApiToArray(personajes))
         main(ese, perso)
