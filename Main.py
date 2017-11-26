@@ -248,7 +248,7 @@ def pantalla_info():
 
 
 def intro_modo(intro, modo_juego):
-    i2, i3, i4 = 0, 0, 0
+    i2, i3, i4, i5 = 0, 0, 0, 0
     while intro:
         mx, my = pg.mouse.get_pos()
         for event in pg.event.get():
@@ -280,6 +280,9 @@ def intro_modo(intro, modo_juego):
                 if len(modo_juego) > 1:
                     screen.blit(title_single, (440, 80))
                 break
+            elif 323 <= mx <= 460 and 540 <= my <= 600:
+                screen.blit(sprites_mode_ranking_sheet[i5], (260, 400))
+                i5 = (i5 + 1) % 4
             else:
                 if mod == "single":
                     screen.blit(title_single, (440, 80))
@@ -292,7 +295,23 @@ def intro_modo(intro, modo_juego):
         message_to_screen("Escoger un modo de juego", BLACK, -160, "pequena")
         pg.display.update()
         reloj.tick(5)
-
+        
+def intro_ranking(intro):
+    while intro:
+        i2 = 0
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                quit()
+        screen.blit(bg_intro, (0, 0))
+        message_to_screen("TOP 10", BLACK, -160, "pequena")
+        message_to_screen("Jugador    Puntaje", BLACK, -60, "pequena")
+        #cursor.execute("SELECT * FROM ranking ORDER BY puntos DESC LIMIT 10")
+        for row in cursor:
+            message_to_screen(str(row[1:]), BLACK, -20+i2, "pequena")
+            i2 = i2+25
+        pg.display.update()
+        reloj.tick(5)
 
 def intro_escenario(intro, escenarios):
     i2 = 0
@@ -375,6 +394,7 @@ def intro_final(intro):
 def into_juego(modo_juego, escenario, persons):
     intro = True
     modo = intro_modo(intro, modo_juego)
+    ranking= intro_ranking(intro)
     escenario = intro_escenario(intro, escenario)
     personaje = intro_personaje(intro, persons)
     intro_final(intro)
