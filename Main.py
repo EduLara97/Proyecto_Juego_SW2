@@ -4,7 +4,6 @@ from pygame import *
 from Entities.Entities import *
 from GeneralInformation import *
 import random
-import requests
 from os import *
 
 game_folder = path.dirname(__file__)
@@ -64,13 +63,6 @@ title_arcade = pg.transform.scale(title_arcade, (300, 300))
 title_single = pg.image.load("assets/images/intro/title_single.gif").convert()
 title_single = pg.transform.scale(title_single, (300, 300))
 
-# llama_checkpoint_sheet = pg.image.load("assets/images/objetos/llama_checkpoint.png").convert_alpha()
-# height_llama_checkpoint_sheet = llama_checkpoint_sheet.get_height()
-# sprites_llama_checkpoint_sheet = []
-# for i in range(int(height_llama_checkpoint_sheet / 38)):
-#     sprites_llama_checkpoint_sheet\
-#         .append(pg.transform.scale(llama_checkpoint_sheet.subsurface(0, i * 38, 48, 38), (60, 80)))
-
 mode_single_sheet = pg.image.load("assets/images/intro/mode_single_sheet.png").convert_alpha()
 width_mode_single_sheet = mode_single_sheet.get_width()
 sprites_mode_sigle_sheet = []
@@ -111,7 +103,6 @@ perso_tiahua = pg.image.load("assets/images/intro/perso_tiahua.gif").convert()
 perso_tiahua = pg.transform.scale(perso_tiahua, (anchPer, altPer))
 perso_wari = pg.image.load("assets/images/intro/perso_wari.png").convert()
 perso_wari = pg.transform.scale(perso_wari, (anchPer, altPer))
-perso_wari.set_colorkey(WHITE)
 
 """---------------------------------------------------------------"""
 """---------------------------------------------------------------"""
@@ -121,10 +112,6 @@ lista_perso = ["inca_mochica.png",
                "inca_paracas.png",
                "inca_tiahuanaco.png",
                "inca_wari.png"]
-lista_plataformas =["plataforma_mochica.png",
-                    "plataforma_paracas.png",
-                    "plataforma_tiahuanaco.png",
-                    "plataforma_chavin.png"]
 
 lista_escenarios = [bg_moche,
                     bg_paracas,
@@ -157,35 +144,30 @@ def seleccionarModo(mx, my):
         return 0
 
 
-def seleccionarEscenario(mx, my, escenario):
-    print(str(mx) + " : " + str(my))
-    id_escenario = 0
-    for escena in escenario:
-        if 108 <= mx <= 313 and 219 <= my <= 321 and escena == "MOC":
-            id_escenario = 1
-        elif 478 <= mx <= 695 and 219 <= my <= 324 and escena == "TIA":
-            id_escenario = 3
-        elif 108 <= mx <= 313 and 397 <= my <= 505 and escena == "PAR":
-            id_escenario = 2
-        elif 478 <= mx <= 695 and 401 <= my <= 502 and escena == "WAR":
-            id_escenario = 4
-    return id_escenario
+def seleccionarEscenario(mx, my):
+    if 110 <= mx <= 310 and 219 <= my <= 322:
+        return 1
+    elif 489 <= mx <= 690 and 219 <= my <= 322:
+        return 2
+    elif 110 <= mx <= 310 and 399 <= my <= 500:
+        return 3
+    elif 489 <= mx <= 690 and 399 <= my <= 500:
+        return 4
+    else:
+        return 0
 
 
-def seleccionarPersonaje(mx, my, persons):
-    id_personaje = 0
-    for personaje in persons:
-        print(personaje)
-        if 211 <= mx <= 292 and 202 <= my <= 344 and personaje == "inmoc":
-            id_personaje = 1
-        elif 512 <= mx <= 615 and 202 <= my <= 344 and personaje == "intia":
-            id_personaje = 3
-        elif 211 <= mx <= 292 and 413 <= my <= 546 and personaje == "inpar":
-            id_personaje = 2
-        elif 512 <= mx <= 615 and 413 <= my <= 546 and personaje == "inwar":
-            id_personaje = 4
-    return id_personaje
-
+def seleccionarPersonaje(mx, my):
+    if 211 <= mx <= 292 and 202 <= my <= 344:
+        return 1
+    elif 512 <= mx <= 615 and 202 <= my <= 344:
+        return 2
+    elif 211 <= mx <= 292 and 413 <= my <= 546:
+        return 3
+    elif 512 <= mx <= 615 and 413 <= my <= 546:
+        return 4
+    else:
+        return 0
 
 
 def pausa():
@@ -229,7 +211,7 @@ def pantalla_info():
         reloj.tick(5)
 
 
-def intro_modo(intro, modo_juego):
+def intro_modo(intro):
     i2, i3, i4 = 0, 0, 0
     while intro:
         mx, my = pg.mouse.get_pos()
@@ -242,32 +224,19 @@ def intro_modo(intro, modo_juego):
                 modo = seleccionarModo(mx, my)
                 if modo > 0: return modo
         screen.blit(bg_intro, (0, 0))
-
-        for mod in modo_juego:
-            if mod == "single":
-                screen.blit(mode_single, (450, 250))
-            if mod == "arcade":
-                screen.blit(mode_arcade, (70, 250))
-        for mod in modo_juego:
-            if 483 <= mx <= 659 and 275 <= my <= 537 and mod == "single":
-                screen.blit(sprites_mode_sigle_sheet[i3], (440, 80))
-                i3 = (i3 + 1) % 4
-                if len(modo_juego) > 1:
-                    screen.blit(title_arcade, (70, 80))
-                break
-            elif 164 <= mx <= 262 and 275 <= my <= 537 and mod == "arcade":
-                screen.blit(sprites_mode_arcade_sheet[i4], (70, 80))
-                i4 = (i4 + 1) % 4
-                if len(modo_juego) > 1:
-                    screen.blit(title_single, (440, 80))
-                break
-            else:
-                if mod == "single":
-                    screen.blit(title_single, (440, 80))
-                elif mod == "arcade":
-                    screen.blit(title_arcade, (70, 80))
-
-
+        screen.blit(mode_arcade, (70, 250))
+        screen.blit(mode_single, (450, 250))
+        if 483 <= mx <= 659 and 275 <= my <= 537:
+            screen.blit(sprites_mode_sigle_sheet[i3], (440, 80))
+            i3 = (i3 + 1) % 4
+            screen.blit(title_arcade, (70, 80))
+        elif 164 <= mx <= 262 and 275 <= my <= 537:
+            screen.blit(sprites_mode_arcade_sheet[i4], (70, 80))
+            i4 = (i4 + 1) % 4
+            screen.blit(title_single, (440, 80))
+        else:
+            screen.blit(title_single, (440, 80))
+            screen.blit(title_arcade, (70, 80))
         screen.blit(sprites_image_sheet[i2], (300, -30))
         i2 = (i2 + 1) % 2
         message_to_screen("Escoger un modo de juego", BLACK, -160, "pequena")
@@ -275,7 +244,7 @@ def intro_modo(intro, modo_juego):
         reloj.tick(5)
 
 
-def intro_escenario(intro, escenarios):
+def intro_escenario(intro):
     i2 = 0
     while intro:
         for event in pg.event.get():
@@ -284,20 +253,14 @@ def intro_escenario(intro, escenarios):
                 quit()
             if event.type == pg.MOUSEBUTTONDOWN:
                 mx, my = pg.mouse.get_pos()
-                escenario = seleccionarEscenario(mx, my, escenarios)
+                escenario = seleccionarEscenario(mx, my)
                 if escenario > 0: return escenario
 
         screen.blit(bg_intro, (0, 0))
-        for escena in escenarios:
-            if escena == "MOC":
-                screen.blit(escenario_moche, (110, 220))
-            elif escena == "PAR":
-                screen.blit(escenario_paracas, (110, 400))
-            elif escena == "TIA":
-                screen.blit(escenario_tiahua, (490, 220))
-            elif escena == "WAR":
-                screen.blit(escenario_wari, (490, 400))
-
+        screen.blit(escenario_moche, (110, 220))
+        screen.blit(escenario_tiahua, (490, 220))
+        screen.blit(escenario_paracas, (110, 400))
+        screen.blit(escenario_wari, (490, 400))
         screen.blit(sprites_image_sheet[i2], (300, -30))
         i2 = (i2 + 1) % 2
         message_to_screen("Escoger un escenario", BLACK, -160, "pequena")
@@ -305,7 +268,7 @@ def intro_escenario(intro, escenarios):
         reloj.tick(5)
 
 
-def intro_personaje(intro, persons):
+def intro_personaje(intro):
     i2 = 0
     while intro:
         for event in pg.event.get():
@@ -314,20 +277,14 @@ def intro_personaje(intro, persons):
                 quit()
             if event.type == pg.MOUSEBUTTONDOWN:
                 mx, my = pg.mouse.get_pos()
-                personaje = seleccionarPersonaje(mx, my, persons)
+                personaje = seleccionarPersonaje(mx, my)
                 if personaje > 0: return personaje
 
         screen.blit(bg_intro, (0, 0))
-        for personaje in persons:
-            if personaje == "inmoc":
-                screen.blit(perso_moche, (180, 200))
-            elif personaje == "inpar":
-                screen.blit(perso_paracas, (180, 400))
-            elif personaje == "intia":
-                screen.blit(perso_tiahua, (490, 200))
-            elif personaje == "inwar":
-                screen.blit(perso_wari, (490, 400))
-
+        screen.blit(perso_moche, (180, 200))
+        screen.blit(perso_paracas, (490, 200))
+        screen.blit(perso_tiahua, (180, 400))
+        screen.blit(perso_wari, (490, 400))
         screen.blit(sprites_image_sheet[i2], (300, -30))
         i2 = (i2 + 1) % 2
         message_to_screen("Elegir un personaje", BLACK, -160, "pequena")
@@ -353,14 +310,14 @@ def intro_final(intro):
         reloj.tick(5)
 
 
-def into_juego(modo_juego, escenario, persons):
+def into_juego():
     intro = True
-    modo = intro_modo(intro, modo_juego)
-    escenario = intro_escenario(intro, escenario)
-    personaje = intro_personaje(intro, persons)
+    modo = intro_modo(intro)
+    escenario = intro_escenario(intro)
+    personaje = intro_personaje(intro)
     intro_final(intro)
     perso = personaje - 1
-    esce = escenario - 1
+    esce = lista_escenarios[escenario - 1]
     return esce, perso
 
 
@@ -375,7 +332,7 @@ def gameOver(score):
                 if event.key == pg.K_c:
                     intro = False
         screen.blit(bg_intro, (0, 0))
-        message_to_screen("VICTORIA", ORANGE, -100, "mediano")
+        message_to_screen("GAME OVER", ORANGE, -100, "mediano")
         message_to_screen("Score: " + str(score), BLACK, -60, "pequena")
         message_to_screen(
             "Presiona C para volver a jugar", BLACK, 25, "pequena")
@@ -395,13 +352,11 @@ class Game:
         self.checkpoints = pg.sprite.Group()
         self.rocones = pg.sprite.Group()
         self.soldados = pg.sprite.Group()
-        self.bosses = pg.sprite.Group()
         self.score = 0
         self.escenario = escena
         self.show_cartel = True
         self.posCheckpoint = (0, 0)
         self.confirmCheckpoint = False
-        self.llama_pibot = 0
         pg.init()
         pg.mixer.init()
         self.screen = pg.display.set_mode(SIZE)
@@ -415,7 +370,7 @@ class Game:
         self.sprites_serpientes = Spritesheet(path.join(self.img_dir_enemigos, "serpiente.png"))
         self.sprites_soldado = Spritesheet(path.join(self.img_dir_enemigos, "espanol_normal.png"))
         self.sprites_boss = Spritesheet(path.join(self.img_dir_enemigos, "espanol_boss.png"))
-        self.level = LEVELS[escena]
+        self.level = LEVEL_PRUEBA
         self.load_data()
 
     def load_data(self):
@@ -471,8 +426,8 @@ class Game:
                 self.player.vel.x = -15
                 self.player.vel.y = -12
                 vida = self.player.disminuirVida(SERPIENTE_FUERZA)
+                print(vida)
                 if vida <= 0:
-                    self.player.vida = 0
                     self.kill_all()
                     self.playing = False
 
@@ -517,7 +472,7 @@ class Game:
             if hits_saltar_soldado:
                 if self.player.rect.bottom >= hits_saltar_soldado[0].rect.top:
                     hits_saltar_soldado[0].kill()
-                    self.score += 20
+                    self.score += 40
 
         hits_soldado = pg.sprite.spritecollide(self.player, self.soldados, False)
         if hits_soldado:
@@ -526,8 +481,8 @@ class Game:
                 self.player.vel.x = -15
                 self.player.vel.y = -12
                 vida = self.player.disminuirVida(SOLDADO_FUERZA)
+                print(vida)
                 if vida <= 0:
-                    self.player.vida = 0
                     self.kill_all()
                     self.playing = False
 
@@ -547,39 +502,15 @@ class Game:
                 self.boss.vel.x = 5
             self.boss.cambiarMovimiento()
 
-        hits_saltar_boss = pg.sprite.spritecollide(self.player, self.bosses, False)
-        if self.player.vel.y > 0:
-            if hits_saltar_boss:
-                if self.player.rect.bottom >= hits_saltar_boss[0].rect.top:
-                    hits_saltar_boss[0].kill()
-                    self.score += 40
-                    gameOver(self.score)
-                    self.playing = False
-                    self.running = False
-
-        hits_boss = pg.sprite.spritecollide(self.player, self.bosses, False)
-        if hits_boss:
-            if self.player.vel.x >= 0 \
-                    and self.player.rect.right >= hits_boss[0].rect.left:
-                self.player.vel.x = -15
-                self.player.vel.y = -12
-                vida = self.player.disminuirVida(BOSS_FUERZA)
-                if vida <= 0:
-                    self.player.vida = 0
-                    self.kill_all()
-                    self.playing = False
-
         # Cuando choque de costado con el personaje pasara esto
-        hit_roca = pg.sprite.spritecollide(self.player, self.rocones, False)
-        if hit_roca:
-            if self.player.vel.x > 0:
-                if self.player.rect.right >= hit_roca[0].rect.left:
-                    print("CHOCA DERECHA")
-                    self.player.pos.x -= abs(self.player.vel.x)
-            elif self.player.vel.x < 0:
-                if self.player.rect.left <= hit_roca[0].rect.right:
-                    print("CHOCA IZQUIERDA")
-                    self.player.pos.x += abs(self.player.vel.x)
+        """hit_personaje = pg.sprite.spritecollide(self.player, self.serpientes, False)
+        if hit_personaje:
+            for serp in self.serpientes:
+                if self.player.rect.right >= self.serpiente.rect.left:
+                    self.serpiente.pos.x += abs(self.serpiente.vel.x)
+                elif self.player.rect.left <= self.serpiente.rect.right:
+                    self.serpiente.pos.x -= abs(self.serpiente.vel.x)
+                serp.cambiarMovimiento()"""
 
         hits_coin = pg.sprite.spritecollide(self.player, self.coins, False)
         if hits_coin:
@@ -621,7 +552,6 @@ class Game:
                 if self.playing:
                     self.playing = False
                 self.running = False
-                pg.quit()
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_SPACE:
                     self.player.jump()
@@ -633,18 +563,11 @@ class Game:
 
     def draw(self):
         # Game Loop - draw
-        self.screen.blit(lista_escenarios[self.escenario], (0, 0))
+        self.screen.blit(self.escenario, (0, 0))
         for sprite in self.all_sprites:
             self.screen.blit(sprite.image, self.camera.apply(sprite))
-        """if self.confirmCheckpoint:
-            for llama in self.checkpoints:
-                print(str(llama.rect.x) + " : " + str(llama.rect.y))
-                self.screen.blit(sprites_llama_checkpoint_sheet[self.llama_pibot], self.camera.apply(llama))
-                self.llama_pibot = (self.llama_pibot + 1) % 6"""
-
-
         self.draw_text(str(self.score), 22, BLACK, WIDTH / 2, 15)
-        self.draw_text("Corazones: " + str(self.player.vida), 22, BLACK, 200, 15)
+        self.draw_text("Vidas: " + str(self.player.vida), 22, BLACK, 200, 15)
         pg.display.flip()
 
     def show_start_screen(self):
@@ -674,9 +597,10 @@ class Game:
         text_rect = text_surface.get_rect()
         text_rect.midtop = (x, y)
         self.screen.blit(text_surface, text_rect)
+
     def construir(self, x, y, col):
         if col == "P":
-            p = Platform( lista_plataformas[self.escenario], x, y, 50, 50)
+            p = Platform(x, y, 50, 50)
             self.platforms.add(p)
             self.all_sprites.add(p)
         elif col == "F":
@@ -712,7 +636,6 @@ class Game:
             self.all_sprites.add(c)
         elif col == "B":
             self.boss = Boss(self, x, y)
-            self.bosses.add(self.boss)
             self.all_sprites.add(self.boss)
 
     def kill_all(self):
@@ -734,42 +657,16 @@ class Game:
         self.player.kill()
 
 
-
 def main(escena, perso):
     g = Game(escena, perso)
+    # g.show_start_screen()
     pg.mixer.music.load("assets/audio/bg_opcion2.wav")
     pg.mixer.music.set_volume(0.5)
     pg.mixer.music.play(-1)
     while g.running:
         g.new()
-    pg.mixer.quit()
+    pg.quit()
 
 if __name__ == "__main__":
-    url = "http://runinkarun.herokuapp.com/api"
-    response = requests.get(url)
-
-    if response.status_code == 200:
-        results = response.json()[len(response.json())-1]
-        print(results)
-        escenario = results['escenario']
-        personajes = results['personaje']
-        modo_juego = results['modo_juego']
-        dificultad = results['dificultad']
-        intro_background = results['intro_background']
-        speed_player = results['speed_player']
-        life = results['life']
-        game_time = results['game_time']
-        musica = results['musica']
-        print(escenario)
-        print(personajes)
-        print(modo_juego)
-        print(dificultad)
-        print(intro_background)
-        print(speed_player)
-        print(life)
-        print(game_time)
-        print(musica)
-
-    while True:
-        ese, perso = into_juego(modo_juego, escenario, personajes)
-        main(ese, perso)
+    ese, perso = into_juego()
+    main(ese, perso)
