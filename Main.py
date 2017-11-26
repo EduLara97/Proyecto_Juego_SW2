@@ -28,21 +28,20 @@ pequenafont = pg.font.SysFont("comicsansms", 25)
 medianofont = pg.font.SysFont("comicsansms", 50)
 largofont = pg.font.SysFont("comicsansms", 80)
 
-"""---------------------------------------------------------------"""
-"""------------------INTRO GENERAL IMG----------------------------"""
-"""---------------------------------------------------------------"""
+# Se realiza la carga del fondo (background) que tendran todas las pantallas de la intro
 bg_intro = pg.image.load("assets/images/intro/escenario_fondo_v2.jpg").convert()
 bg_intro = pg.transform.scale(bg_intro, SIZE)
 
+# Se realiza la carga del titulo del juego, para la animación de este, se tiene un sprite sheet
+# el cual sera pasado a un array para manejarlo de mejor manera
 titulo_img_sheet = pg.image.load("assets/images/intro/titulo_juego_sheet.png").convert_alpha()
 width_img_sheet = titulo_img_sheet.get_width()
 sprites_image_sheet = []
 for i in range(int(width_img_sheet / 200)):
     sprites_image_sheet.append(titulo_img_sheet.subsurface(i * 200, 0, 200, 200))
 
-"""---------------------------------------------------------------"""
-"""------------------BACKGROUND IMAGES----------------------------"""
-"""---------------------------------------------------------------"""
+# En esta sección se realiza la carga de los escenarios (backgrounds) que
+# tendra disponible el juego (imagenes unicas)
 bg_moche = pg.image.load("assets/images/escenarios/escenario_mochica.png").convert()
 bg_moche = pg.transform.scale(bg_moche, SIZE)
 bg_paracas = pg.image.load("assets/images/escenarios/escenario_paracas.png").convert()
@@ -52,9 +51,9 @@ bg_tiahua = pg.transform.scale(bg_tiahua, SIZE)
 bg_wari = pg.image.load("assets/images/escenarios/escenario_chavin.png").convert()
 bg_wari = pg.transform.scale(bg_wari, SIZE)
 
-"""---------------------------------------------------------------"""
-"""------------------INTRO MODO IMAGES----------------------------"""
-"""---------------------------------------------------------------"""
+# En esta sección se realiza la carga de las imagenes que apareceran en la sección
+# de intro de modo de juego. mode = imagen sobre la que se hara click, title = titulo que
+# aparece encima de las imagenes de los modos de juego (son sprite sheets)
 mode_arcade = pg.image.load("assets/images/intro/modo_arcade.gif").convert()
 mode_arcade = pg.transform.scale(mode_arcade, (300, 300))
 mode_single = pg.image.load("assets/images/intro/modo_single.gif").convert()
@@ -64,13 +63,8 @@ title_arcade = pg.transform.scale(title_arcade, (300, 300))
 title_single = pg.image.load("assets/images/intro/title_single.gif").convert()
 title_single = pg.transform.scale(title_single, (300, 300))
 
-# llama_checkpoint_sheet = pg.image.load("assets/images/objetos/llama_checkpoint.png").convert_alpha()
-# height_llama_checkpoint_sheet = llama_checkpoint_sheet.get_height()
-# sprites_llama_checkpoint_sheet = []
-# for i in range(int(height_llama_checkpoint_sheet / 38)):
-#     sprites_llama_checkpoint_sheet\
-#         .append(pg.transform.scale(llama_checkpoint_sheet.subsurface(0, i * 38, 48, 38), (60, 80)))
-
+# el sprite sheet de las imagenes del modo single se pasan a un array de imagenes, donde
+# se contiene cada una de las secciones que conformaban el sprite sheet
 mode_single_sheet = pg.image.load("assets/images/intro/mode_single_sheet.png").convert_alpha()
 width_mode_single_sheet = mode_single_sheet.get_width()
 sprites_mode_sigle_sheet = []
@@ -78,15 +72,18 @@ for i in range(int(width_mode_single_sheet / 200)):
     sprites_mode_sigle_sheet \
         .append(pg.transform.scale(mode_single_sheet.subsurface(i * 200, 0, 200, 200), (300, 300)))
 
+# el sprite sheet de las imagenes del modo arcade se pasan a un array de imagenes, donde
+# se contiene cada una de las secciones que conformaban el sprite sheet
 mode_arcade_sheet = pg.image.load("assets/images/intro/mode_arcade_sheet.png").convert_alpha()
 width_mode_arcade_sheet = mode_arcade_sheet.get_width()
 sprites_mode_arcade_sheet = []
 for i in range(int(width_mode_arcade_sheet / 200)):
     sprites_mode_arcade_sheet \
         .append(pg.transform.scale(mode_arcade_sheet.subsurface(i * 200, 0, 200, 200), (300, 300)))
-"""---------------------------------------------------------------"""
-"""------------------INTRO ESCENARIO IMAGES-----------------------"""
-"""---------------------------------------------------------------"""
+
+
+# En esta sección se realiza la carga de los escenarios que podran estar incluidos en el juego,
+# estas son imagenes unicas (no sprite sheets), ya que solo van a ir en la intro del modo soigle
 altEs = 100
 anchEs = 200
 escenario_moche = pg.image.load("assets/images/escenarios/escenario_mochica.png").convert()
@@ -98,9 +95,8 @@ escenario_paracas = pg.transform.scale(escenario_paracas, (anchEs, altEs))
 escenario_wari = pg.image.load("assets/images/escenarios/escenario1.png").convert()
 escenario_wari = pg.transform.scale(escenario_wari, (anchEs, altEs))
 
-"""---------------------------------------------------------------"""
-"""------------------INTRO PERSONAJE IMAGES-----------------------"""
-"""---------------------------------------------------------------"""
+# En esta sección se realiza la carga de los personajes (incas) que estaran disponibles en el juego,
+# estas son imagenes unicas (no sprite sheets), ya que van a ir solo en la intro del modo single
 altPer = 150
 anchPer = 150
 perso_moche = pg.image.load("assets/images/intro/perso_moche.gif").convert()
@@ -113,19 +109,21 @@ perso_wari = pg.image.load("assets/images/intro/perso_wari.png").convert()
 perso_wari = pg.transform.scale(perso_wari, (anchPer, altPer))
 perso_wari.set_colorkey(WHITE)
 
-"""---------------------------------------------------------------"""
-"""---------------------------------------------------------------"""
-"""---------------------------------------------------------------"""
 
+# lista de las imagenes de los incas (sprite sheets)
 lista_perso = ["inca_mochica.png",
                "inca_paracas.png",
                "inca_tiahuanaco.png",
                "inca_wari.png"]
+
+# lista de las plataformas que se podran apreciar por cada cultura (imagenes unicas)
 lista_plataformas =["plataforma_mochica.png",
                     "plataforma_paracas.png",
                     "plataforma_tiahuanaco.png",
                     "plataforma_chavin.png"]
 
+# lista de los escenarios de cada nivel (imagenes unicas), la carga de estas ya se realizo
+# anteriormente en este programa
 lista_escenarios = [bg_moche,
                     bg_paracas,
                     bg_tiahua,
@@ -133,6 +131,7 @@ lista_escenarios = [bg_moche,
 
 
 def message_to_screen(msg, color, y_displace=0, tamano_letra="pequena"):
+
     textSur, textRect = text_objetos(msg, color, tamano_letra)
     textRect.center = (display_ancho / 2), (display_altura / 2) + y_displace
     screen.blit(textSur, textRect)
@@ -187,7 +186,6 @@ def seleccionarPersonaje(mx, my, persons):
     return id_personaje
 
 
-
 def pausa():
     pausado = True
     while pausado:
@@ -208,7 +206,7 @@ def pausa():
         message_to_screen("Pausado", ORANGE, -100, "mediano")
         message_to_screen("Presiona C para continuar y X para salir", BLACK, 25, "pequena")
         pg.display.update()
-        reloj.tick(5)
+        reloj.tick(60)
 
 
 def pantalla_info():
@@ -674,6 +672,7 @@ class Game:
         text_rect = text_surface.get_rect()
         text_rect.midtop = (x, y)
         self.screen.blit(text_surface, text_rect)
+
     def construir(self, x, y, col):
         if col == "P":
             p = Platform( lista_plataformas[self.escenario], x, y, 50, 50)
@@ -732,7 +731,6 @@ class Game:
             espanol.kill()
         self.boss.kill()
         self.player.kill()
-
 
 
 def main(escena, perso):
