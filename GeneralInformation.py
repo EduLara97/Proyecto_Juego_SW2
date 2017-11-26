@@ -14,7 +14,7 @@ FPS = 60
 FONT_NAME = 'arial'
 SPRITESHEET = "inca_mochica.png"
 
-LEVEL_PRUEBA=[
+LEVELS=[[
         "                                                                                                                             ",
         "                                                                                                                             ",
         "                    MM        PP                   MM                                                                        ",
@@ -23,8 +23,47 @@ LEVEL_PRUEBA=[
         "                P                        MM                                             MMM        S      P                  ",
         "            P                           PPPP                                   PPPPPPPPPPPPPPPPPPPPPP                        ",
         "F   R    S  C  E R                                                                                 S         R            B R",
-        "PPPPPPPPPPPPPPPPPPP          PPPPPPPPPPPPPPPPPPPPPPPPPP       PP      PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP        PPPPPPPPPPPPPPPP"]
-
+        "PPPPPPPPPPPPPPPPPPP          PPPPPPPPPPPPPPPPPPPPPPPPPP       PP      PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP        PPPPPPPPPPPPPPPP"],
+        [
+        "                                                                                                                                  ",
+        "                                                                                                                                  ",
+        "                                                                                           PP                                     ",
+        "                                                       L                             PP                                           ",
+        "                                        C              P                       PP                                                 ",
+        "                             M          P          P                       P                                                      ",
+        "        M       M        M   P     P          P                      PP                                         P                 ",
+        "F       M       M        M           R  SR        RM    EMR                R S R     R  E R       MMMMMMMMM          R         B R",
+        "PPPP   PPP     PP       PP           PPPPP        PPPPPPPPP    PPPP     PPPPPPPP     PPPPPP      PPPPPPPPPP          PPPPPPPPPPPPP"],
+        [
+        "                                                                                                                                                     ",
+        "                                                                          SSSMM          L                                                           ",
+        "                                                                         PPPPPP        PPPM                                   P                      ",
+        "                                                                                                                         P                           ",
+        "                  MMM                                                 M                                              P                               ",
+        "                                                                     PPP                    M        MM   MM    P                                    ",
+        "             M   PMPMP                                                                                                                               ",
+        "  F                S     R  CS    R  S     R   ES    RMCMMM               R E   R              S S                SR               R          B     R",
+        "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP   PPPPPPPPPPPPPPPPPPP      PPPPPPPPPPPPPPPPPPPPPPPPPPPP               PPPPPPPPPPPPPPPPPP"],
+        [
+        "                                                                                                                                   ",
+        "                                                                                MMM                                                ",
+        "                                                                           MMM                                                     ",
+        "                                                                           PPP                                                     ",
+        "F      M                                  MMMM                                                        MMMMMMMMM                    ",
+        "PP    PP   PPP                  MM             C                         M                           PPPPPPPPPPPP                  ",
+        "                               PPP       P     P                        PP                                                         ",
+        "R SSS      R        MMMMMM      SR      PR SS  RP                L                  R E     R  MMMMMMMMMM S R      R            B R",      
+        "PPPPPPPPPPPP       PPPPPPPPPPPPPPP     P PPPPPPP PPPPPP   P  MM  P  PPPPP          PPPPPPPPPPPPPPPPPPPPPPPPPP      PPPPPPPPPPPPPPPP"],
+        [
+        "                                                      MMMMMM                                                        ",
+        "                                                     PPPPPPPP                                       MMM             ",
+        "                                                                                         M        PPPPP             ",
+        "F                           M     M   M         MMMM  RS      R                         M MM     P                  ",
+        "PP                      M   M     M    M    C  PPPPPPPPPPPPPPPP              M     PPPP        P                    ",
+        "PPP                     M   P     P    P    P                           L    P                                      ",
+        "PPPP                    P                                               P                                           ",
+        "MMMMM     MMMM R S   R S  S  R    E    R                        MMM M                                   R         BR",
+        "PPPPP     PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP                       PPPPPP             PPPPPPPPPPPPPP       PPPPPPPPPPPP"]]
 
 # Player properties
 PLAYER_ACC = 0.5
