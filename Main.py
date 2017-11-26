@@ -170,17 +170,19 @@ def seleccionarEscenario(mx, my):
         return 0
 
 
-def seleccionarPersonaje(mx, my):
-    if 211 <= mx <= 292 and 202 <= my <= 344:
-        return 1
-    elif 512 <= mx <= 615 and 202 <= my <= 344:
-        return 2
-    elif 211 <= mx <= 292 and 413 <= my <= 546:
-        return 3
-    elif 512 <= mx <= 615 and 413 <= my <= 546:
-        return 4
-    else:
-        return 0
+def seleccionarPersonaje(mx, my, persons):
+    for personaje in persons:
+        if 211 <= mx <= 292 and 202 <= my <= 344 and personaje == "inmoc":
+            return 1
+        elif 512 <= mx <= 615 and 202 <= my <= 344 and personaje == "inpar":
+            return 2
+        elif 211 <= mx <= 292 and 413 <= my <= 546 and personaje == "intia":
+            return 3
+        elif 512 <= mx <= 615 and 413 <= my <= 546 and personaje == "inwar":
+            return 4
+        else:
+            return 0
+
 
 
 def pausa():
@@ -281,7 +283,7 @@ def intro_escenario(intro):
         reloj.tick(5)
 
 
-def intro_personaje(intro):
+def intro_personaje(intro, persons):
     i2 = 0
     while intro:
         for event in pg.event.get():
@@ -290,14 +292,20 @@ def intro_personaje(intro):
                 quit()
             if event.type == pg.MOUSEBUTTONDOWN:
                 mx, my = pg.mouse.get_pos()
-                personaje = seleccionarPersonaje(mx, my)
+                personaje = seleccionarPersonaje(mx, my, persons)
                 if personaje > 0: return personaje
 
         screen.blit(bg_intro, (0, 0))
-        screen.blit(perso_moche, (180, 200))
-        screen.blit(perso_paracas, (490, 200))
-        screen.blit(perso_tiahua, (180, 400))
-        screen.blit(perso_wari, (490, 400))
+        for personaje in persons:
+            if personaje == "inmoc":
+                screen.blit(perso_moche, (180, 200))
+            elif personaje == "inpar":
+                screen.blit(perso_paracas, (490, 200))
+            elif personaje == "intia":
+                screen.blit(perso_tiahua, (180, 400))
+            elif personaje == "inwar":
+                screen.blit(perso_wari, (490, 400))
+
         screen.blit(sprites_image_sheet[i2], (300, -30))
         i2 = (i2 + 1) % 2
         message_to_screen("Elegir un personaje", BLACK, -160, "pequena")
@@ -323,11 +331,11 @@ def intro_final(intro):
         reloj.tick(5)
 
 
-def into_juego():
+def into_juego(persons):
     intro = True
     modo = intro_modo(intro)
     escenario = intro_escenario(intro)
-    personaje = intro_personaje(intro)
+    personaje = intro_personaje(intro, persons)
     intro_final(intro)
     perso = personaje - 1
     esce = escenario - 1
@@ -715,7 +723,7 @@ def main(escena, perso):
     pg.mixer.quit()
 
 if __name__ == "__main__":
-    url = "https://mighty-river-82103.herokuapp.com/api"
+    url = "http://runinkarun.herokuapp.com/api"
     response = requests.get(url)
 
     if response.status_code == 200:
@@ -740,6 +748,6 @@ if __name__ == "__main__":
         print(game_time)
         print(musica)
 
-    """while True:
-        ese, perso = into_juego()
-        main(ese, perso)"""
+    while True:
+        ese, perso = into_juego(personajes)
+        main(ese, perso)
