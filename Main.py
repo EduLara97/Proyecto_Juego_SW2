@@ -190,7 +190,6 @@ def seleccionarModo(mx, my):
 
 
 def seleccionarEscenario(mx, my, escenario):
-    print(str(mx) + " : " + str(my))
     id_escenario = 0
     for escena in escenario:
         if 108 <= mx <= 313 and 219 <= my <= 321 and escena == "MOC":
@@ -207,7 +206,6 @@ def seleccionarEscenario(mx, my, escenario):
 def seleccionarPersonaje(mx, my, persons):
     id_personaje = 0
     for personaje in persons:
-        print(personaje)
         if 211 <= mx <= 292 and 202 <= my <= 344 and personaje == "inmoc":
             id_personaje = 1
         elif 512 <= mx <= 615 and 202 <= my <= 344 and personaje == "intia":
@@ -262,10 +260,6 @@ def pantalla_info():
 def intro_menu():
     intro = True
     i2, i3, i4, i5 = 0, 0, 0, 0
-
-
-
-
     while intro:
         mx, my = pg.mouse.get_pos()
         for event in pg.event.get():
@@ -309,7 +303,6 @@ def intro_modo(modo_juego):
         screen.blit(bg_intro, (0, 0))
 
         for mod in modo_juego:
-            print(mod)
             if mod == "single":
                 screen.blit(mode_single, (450, 250))
             if mod == "arcade":
@@ -459,9 +452,6 @@ def into_juego(escenario, persons):
 
 def gameOver(score):
     intro = True
-    payload ={"playerName": "Bot", "acumScore": str(score)}
-    #data = json.dumps({'playerName':'Bot', 'acumScore':str(score)})
-    r = requests.post(posturl, data=payload)
     while intro:
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -469,6 +459,8 @@ def gameOver(score):
                 quit()
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_c:
+                    propiedades = Propiedades.get_instance()
+                    propiedades.puntaje = propiedades.puntaje + score
                     intro = False
         screen.blit(bg_intro, (0, 0))
         message_to_screen("VICTORIA", ORANGE, -100, "mediano")
@@ -479,10 +471,11 @@ def gameOver(score):
         reloj.tick(5)
 
 
+
 def gameOverFinal():
     intro = True
     form = Form(pg.display.set_mode(SIZE))
-    edit_text = EditText(250, 400, 320, 35, 2, 'HOLA QUE TAL', False, 20)
+    edit_text = EditText(250, 400, 320, 35, 2, 'Anonimo', False, 20)
     form.add_child(edit_text)
     propiedades = Propiedades.get_instance()
     while intro:
@@ -506,6 +499,9 @@ def gameOverFinal():
         form.draw()
         pg.display.update()
         reloj.tick(5)
+    payload = {"playerName": edit_text.value, "acumScore": str(propiedades.puntaje)}
+    # data = json.dumps({'playerName':'Bot', 'acumScore':str(score)})
+    r = requests.post(posturl, data=payload)
 
 
 def transformarApiToArray(str):
