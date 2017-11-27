@@ -580,7 +580,21 @@ class Game:
             self.events()
             self.update()
             self.draw()
-
+            
+    #Lanzar proyectil del boss
+    def proyectil(self)
+        out=False
+        way=True
+        if self.player.pos.x < self.boss.pos.x:
+            posx=self.boss.pos.x-3
+        else:
+            posx=self.boss.pos.x+3
+            way=False
+              
+        posy=self.boss.pos.y*2/3
+        self.screen.blit(self.sprites_lanza, (posx, posy))
+        
+        
     def update(self):
         # Esta es la sección donde se defininen todos los accionares dentro del juego, por ejemplo
         # si el personaje choca contra una roca, este se detiene y no puede seguir avanzando
