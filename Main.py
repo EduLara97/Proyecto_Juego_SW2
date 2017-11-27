@@ -150,25 +150,13 @@ lista_escenarios = [bg_moche,
                     bg_tiahua,
                     bg_wari]
 
-<<<<<<< HEAD
+
 Boton1 = [300,250]
 TamBoton = [200,80]
 ColorBoton1 = [plomo, red]
-
 Boton2 = [300,400]
 ColorBoton2 = [plomo, blue]
-
-Boton3 = [300,500]
-=======
-Boton1 = [300, 250]
-TamBoton = [200, 80]
-ColorBoton1 = [plomo, red]
-
-Boton2 = [300, 400]
-ColorBoton2 = [plomo, blue]
-
 Boton3 = [300, 500]
->>>>>>> c03474d60d3b9791213bff8ea7f9711b86fe3832
 ColorBoton3 = [plomo, BLACK]
 
 
@@ -179,10 +167,7 @@ def msg_boton(msg, color, posx, posy, ancho, alto, tamano_letra="micro"):
     textSur, textRect = text_objetos(msg, color, tamano_letra)
     textRect.center = (posx + (ancho/2), posy + (alto/2))
     screen.blit(textSur, textRect)
-<<<<<<< HEAD
-=======
 
->>>>>>> c03474d60d3b9791213bff8ea7f9711b86fe3832
 
 def message_to_screen(msg, color, y_displace=0, tamano_letra="pequena"):
 
@@ -289,7 +274,7 @@ def botones(texto, superficie, estado, pos, tam, ided= None):
             if ided == "intro_modo":
                 intro_modo(transformarApiToArray(modo_juego))
             elif ided == "intro_ranking":
-                pass
+                intro_ranking()
             elif ided == "salir":
                 quit()
         boton = pg.draw.rect(superficie, estado[1], (pos[0], pos[1], tam[0], tam[1]))
@@ -318,11 +303,7 @@ def intro_menu():
         botones("nuevo", screen, ColorBoton1, Boton1, TamBoton, ided="intro_modo")
         botones("ranking", screen, ColorBoton2, Boton2, TamBoton, ided="intro_ranking")
         botones("salir", screen, ColorBoton3, Boton3, TamBoton, ided="salir")
-        # msg_boton("Nueva Partida", WHITE, 300,250,200,80)
-        # msg_boton("Ranking - Top 10", BLACK, 300,400,200,80)
-        # msg_boton("Créditos", WHITE, 300,500,200,50)
-
-        # message_to_screen("Escoger un modo de juego", BLACK, -160, "pequena")
+        
         pg.display.update()
         reloj.tick(5)
 
