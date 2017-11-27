@@ -368,13 +368,15 @@ def intro_modo(modo_juego):
 
 def intro_ranking():
     intro = True
+    nombre = []
+    score = []
     response = requests.get(posturl)
     if response.status_code == 200:
         data = response.json()
-        nombre = results['playerName']
-        score = results['acumScore']
+        for i in range(10):
+            nombre.append(data[i]['playerName'])
+            score.append(data[i]['acumScore'])
     while intro:
-        i2 = 0
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
@@ -383,11 +385,10 @@ def intro_ranking():
                 if event.key == pg.K_c:
                     intro = False
         screen.blit(bg_intro, (0, 0))
-        message_to_screen("TOP 10", BLACK, -160, "pequena")
+        message_to_screen("TOP 10", ORANGE, -160, "mediano")
         message_to_screen("Jugador    Puntaje", BLACK, -60, "pequena")
-        """for row in data:
-            message_to_screen(row, BLACK, -20+i2, "pequena")
-            i2 = i2+25"""
+        for i in range(10):
+            message_to_screen(nombre[i] + " : " + str(score[i]), BLACK, -20*-(i+1), "pequena")
         pg.display.update()
         reloj.tick(5)
 
