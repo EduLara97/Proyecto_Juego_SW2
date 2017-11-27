@@ -161,25 +161,7 @@ Boton3 = [300, 500]
 ColorBoton3 = [plomo, BLACK]
 
 
-def botones(texto, superficie, estado, pos, tam, ided= None):
-    
-    cursor = pg.mouse.get_pos()
-    click = pg.mouse.get_pressed()
-    
-    if pos[0] + tam[0] > cursor[0] > tam[0] and pos[1] + tam[1] > cursor[1] > tam[1] and pos[1] + tam[1] < cursor[1] + tam[1]:
-        if click[0] == 1:
-            if ided == "intro_modo":
-                pass
-            elif ided == "intro_ranking":
-                pass
-            elif ided == "salir":
-                pg.quit()
-        boton = pg.draw.rect(superficie, estado[1], (pos[0], pos[1], tam[0], tam[1]))
-    else:
-        boton = pg.draw.rect(superficie, estado[0], (pos[0], pos[1], tam[0], tam[1]))
 
-    msg_boton(texto, WHITE, pos[0], pos[1], tam[0], tam[1])    
-    return boton
 
 def msg_boton(msg, color, posx, posy, ancho, alto, tamano_letra="micro"):
 
@@ -283,7 +265,25 @@ def pantalla_info():
         message_to_screen("Presiona C para continuar", BLACK, 125, "pequena")
         pg.display.update()
         reloj.tick(5)
+def botones(texto, superficie, estado, pos, tam, ided= None):
+    
+    cursor = pg.mouse.get_pos()
+    click = pg.mouse.get_pressed()
+    
+    if pos[0] + tam[0] > cursor[0] > tam[0] and pos[1] + tam[1] > cursor[1] > tam[1] and pos[1] + tam[1] < cursor[1] + tam[1]:
+        if click[0] == 1:
+            if ided == "intro_modo":
+                pass
+            elif ided == "intro_ranking":
+                pass
+            elif ided == "salir":
+                quit()
+        boton = pg.draw.rect(superficie, estado[1], (pos[0], pos[1], tam[0], tam[1]))
+    else:
+        boton = pg.draw.rect(superficie, estado[0], (pos[0], pos[1], tam[0], tam[1]))
 
+    msg_boton(texto, WHITE, pos[0], pos[1], tam[0], tam[1])    
+    return boton
 
 def intro_menu():
     intro = True
