@@ -159,6 +159,15 @@ ColorBoton2 = [plomo, blue]
 Boton3 = [300, 500]
 ColorBoton3 = [plomo, BLACK]
 
+def seleccionarMenu(mx, my):
+    if 300 <= mx <=500 and 250 <= my <= 330:
+        return 1
+    elif 300 <= mx <=500 and 400 <= my <=480:
+        return 2
+    elif 300 <= mx <=500 and 500 <= my <=580:
+        return 3
+    else:
+        return 0
 
 
 
