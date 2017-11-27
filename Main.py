@@ -150,22 +150,23 @@ lista_escenarios = [bg_moche,
                     bg_tiahua,
                     bg_wari]
 
-Boton1 = [300,250]
-TamBoton = [200,80]
+Boton1 = [300, 250]
+TamBoton = [200, 80]
 ColorBoton1 = [plomo, red]
 
-Boton2 = [300,400]
+Boton2 = [300, 400]
 ColorBoton2 = [plomo, blue]
 
-Boton3 = [300,500]
+Boton3 = [300, 500]
 ColorBoton3 = [plomo, BLACK]
 
-def botones(texto,superficie, estado, pos, tam, ided= None):
+
+def botones(texto, superficie, estado, pos, tam, ided= None):
     
     cursor = pg.mouse.get_pos()
     click = pg.mouse.get_pressed()
     
-    if pos[0] + tam[0] > cursor[0] > tam[0] and pos[1] + tam[1] > cursor[1] > tam[1] and pos[1] + tam[1] < cursor[1] + tam[1]:        
+    if pos[0] + tam[0] > cursor[0] > tam[0] and pos[1] + tam[1] > cursor[1] > tam[1] and pos[1] + tam[1] < cursor[1] + tam[1]:
         if click[0] == 1:
             if ided == "intro_modo":
                 pass
@@ -287,6 +288,7 @@ def pantalla_info():
 def intro_menu():
     intro = True
     i2, i3, i4, i5 = 0, 0, 0, 0
+
     while intro:
         mx, my = pg.mouse.get_pos()
         for event in pg.event.get():
@@ -300,17 +302,17 @@ def intro_menu():
         screen.blit(bg_intro, (0, 0))
         screen.blit(sprites_image_sheet[i2], (300, -30))
         i2 = (i2 + 1) % 2
-        
-        #botones(screen,blue,300,250,200,80)
-        #botones(screen,yellow , 300, 400 ,200,80)
-        botones(screen,BLACK , 300, 500 ,200,50)
-        msg_boton("Nueva Partida", WHITE, 300,250,200,80)
-        msg_boton("Ranking - Top 10", BLACK, 300,400,200,80)
-        msg_boton("Créditos", WHITE, 300,500,200,50)
-        
-        #message_to_screen("Escoger un modo de juego", WHITE, -160, "pequena")
+
+        botones("nuevo", screen, ColorBoton1, Boton1, TamBoton, ided="intro_modo")
+        botones("ranking", screen, ColorBoton2, Boton2, TamBoton, ided="intro_ranking")
+        botones("salir", screen, ColorBoton3, Boton3, TamBoton, ided="salir")
+        # msg_boton("Nueva Partida", WHITE, 300,250,200,80)
+        # msg_boton("Ranking - Top 10", BLACK, 300,400,200,80)
+        # msg_boton("Créditos", WHITE, 300,500,200,50)
+
+        # message_to_screen("Escoger un modo de juego", BLACK, -160, "pequena")
         pg.display.update()
-        reloj.tick(5)        
+        reloj.tick(5)
 
 
 def intro_modo(modo_juego):
@@ -989,7 +991,7 @@ if __name__ == "__main__":
         life = results['life']
         game_time = results['game_time']
         musica = results['musica']
-        print(escenario)
+        """print(escenario)
         print(personajes)
         print(modo_juego)
         print(dificultad)
@@ -997,12 +999,12 @@ if __name__ == "__main__":
         print(speed_player)
         print(life)
         print(game_time)
-        print(musica)
+        print(musica)"""
 
     while True:
         propiedades = Propiedades.get_instance()
         propiedades.propiedades_personaje(life, speed_player)
-        #intro_menu()
+        intro_menu()
         modo = intro_modo(transformarApiToArray(modo_juego))
         print(str(modo))
         if modo == 1:

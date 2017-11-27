@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="509d578e-0465-4c52-820c-2a70442ec07b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GeneralInformation.py" afterPath="$PROJECT_DIR$/GeneralInformation.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Main.py" afterPath="$PROJECT_DIR$/Main.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -13,7 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Proyecto_Juego_SW2$Main.coverage" NAME="Main Coverage Results" MODIFIED="1511764371934" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Proyecto_Juego_SW2$Main.coverage" NAME="Main Coverage Results" MODIFIED="1511766196953" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PlayPlatform$platform_scroller__1_.coverage" NAME="platform_scroller (1) Coverage Results" MODIFIED="1506626742310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../pygames-master/pygame" />
     <SUITE FILE_PATH="coverage/PlayPlatform$Main.coverage" NAME="Main Coverage Results" MODIFIED="1511734442681" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PlayPlatform$sprites.coverage" NAME="sprites Coverage Results" MODIFIED="1508631676039" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../pygames-master/pygame" />
@@ -30,37 +31,39 @@
       <file leaf-file-name="Main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="583" column="30" lean-forward="true" selection-start-line="583" selection-start-column="30" selection-end-line="583" selection-end-column="30" />
+            <state relative-caret-position="411">
+              <caret line="314" column="21" lean-forward="false" selection-start-line="314" selection-start-column="21" selection-end-line="314" selection-end-column="21" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
-                <element signature="e#7665#7747#0" expanded="false" />
-                <element signature="e#7829#7980#0" expanded="false" />
-                <element signature="e#8061#8231#0" expanded="false" />
-                <element signature="e#8283#8717#0" expanded="false" />
-                <element signature="e#8753#8903#0" expanded="false" />
-                <element signature="e#8955#9426#0" expanded="false" />
-                <element signature="e#9476#9968#0" expanded="false" />
-                <element signature="e#9988#10732#0" expanded="false" />
-                <element signature="e#10760#11381#0" expanded="false" />
-                <element signature="e#11406#12350#0" expanded="false" />
-                <element signature="e#12393#14195#0" expanded="false" />
-                <element signature="e#14228#15008#0" expanded="false" />
-                <element signature="e#15055#16060#0" expanded="false" />
-                <element signature="e#16104#17109#0" expanded="false" />
-                <element signature="e#17140#17671#0" expanded="false" />
-                <element signature="e#17714#18001#0" expanded="false" />
-                <element signature="e#18029#18761#0" expanded="false" />
-                <element signature="e#18789#20101#0" expanded="false" />
-                <element signature="e#20140#20309#0" expanded="false" />
-                <element signature="e#21970#22472#0" expanded="false" />
-                <marker date="1511765173657" expanded="false" signature="33066:33668" ph="..." />
-                <marker date="1511765173657" expanded="false" signature="33689:34067" ph="..." />
-                <marker date="1511765173657" expanded="false" signature="34515:34833" ph="..." />
-                <marker date="1511765173657" expanded="false" signature="35153:36554" ph="..." />
-                <marker date="1511765173657" expanded="false" signature="36579:37058" ph="..." />
-                <marker date="1511765173657" expanded="false" signature="37078:37550" ph="..." />
-                <marker date="1511765173657" expanded="false" signature="37583:37856" ph="..." />
+                <element signature="e#21220#22790#0" expanded="false" />
+                <element signature="e#23350#23782#0" expanded="false" />
+                <element signature="e#23842#24129#0" expanded="false" />
+                <element signature="e#24178#33892#0" expanded="false" />
+                <element signature="e#38437#38705#0" expanded="false" />
+                <marker date="1511766196883" expanded="false" signature="8584:8741" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="8816:8992" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="9039:9478" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="9509:9664" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="9711:10187" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="10232:10729" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="10744:11493" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="11516:12142" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="13237:15044" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="15072:15857" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="15899:16909" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="16948:17958" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="17984:18520" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="18558:18850" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="18873:19610" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="19633:20950" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="20984:21158" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="22810:23321" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="33915:34517" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="34538:34916" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="35364:35682" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="36002:37403" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="37428:37907" ph="..." />
+                <marker date="1511766196883" expanded="false" signature="37927:38399" ph="..." />
               </folding>
             </state>
           </provider>
@@ -126,8 +129,8 @@
       <file leaf-file-name="GeneralInformation.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GeneralInformation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state relative-caret-position="136">
+              <caret line="8" column="11" lean-forward="false" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -414,7 +417,7 @@
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32715008" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13420622" sideWeight="0.5030257" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23355263" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5986842" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32715008" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18549748" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -744,45 +747,47 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GeneralInformation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state relative-caret-position="136">
+          <caret line="8" column="11" lean-forward="false" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="583" column="30" lean-forward="true" selection-start-line="583" selection-start-column="30" selection-end-line="583" selection-end-column="30" />
+        <state relative-caret-position="411">
+          <caret line="314" column="21" lean-forward="false" selection-start-line="314" selection-start-column="21" selection-end-line="314" selection-end-column="21" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#7665#7747#0" expanded="false" />
-            <element signature="e#7829#7980#0" expanded="false" />
-            <element signature="e#8061#8231#0" expanded="false" />
-            <element signature="e#8283#8717#0" expanded="false" />
-            <element signature="e#8753#8903#0" expanded="false" />
-            <element signature="e#8955#9426#0" expanded="false" />
-            <element signature="e#9476#9968#0" expanded="false" />
-            <element signature="e#9988#10732#0" expanded="false" />
-            <element signature="e#10760#11381#0" expanded="false" />
-            <element signature="e#11406#12350#0" expanded="false" />
-            <element signature="e#12393#14195#0" expanded="false" />
-            <element signature="e#14228#15008#0" expanded="false" />
-            <element signature="e#15055#16060#0" expanded="false" />
-            <element signature="e#16104#17109#0" expanded="false" />
-            <element signature="e#17140#17671#0" expanded="false" />
-            <element signature="e#17714#18001#0" expanded="false" />
-            <element signature="e#18029#18761#0" expanded="false" />
-            <element signature="e#18789#20101#0" expanded="false" />
-            <element signature="e#20140#20309#0" expanded="false" />
-            <element signature="e#21970#22472#0" expanded="false" />
-            <marker date="1511765173657" expanded="false" signature="33066:33668" ph="..." />
-            <marker date="1511765173657" expanded="false" signature="33689:34067" ph="..." />
-            <marker date="1511765173657" expanded="false" signature="34515:34833" ph="..." />
-            <marker date="1511765173657" expanded="false" signature="35153:36554" ph="..." />
-            <marker date="1511765173657" expanded="false" signature="36579:37058" ph="..." />
-            <marker date="1511765173657" expanded="false" signature="37078:37550" ph="..." />
-            <marker date="1511765173657" expanded="false" signature="37583:37856" ph="..." />
+            <element signature="e#21220#22790#0" expanded="false" />
+            <element signature="e#23350#23782#0" expanded="false" />
+            <element signature="e#23842#24129#0" expanded="false" />
+            <element signature="e#24178#33892#0" expanded="false" />
+            <element signature="e#38437#38705#0" expanded="false" />
+            <marker date="1511766196883" expanded="false" signature="8584:8741" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="8816:8992" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="9039:9478" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="9509:9664" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="9711:10187" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="10232:10729" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="10744:11493" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="11516:12142" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="13237:15044" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="15072:15857" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="15899:16909" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="16948:17958" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="17984:18520" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="18558:18850" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="18873:19610" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="19633:20950" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="20984:21158" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="22810:23321" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="33915:34517" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="34538:34916" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="35364:35682" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="36002:37403" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="37428:37907" ph="..." />
+            <marker date="1511766196883" expanded="false" signature="37927:38399" ph="..." />
           </folding>
         </state>
       </provider>

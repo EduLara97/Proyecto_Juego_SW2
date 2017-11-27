@@ -4,9 +4,9 @@ SKY_BLUE = 7, 242, 212
 ORANGE = 239, 127, 26
 BLACK = 0, 0, 0
 ORANGE_LIGTH = 255, 183, 87
-blue=(0,0,255)
-plomo=(232, 224, 224)
-red=255,0,0
+blue = (0, 0, 255)
+plomo = (232, 224, 224)
+red = 255, 0, 0
 
 
 # game options/settings
