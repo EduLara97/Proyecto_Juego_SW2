@@ -169,11 +169,9 @@ def text_objetos(text, color, tamano_letra):
 
 def seleccionarModo(mx, my):
     if 483 <= mx <= 659 and 275 <= my <= 537:
-        return 2
+        return 1
     elif 164 <= mx <= 262 and 275 <= my <= 537:
-        return 0
-    elif 323 <= mx <= 460 and 500 <= my <= 550:
-        return 4
+        return 2
     else:
         return 0
 
@@ -249,7 +247,8 @@ def pantalla_info():
         reloj.tick(5)
 
 
-def intro_modo(intro, modo_juego):
+def intro_modo(modo_juego):
+    intro = True
     i2, i3, i4, i5 = 0, 0, 0, 0
     while intro:
         mx, my = pg.mouse.get_pos()
@@ -309,9 +308,9 @@ def intro_ranking(intro):
         message_to_screen("TOP 10", BLACK, -160, "pequena")
         message_to_screen("Jugador    Puntaje", BLACK, -60, "pequena")
         #cursor.execute("SELECT * FROM ranking ORDER BY puntos DESC LIMIT 10")
-        for row in cursor:
+        """for row in cursor:
             message_to_screen(str(row[1:]), BLACK, -20+i2, "pequena")
-            i2 = i2+25
+            i2 = i2+25"""
         pg.display.update()
         reloj.tick(5)
 
@@ -393,10 +392,10 @@ def intro_final(intro):
         reloj.tick(5)
 
 
-def into_juego(modo_juego, escenario, persons):
+def into_juego(escenario, persons):
     intro = True
-    modo = intro_modo(intro, modo_juego)
-    ranking= intro_ranking(intro)
+    # modo = intro_modo(intro, modo_juego)
+    # ranking = intro_ranking(intro)
     escenario = intro_escenario(intro, escenario)
     personaje = intro_personaje(intro, persons)
     intro_final(intro)
@@ -430,8 +429,9 @@ def transformarApiToArray(str):
     str1 = str.replace("[", "")
     str2 = str1.replace("]", "")
     str3 = str2.replace("'", "")
-    str4 = str3.split(",")
-    return str4
+    str4 = str3.replace(" ", "")
+    str5 = str4.split(",")
+    return str5
 
 
 class Game:
@@ -802,7 +802,26 @@ class Game:
         self.player.kill()
 
 
-def main(escena, perso):
+def mainArcade():
+    pg.mixer.music.load("assets/audio/bg_opcion2.wav")
+    pg.mixer.music.set_volume(0.5)
+    pg.mixer.music.play(-1)
+    g = Game(0, 1)
+    while g.running:
+        g.new()
+    g1 = Game(1, 1)
+    while g1.running:
+        g1.new()
+    g2 = Game(2, 1)
+    while g2.running:
+        g2.new()
+    g3 = Game(3, 1)
+    while g3.running:
+        g3.new()
+    pg.mixer.quit()
+
+
+def mainSingle(escena, perso):
     g = Game(escena, perso)
     # Carga de la musica que sonara de fondo cuando comienze el juego
     pg.mixer.music.load("assets/audio/bg_opcion2.wav")
@@ -841,7 +860,12 @@ if __name__ == "__main__":
     while True:
         propiedades = Propiedades.get_instance()
         propiedades.propiedades_personaje(life, speed_player)
-        ese, perso = into_juego(transformarApiToArray(modo_juego),
-                                transformarApiToArray(escenario),
-                                transformarApiToArray(personajes))
-        main(ese, perso)
+        modo = intro_modo(transformarApiToArray(modo_juego))
+        print(str(modo))
+        if modo == 1:
+            ese, perso = into_juego(transformarApiToArray(escenario),
+                                    transformarApiToArray(personajes))
+            mainSingle(ese, perso)
+        elif modo == 2:
+            print("ENTRO AL MODO ARCADE")
+            mainArcade()
