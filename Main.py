@@ -600,6 +600,7 @@ class Game:
                 self.player.vel.x = -15
                 self.player.vel.y = -12
                 vida = self.player.disminuirVida(LANZA_DMG)
+                hits_lanza[0].kill()
                 if vida <= 0:
                     self.player.vida = 0
                     self.kill_all()
