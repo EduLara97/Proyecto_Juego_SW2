@@ -470,6 +470,7 @@ class Game:
         self.rocones = pg.sprite.Group()
         self.soldados = pg.sprite.Group()
         self.bosses = pg.sprite.Group()
+        self.lanza = pg.sprite.Group()
         self.score = 0
         self.escenario = escena
         self.show_cartel = True
@@ -559,7 +560,20 @@ class Game:
                     self.player.vida = 0
                     self.kill_all()
                     self.playing = False
-
+                    
+        #Accion cada que una lanza golpea al personaje
+        hits_lanza= pg.sprite.spritecollide(self.player, self.lanza, False)
+        if hits_lanza:
+            if self.player.vel.x >= 0 \
+                    and self.player.rect.right >= hits_lanza[0].rect.left:
+                self.player.vel.x = -15
+                self.player.vel.y = -12
+                vida = self.player.disminuirVida(LANZA_DMG)
+                if vida <= 0:
+                    self.player.vida = 0
+                    self.kill_all()
+                    self.playing = False
+                    
         # Se determina que las serpientes siempre se posicionaran encima de las plataformas
         for serpiente in self.serpientes:
             if serpiente.vel.y > 0:
