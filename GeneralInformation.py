@@ -91,7 +91,7 @@ class Propiedades:
                 self.player_grav = 0.8
                 self.player_jump = 15
                 self.vida_personaje = 5
-
+                self.puntaje = 0
 
         def propiedades_personaje(self, vida, velocidad):
                 self.vida_personaje = vida

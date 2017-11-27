@@ -7,6 +7,7 @@ from GeneralInformation import *
 from urllib.request import urlopen
 import random
 import requests
+from CBForm import *
 from os import *
 
 posturl="http://runinkarun.herokuapp.com/score/api"
@@ -264,7 +265,7 @@ def intro_menu():
 
 
 
-    
+
     while intro:
         mx, my = pg.mouse.get_pos()
         for event in pg.event.get():
@@ -279,8 +280,8 @@ def intro_menu():
         screen.blit(sprites_image_sheet[i2], (300, -30))
         i2 = (i2 + 1) % 2
         
-        botones(screen,blue,300,250,200,80)
-        botones(screen,yellow , 300, 400 ,200,80)
+        #botones(screen,blue,300,250,200,80)
+        #botones(screen,yellow , 300, 400 ,200,80)
         botones(screen,BLACK , 300, 500 ,200,50)
         msg_boton("Nueva Partida", WHITE, 300,250,200,80)
         msg_boton("Ranking - Top 10", BLACK, 300,400,200,80)
@@ -478,6 +479,35 @@ def gameOver(score):
         reloj.tick(5)
 
 
+def gameOverFinal():
+    intro = True
+    form = Form(pg.display.set_mode(SIZE))
+    edit_text = EditText(250, 400, 320, 35, 2, 'HOLA QUE TAL', False, 20)
+    form.add_child(edit_text)
+    propiedades = Propiedades.get_instance()
+    while intro:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                quit()
+            if event.type == pg.MOUSEBUTTONDOWN:
+                mouse_position = pg.mouse.get_pos()
+                edit_text.collidepoint(mouse_position)
+            if event.type == pg.KEYDOWN:
+                edit_text.update(event)
+                if event.key == pg.K_RETURN:
+                    intro = False
+        screen.blit(bg_intro, (0, 0))
+        message_to_screen("FELICIDADES", ORANGE, -100, "mediano")
+        message_to_screen("ACABASTE EL JUEGO", ORANGE, -40, "mediano")
+        message_to_screen("Tu puntaje Final fue: " + str(propiedades.puntaje), BLACK, 30, "pequena")
+        message_to_screen(
+            "Presiona enter para guardar y salir al menú", ORANGE, 200, "pequena")
+        form.draw()
+        pg.display.update()
+        reloj.tick(5)
+
+
 def transformarApiToArray(str):
     str1 = str.replace("[", "")
     str2 = str1.replace("]", "")
@@ -520,7 +550,7 @@ class Game:
         self.sprites_serpientes = Spritesheet(path.join(self.img_dir_enemigos, "serpiente.png"))
         self.sprites_soldado = Spritesheet(path.join(self.img_dir_enemigos, "espanol_normal.png"))
         self.sprites_boss = Spritesheet(path.join(self.img_dir_enemigos, "espanol_boss.png"))
-        self.sprites_lanza = Spritesheet(path.join(self.img_objetos_folder, "lanza.png"))
+        self.sprites_lanza = Spritesheet(path.join(img_objetos_folder, "lanza.png"))
         self.level = LEVELS[escena]
 
     def new(self):
@@ -875,18 +905,21 @@ def mainArcade():
     pg.mixer.music.load("assets/audio/bg_opcion2.wav")
     pg.mixer.music.set_volume(0.5)
     pg.mixer.music.play(-1)
-    g = Game(0, 0)
+    g = Game(0, 1)
     while g.running:
         g.new()
-    g1 = Game(1, 0)
+    g1 = Game(1, 1)
     while g1.running:
         g1.new()
-    g2 = Game(2, 0)
+    g2 = Game(2, 1)
     while g2.running:
         g2.new()
-    g3 = Game(3, 0)
+    g3 = Game(3, 1)
     while g3.running:
         g3.new()
+    gameOverFinal()
+    propiedades = Propiedades.get_instance()
+    print(str(propiedades.puntaje))
     pg.mixer.quit()
 
 
@@ -929,7 +962,7 @@ if __name__ == "__main__":
     while True:
         propiedades = Propiedades.get_instance()
         propiedades.propiedades_personaje(life, speed_player)
-        intro_menu()
+        #intro_menu()
         modo = intro_modo(transformarApiToArray(modo_juego))
         print(str(modo))
         if modo == 1:
