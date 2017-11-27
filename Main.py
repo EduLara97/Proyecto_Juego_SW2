@@ -366,7 +366,8 @@ def intro_modo(modo_juego):
         reloj.tick(5)
 
 
-def intro_ranking(intro):
+def intro_ranking():
+    intro = True
     response = requests.get(posturl)
     if response.status_code == 200:
         data = response.json()
@@ -1005,12 +1006,16 @@ if __name__ == "__main__":
     while True:
         propiedades = Propiedades.get_instance()
         propiedades.propiedades_personaje(life, speed_player)
-        intro_menu()
-        modo = intro_modo(transformarApiToArray(modo_juego))
-        print(str(modo))
-        if modo == 1:
-            ese, perso = into_juego(transformarApiToArray(escenario),
-                                    transformarApiToArray(personajes))
-            mainSingle(ese, perso)
-        elif modo == 2:
-            mainArcade()
+        num = intro_menu()
+        print(str(num))
+        if num == 1:
+            modo = intro_modo(transformarApiToArray(modo_juego))
+            print(str(modo))
+            if modo == 1:
+                ese, perso = into_juego(transformarApiToArray(escenario),
+                                        transformarApiToArray(personajes))
+                mainSingle(ese, perso)
+            elif modo == 2:
+                mainArcade()
+        elif num == 2:
+            intro_ranking()
