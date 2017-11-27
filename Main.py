@@ -814,16 +814,16 @@ def mainArcade():
     pg.mixer.music.load("assets/audio/bg_opcion2.wav")
     pg.mixer.music.set_volume(0.5)
     pg.mixer.music.play(-1)
-    g = Game(0, 1)
+    g = Game(0, 0)
     while g.running:
         g.new()
-    g1 = Game(1, 1)
+    g1 = Game(1, 0)
     while g1.running:
         g1.new()
-    g2 = Game(2, 1)
+    g2 = Game(2, 0)
     while g2.running:
         g2.new()
-    g3 = Game(3, 1)
+    g3 = Game(3, 0)
     while g3.running:
         g3.new()
     pg.mixer.quit()
@@ -875,5 +875,4 @@ if __name__ == "__main__":
                                     transformarApiToArray(personajes))
             mainSingle(ese, perso)
         elif modo == 2:
-            print("ENTRO AL MODO ARCADE")
             mainArcade()
