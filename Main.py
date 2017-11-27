@@ -130,9 +130,6 @@ perso_wari = pg.image.load("assets/images/intro/perso_wari.png").convert()
 perso_wari = pg.transform.scale(perso_wari, (anchPer, altPer))
 perso_wari.set_colorkey(WHITE)
 
-#proyectil enemigo
-title_ranking = pg.image.load("assets/images/objetos/lanza.png").convert()
-
 # lista de las imagenes de los incas (sprite sheets)
 lista_perso = ["inca_mochica.png",
                "inca_paracas.png",
@@ -490,6 +487,7 @@ class Game:
         self.sprites_serpientes = Spritesheet(path.join(self.img_dir_enemigos, "serpiente.png"))
         self.sprites_soldado = Spritesheet(path.join(self.img_dir_enemigos, "espanol_normal.png"))
         self.sprites_boss = Spritesheet(path.join(self.img_dir_enemigos, "espanol_boss.png"))
+        self.sprites_lanza = Spritesheet(path.join(self.img_objetos_folder, "lanza.png"))
         self.level = LEVELS[escena]
 
     def new(self):
