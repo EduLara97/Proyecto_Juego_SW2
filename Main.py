@@ -414,6 +414,8 @@ def into_juego(escenario, persons):
 def gameOver(score):
     intro = True
     payload ={"playerName": "Bot", "acumScore": str(score)}
+    #data = json.dumps({'playerName':'Bot', 'acumScore':str(score)})
+    r = requests.post(posturl, data=payload)
     while intro:
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -424,9 +426,7 @@ def gameOver(score):
                     intro = False
         screen.blit(bg_intro, (0, 0))
         message_to_screen("VICTORIA", ORANGE, -100, "mediano")
-        message_to_screen("Score: " + str(score), BLACK, -60, "pequena")
-       #data = json.dumps({'playerName':'Bot', 'acumScore':str(score)})
-        r = requests.post(posturl, data=payload)        
+        message_to_screen("Score: " + str(score), BLACK, -60, "pequena")              
         message_to_screen(
             "Presiona C para volver a jugar", BLACK, 25, "pequena")
         pg.display.update()
