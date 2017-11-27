@@ -32,7 +32,7 @@ reloj = pg.time.Clock()
 
 display_ancho = 800
 display_altura = 600
-microfont = pg.font.SysFont("comicsansms", 10)
+microfont = pg.font.SysFont("comicsansms", 20)
 pequenafont = pg.font.SysFont("comicsansms", 25)
 medianofont = pg.font.SysFont("comicsansms", 50)
 largofont = pg.font.SysFont("comicsansms", 80)
@@ -150,8 +150,34 @@ lista_escenarios = [bg_moche,
                     bg_tiahua,
                     bg_wari]
 
-def botones(superficie, color, pos1, pos2, tam1 , tam2):
-    boton = pg.draw.rect(superficie, color, (pos1, pos2, tam1, tam2))
+Boton1 = [300,250]
+TamBoton = [200,80]
+ColorBoton1 = [plomo, red]
+
+Boton2 = [300,400]
+ColorBoton2 = [plomo, blue]
+
+Boton3 = [300,500]
+ColorBoton3 = [plomo, BLACK]
+
+def botones(texto,superficie, estado, pos, tam, ided= None):
+    
+    cursor = pg.mouse.get_pos()
+    click = pg.mouse.get_pressed()
+    
+    if pos[0] + tam[0] > cursor[0] > tam[0] and pos[1] + tam[1] > cursor[1] > tam[1] and pos[1] + tam[1] < cursor[1] + tam[1]:        
+        if click[0] == 1:
+            if ided == "intro_modo":
+                intro_modo(modo_juego)
+            elif ided == "intro_ranking":
+                intro_ranking()
+            elif ided == "salir":
+                quit()
+        boton = pg.draw.rect(superficie, estado[1], (pos[0], pos[1], tam[0], tam[1]))
+    else:
+        boton = pg.draw.rect(superficie, estado[0], (pos[0], pos[1], tam[0], tam[1]))
+
+    msg_boton(texto, WHITE, pos[0], pos[1], tam[0], tam[1])    
     return boton
 
 
@@ -258,7 +284,39 @@ def pantalla_info():
         message_to_screen("Presiona C para continuar", BLACK, 125, "pequena")
         pg.display.update()
         reloj.tick(5)
+        
+def intro_menu():
+    intro = True
+    i2, i3, i4, i5 = 0, 0, 0, 0
 
+
+
+    
+    while intro:
+        mx, my = pg.mouse.get_pos()
+        for event in pg.event.get():
+
+            if event.type == pg.QUIT:
+                pg.quit()
+                quit()
+            if event.type == pg.MOUSEBUTTONDOWN:
+                modo = seleccionarModo(mx, my)
+                if modo > 0: return modo
+        screen.blit(bg_intro, (0, 0))
+        screen.blit(sprites_image_sheet[i2], (300, -30))
+        i2 = (i2 + 1) % 2
+        
+        botones("nuevo",screen,ColorBoton1, Boton1 , TamBoton)
+        botones("ranking",screen,ColorBoton2, Boton2 , TamBoton)
+        botones("salir",screen,ColorBoton3, Boton3 , TamBoton)
+        #msg_boton("Nueva Partida", WHITE, 300,250,200,80)
+        #msg_boton("Ranking - Top 10", BLACK, 300,400,200,80)
+        #msg_boton("Créditos", WHITE, 300,500,200,50)
+        
+        #message_to_screen("Escoger un modo de juego", BLACK, -160, "pequena")
+        pg.display.update()
+        reloj.tick(5)
+    
 
 def intro_modo(modo_juego):
     intro = True
@@ -359,7 +417,7 @@ def intro_escenario(intro, escenarios):
 
         screen.blit(sprites_image_sheet[i2], (300, -30))
         i2 = (i2 + 1) % 2
-        message_to_screen("Escoger un escenario", BLACK, -160, "pequena")
+        message_to_screen("Escoger un escenario", WHITE, -160, "pequena")
         pg.display.update()
         reloj.tick(5)
 
@@ -389,7 +447,7 @@ def intro_personaje(intro, persons):
 
         screen.blit(sprites_image_sheet[i2], (300, -30))
         i2 = (i2 + 1) % 2
-        message_to_screen("Elegir un personaje", BLACK, -160, "pequena")
+        message_to_screen("Elegir un personaje", yellow, -160, "pequena")
         pg.display.update()
         reloj.tick(5)
 
@@ -405,9 +463,9 @@ def intro_final(intro):
         screen.blit(bg_intro, (0, 0))
         message_to_screen(TITLE, ORANGE, -160, "mediano")
         message_to_screen(
-            "Arrows to move, Space to jump", BLACK, -50, "pequena")
+            "Flechas para mover, Espacio para saltar", WHITE, -50, "pequena")
         message_to_screen(
-            "Press a key to play", BLACK, 100, "pequena")
+            "Presionar cualquier tecla para empezar", WHITE, 100, "pequena")
         pg.display.update()
         reloj.tick(5)
 
@@ -739,9 +797,9 @@ class Game:
         # game splash/start screen
         self.screen.fill(SKY_BLUE)
         self.draw_text(TITLE, 48, WHITE, WIDTH / 2, HEIGHT / 4)
-        self.draw_text("Arrows to move, Space to jump", 22, WHITE, WIDTH / 2,
+        self.draw_text("Flechas para mover, Espacio para Saltar", 22, WHITE, WIDTH / 2,
                        HEIGHT / 2)
-        self.draw_text("Press a key to play", 22, WHITE, WIDTH / 2, HEIGHT * 3 / 4)
+        self.draw_text("Presione cualquier tecla para empezar", 22, WHITE, WIDTH / 2, HEIGHT * 3 / 4)
         pg.display.flip()
         self.wait_for_key()
 
@@ -881,6 +939,7 @@ if __name__ == "__main__":
     while True:
         propiedades = Propiedades.get_instance()
         propiedades.propiedades_personaje(life, speed_player)
+        intro_menu()
         modo = intro_modo(transformarApiToArray(modo_juego))
         print(str(modo))
         if modo == 1:
