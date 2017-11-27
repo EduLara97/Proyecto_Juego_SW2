@@ -160,27 +160,7 @@ ColorBoton2 = [plomo, blue]
 Boton3 = [300,500]
 ColorBoton3 = [plomo, BLACK]
 
-def botones(texto,superficie, estado, pos, tam, ided= None):
-    
-    cursor = pg.mouse.get_pos()
-    click = pg.mouse.get_pressed()
-    
-    if pos[0] + tam[0] > cursor[0] > tam[0] and pos[1] + tam[1] > cursor[1] > tam[1] and pos[1] + tam[1] < cursor[1] + tam[1]:
-        if click[0] == 1:
-            if ided == "intro_modo":
-                print("intro")
-                intro_modo()
-            elif ided == "intro_ranking":
-                print("ranking")
-                intro_ranking()
-            elif ided == "salir":
-                quit()
-        boton = pg.draw.rect(superficie, estado[1], (pos[0], pos[1], tam[0], tam[1]))
-    else:
-        boton = pg.draw.rect(superficie, estado[0], (pos[0], pos[1], tam[0], tam[1]))
 
-    msg_boton(texto, WHITE, pos[0], pos[1], tam[0], tam[1])    
-    return boton
 
 
 def msg_boton(msg, color, posx, posy, ancho, alto, tamano_letra="micro"):
@@ -286,18 +266,33 @@ def pantalla_info():
         message_to_screen("Presiona C para continuar", BLACK, 125, "pequena")
         pg.display.update()
         reloj.tick(5)
+
+def botones(texto,superficie, estado, pos, tam, ided= None):    
+    cursor = pg.mouse.get_pos()
+    click = pg.mouse.get_pressed()
+    
+    if pos[0] + tam[0] > cursor[0] > tam[0] and pos[1] + tam[1] > cursor[1] > tam[1] and pos[1] + tam[1] < cursor[1] + tam[1]:
+        if click[0] == 1:
+            if ided == "intro_modo":
+                intro_modo(transformarApiToArray(modo_juego))
+            elif ided == "intro_ranking":
+                intro_ranking(intro)
+            elif ided == "salir":
+                quit()
+        boton = pg.draw.rect(superficie, estado[1], (pos[0], pos[1], tam[0], tam[1]))
+    else:
+        boton = pg.draw.rect(superficie, estado[0], (pos[0], pos[1], tam[0], tam[1]))
+
+    msg_boton(texto, WHITE, pos[0], pos[1], tam[0], tam[1])
+    
+    return boton
         
 def intro_menu():
     intro = True
-    i2, i3, i4, i5 = 0, 0, 0, 0
-
-
-
-    
+    i2, i3, i4, i5 = 0, 0, 0, 0   
     while intro:
         mx, my = pg.mouse.get_pos()
         for event in pg.event.get():
-
             if event.type == pg.QUIT:
                 pg.quit()
                 quit()
