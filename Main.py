@@ -497,9 +497,9 @@ def gameOver(score):
                     intro = False
         screen.blit(bg_intro, (0, 0))
         message_to_screen("VICTORIA", ORANGE, -100, "mediano")
-        message_to_screen("Score: " + str(score), BLACK, -60, "pequena")              
+        message_to_screen("Tu puntaje de este nivel fue: " + str(score), BLACK, -40, "pequena")
         message_to_screen(
-            "Presiona C para volver a jugar", BLACK, 25, "pequena")
+            "Presiona C para continuar", BLACK, 25, "pequena")
         pg.display.update()
         reloj.tick(5)
 
