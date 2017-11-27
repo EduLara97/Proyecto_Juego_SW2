@@ -165,11 +165,13 @@ def botones(texto,superficie, estado, pos, tam, ided= None):
     cursor = pg.mouse.get_pos()
     click = pg.mouse.get_pressed()
     
-    if pos[0] + tam[0] > cursor[0] > tam[0] and pos[1] + tam[1] > cursor[1] > tam[1] and pos[1] + tam[1] < cursor[1] + tam[1]:        
+    if pos[0] + tam[0] > cursor[0] > tam[0] and pos[1] + tam[1] > cursor[1] > tam[1] and pos[1] + tam[1] < cursor[1] + tam[1]:
         if click[0] == 1:
             if ided == "intro_modo":
-                intro_modo(modo_juego)
+                print("intro")
+                intro_modo()
             elif ided == "intro_ranking":
+                print("ranking")
                 intro_ranking()
             elif ided == "salir":
                 quit()
@@ -306,9 +308,9 @@ def intro_menu():
         screen.blit(sprites_image_sheet[i2], (300, -30))
         i2 = (i2 + 1) % 2
         
-        botones("nuevo",screen,ColorBoton1, Boton1 , TamBoton)
-        botones("ranking",screen,ColorBoton2, Boton2 , TamBoton)
-        botones("salir",screen,ColorBoton3, Boton3 , TamBoton)
+        botones("nuevo",screen,ColorBoton1, Boton1 , TamBoton, ided="intro_modo")
+        botones("ranking",screen,ColorBoton2, Boton2 , TamBoton, ided="intro_ranking")
+        botones("salir",screen,ColorBoton3, Boton3 , TamBoton, ided="salir")
         #msg_boton("Nueva Partida", WHITE, 300,250,200,80)
         #msg_boton("Ranking - Top 10", BLACK, 300,400,200,80)
         #msg_boton("Créditos", WHITE, 300,500,200,50)
