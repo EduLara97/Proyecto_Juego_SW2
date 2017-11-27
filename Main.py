@@ -265,15 +265,15 @@ def pantalla_info():
         message_to_screen("Presiona C para continuar", BLACK, 125, "pequena")
         pg.display.update()
         reloj.tick(5)
-def botones(texto, superficie, estado, pos, tam, ided= None):
-    
+        
+def botones(texto, superficie, estado, pos, tam, ided= None):    
     cursor = pg.mouse.get_pos()
     click = pg.mouse.get_pressed()
     
     if pos[0] + tam[0] > cursor[0] > tam[0] and pos[1] + tam[1] > cursor[1] > tam[1] and pos[1] + tam[1] < cursor[1] + tam[1]:
         if click[0] == 1:
             if ided == "intro_modo":
-                pass
+                intro_modo(transformarApiToArray(modo_juego))
             elif ided == "intro_ranking":
                 pass
             elif ided == "salir":
@@ -288,11 +288,9 @@ def botones(texto, superficie, estado, pos, tam, ided= None):
 def intro_menu():
     intro = True
     i2, i3, i4, i5 = 0, 0, 0, 0
-
     while intro:
         mx, my = pg.mouse.get_pos()
         for event in pg.event.get():
-
             if event.type == pg.QUIT:
                 pg.quit()
                 quit()
