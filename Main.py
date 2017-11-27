@@ -582,7 +582,7 @@ class Game:
             self.draw()
             
     #Lanzar proyectil del boss
-    def proyectil(self)
+    def proyectil(self):
         out=False
         way=True
         if self.player.pos.x < self.boss.pos.x:
