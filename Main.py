@@ -32,7 +32,7 @@ reloj = pg.time.Clock()
 
 display_ancho = 800
 display_altura = 600
-microfont = pg.font.SysFont("comicsansms", 10)
+microfont = pg.font.SysFont("comicsansms", 20)
 pequenafont = pg.font.SysFont("comicsansms", 25)
 medianofont = pg.font.SysFont("comicsansms", 50)
 largofont = pg.font.SysFont("comicsansms", 80)
@@ -257,6 +257,39 @@ def pantalla_info():
         message_to_screen("Presiona C para continuar", BLACK, 125, "pequena")
         pg.display.update()
         reloj.tick(5)
+
+def intro_menu():
+    intro = True
+    i2, i3, i4, i5 = 0, 0, 0, 0
+
+
+
+    
+    while intro:
+        mx, my = pg.mouse.get_pos()
+        for event in pg.event.get():
+
+            if event.type == pg.QUIT:
+                pg.quit()
+                quit()
+            if event.type == pg.MOUSEBUTTONDOWN:
+                modo = seleccionarModo(mx, my)
+                if modo > 0: return modo
+        screen.blit(bg_intro, (0, 0))
+        screen.blit(sprites_image_sheet[i2], (300, -30))
+        i2 = (i2 + 1) % 2
+        
+        botones(screen,blue,300,250,200,80)
+        botones(screen,yellow , 300, 400 ,200,80)
+        botones(screen,BLACK , 300, 500 ,200,50)
+        msg_boton("Nueva Partida", WHITE, 300,250,200,80)
+        msg_boton("Ranking - Top 10", BLACK, 300,400,200,80)
+        msg_boton("Créditos", WHITE, 300,500,200,50)
+        
+        #message_to_screen("Escoger un modo de juego", WHITE, -160, "pequena")
+        pg.display.update()
+        reloj.tick(5)        
+        
 
 
 def intro_modo(modo_juego):
@@ -895,6 +928,7 @@ if __name__ == "__main__":
     while True:
         propiedades = Propiedades.get_instance()
         propiedades.propiedades_personaje(life, speed_player)
+        intro_menu()
         modo = intro_modo(transformarApiToArray(modo_juego))
         print(str(modo))
         if modo == 1:
