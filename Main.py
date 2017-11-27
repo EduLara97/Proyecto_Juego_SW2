@@ -7,6 +7,7 @@ from GeneralInformation import *
 from urllib.request import urlopen
 import random
 import requests
+from CBForm import *
 from os import *
 
 posturl="http://runinkarun.herokuapp.com/score/api"
@@ -130,7 +131,6 @@ perso_wari = pg.image.load("assets/images/intro/perso_wari.png").convert()
 perso_wari = pg.transform.scale(perso_wari, (anchPer, altPer))
 perso_wari.set_colorkey(WHITE)
 
-
 # lista de las imagenes de los incas (sprite sheets)
 lista_perso = ["inca_mochica.png",
                "inca_paracas.png",
@@ -150,6 +150,7 @@ lista_escenarios = [bg_moche,
                     bg_tiahua,
                     bg_wari]
 
+<<<<<<< HEAD
 Boton1 = [300,250]
 TamBoton = [200,80]
 ColorBoton1 = [plomo, red]
@@ -158,6 +159,16 @@ Boton2 = [300,400]
 ColorBoton2 = [plomo, blue]
 
 Boton3 = [300,500]
+=======
+Boton1 = [300, 250]
+TamBoton = [200, 80]
+ColorBoton1 = [plomo, red]
+
+Boton2 = [300, 400]
+ColorBoton2 = [plomo, blue]
+
+Boton3 = [300, 500]
+>>>>>>> c03474d60d3b9791213bff8ea7f9711b86fe3832
 ColorBoton3 = [plomo, BLACK]
 
 
@@ -168,6 +179,10 @@ def msg_boton(msg, color, posx, posy, ancho, alto, tamano_letra="micro"):
     textSur, textRect = text_objetos(msg, color, tamano_letra)
     textRect.center = (posx + (ancho/2), posy + (alto/2))
     screen.blit(textSur, textRect)
+<<<<<<< HEAD
+=======
+
+>>>>>>> c03474d60d3b9791213bff8ea7f9711b86fe3832
 
 def message_to_screen(msg, color, y_displace=0, tamano_letra="pequena"):
 
@@ -198,7 +213,6 @@ def seleccionarModo(mx, my):
 
 
 def seleccionarEscenario(mx, my, escenario):
-    print(str(mx) + " : " + str(my))
     id_escenario = 0
     for escena in escenario:
         if 108 <= mx <= 313 and 219 <= my <= 321 and escena == "MOC":
@@ -215,7 +229,6 @@ def seleccionarEscenario(mx, my, escenario):
 def seleccionarPersonaje(mx, my, persons):
     id_personaje = 0
     for personaje in persons:
-        print(personaje)
         if 211 <= mx <= 292 and 202 <= my <= 344 and personaje == "inmoc":
             id_personaje = 1
         elif 512 <= mx <= 615 and 202 <= my <= 344 and personaje == "intia":
@@ -264,6 +277,52 @@ def pantalla_info():
         message_to_screen("Información de la cultura", ORANGE, -100, "mediano")
         message_to_screen("Aqui se mostrara información acerca de la cultura", BLACK, 25, "pequena")
         message_to_screen("Presiona C para continuar", BLACK, 125, "pequena")
+        pg.display.update()
+        reloj.tick(5)
+        
+def botones(texto, superficie, estado, pos, tam, ided= None):    
+    cursor = pg.mouse.get_pos()
+    click = pg.mouse.get_pressed()
+    
+    if pos[0] + tam[0] > cursor[0] > tam[0] and pos[1] + tam[1] > cursor[1] > tam[1] and pos[1] + tam[1] < cursor[1] + tam[1]:
+        if click[0] == 1:
+            if ided == "intro_modo":
+                intro_modo(transformarApiToArray(modo_juego))
+            elif ided == "intro_ranking":
+                pass
+            elif ided == "salir":
+                quit()
+        boton = pg.draw.rect(superficie, estado[1], (pos[0], pos[1], tam[0], tam[1]))
+    else:
+        boton = pg.draw.rect(superficie, estado[0], (pos[0], pos[1], tam[0], tam[1]))
+
+    msg_boton(texto, WHITE, pos[0], pos[1], tam[0], tam[1])    
+    return boton
+
+def intro_menu():
+    intro = True
+    i2, i3, i4, i5 = 0, 0, 0, 0
+    while intro:
+        mx, my = pg.mouse.get_pos()
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                quit()
+            if event.type == pg.MOUSEBUTTONDOWN:
+                modo = seleccionarModo(mx, my)
+                if modo > 0: return modo
+        screen.blit(bg_intro, (0, 0))
+        screen.blit(sprites_image_sheet[i2], (300, -30))
+        i2 = (i2 + 1) % 2
+
+        botones("nuevo", screen, ColorBoton1, Boton1, TamBoton, ided="intro_modo")
+        botones("ranking", screen, ColorBoton2, Boton2, TamBoton, ided="intro_ranking")
+        botones("salir", screen, ColorBoton3, Boton3, TamBoton, ided="salir")
+        # msg_boton("Nueva Partida", WHITE, 300,250,200,80)
+        # msg_boton("Ranking - Top 10", BLACK, 300,400,200,80)
+        # msg_boton("Créditos", WHITE, 300,500,200,50)
+
+        # message_to_screen("Escoger un modo de juego", BLACK, -160, "pequena")
         pg.display.update()
         reloj.tick(5)
 
@@ -331,7 +390,6 @@ def intro_modo(modo_juego):
         screen.blit(bg_intro, (0, 0))
 
         for mod in modo_juego:
-            print(mod)
             if mod == "single":
                 screen.blit(mode_single, (450, 250))
             if mod == "arcade":
@@ -364,7 +422,8 @@ def intro_modo(modo_juego):
         message_to_screen("Escoger un modo de juego", BLACK, -160, "pequena")
         pg.display.update()
         reloj.tick(5)
-        
+
+
 def intro_ranking(intro):
     response = requests.get(posturl)
     if response.status_code == 200:
@@ -388,6 +447,7 @@ def intro_ranking(intro):
             i2 = i2+25"""
         pg.display.update()
         reloj.tick(5)
+
 
 def intro_escenario(intro, escenarios):
     i2 = 0
@@ -481,9 +541,6 @@ def into_juego(escenario, persons):
 
 def gameOver(score):
     intro = True
-    payload ={"playerName": "Bot", "acumScore": str(score)}
-    #data = json.dumps({'playerName':'Bot', 'acumScore':str(score)})
-    r = requests.post(posturl, data=payload)
     while intro:
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -491,6 +548,8 @@ def gameOver(score):
                 quit()
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_c:
+                    propiedades = Propiedades.get_instance()
+                    propiedades.puntaje = propiedades.puntaje + score
                     intro = False
         screen.blit(bg_intro, (0, 0))
         message_to_screen("VICTORIA", ORANGE, -100, "mediano")
@@ -499,6 +558,38 @@ def gameOver(score):
             "Presiona C para volver a jugar", BLACK, 25, "pequena")
         pg.display.update()
         reloj.tick(5)
+
+
+def gameOverFinal():
+    intro = True
+    form = Form(pg.display.set_mode(SIZE))
+    edit_text = EditText(250, 400, 320, 35, 2, 'Anonimo', False, 20)
+    form.add_child(edit_text)
+    propiedades = Propiedades.get_instance()
+    while intro:
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+                quit()
+            if event.type == pg.MOUSEBUTTONDOWN:
+                mouse_position = pg.mouse.get_pos()
+                edit_text.collidepoint(mouse_position)
+            if event.type == pg.KEYDOWN:
+                edit_text.update(event)
+                if event.key == pg.K_RETURN:
+                    intro = False
+        screen.blit(bg_intro, (0, 0))
+        message_to_screen("FELICIDADES", ORANGE, -100, "mediano")
+        message_to_screen("ACABASTE EL JUEGO", ORANGE, -40, "mediano")
+        message_to_screen("Tu puntaje Final fue: " + str(propiedades.puntaje), BLACK, 30, "pequena")
+        message_to_screen(
+            "Presiona enter para guardar y salir al menú", ORANGE, 200, "pequena")
+        form.draw()
+        pg.display.update()
+        reloj.tick(5)
+    payload = {"playerName": edit_text.value, "acumScore": str(propiedades.puntaje)}
+    # data = json.dumps({'playerName':'Bot', 'acumScore':str(score)})
+    r = requests.post(posturl, data=payload)
 
 
 def transformarApiToArray(str):
@@ -523,6 +614,7 @@ class Game:
         self.rocones = pg.sprite.Group()
         self.soldados = pg.sprite.Group()
         self.bosses = pg.sprite.Group()
+        self.lanza = pg.sprite.Group()
         self.score = 0
         self.escenario = escena
         self.show_cartel = True
@@ -542,6 +634,7 @@ class Game:
         self.sprites_serpientes = Spritesheet(path.join(self.img_dir_enemigos, "serpiente.png"))
         self.sprites_soldado = Spritesheet(path.join(self.img_dir_enemigos, "espanol_normal.png"))
         self.sprites_boss = Spritesheet(path.join(self.img_dir_enemigos, "espanol_boss.png"))
+        self.sprites_lanza = Spritesheet(path.join(img_objetos_folder, "lanza.png"))
         self.level = LEVELS[escena]
 
     def new(self):
@@ -573,7 +666,21 @@ class Game:
             self.events()
             self.update()
             self.draw()
-
+            
+    #Lanzar proyectil del boss
+    def proyectil(self):
+        out=False
+        way=True
+        if self.player.pos.x < self.boss.pos.x:
+            posx=self.boss.pos.x-3
+        else:
+            posx=self.boss.pos.x+3
+            way=False
+              
+        posy=self.boss.pos.y*2/3
+        self.screen.blit(self.sprites_lanza, (posx, posy))
+        
+        
     def update(self):
         # Esta es la sección donde se defininen todos los accionares dentro del juego, por ejemplo
         # si el personaje choca contra una roca, este se detiene y no puede seguir avanzando
@@ -595,6 +702,7 @@ class Game:
         if self.player.vel.y > 0:
             if hits_saltar_serpiente:
                 if self.player.rect.bottom >= hits_saltar_serpiente[0].rect.top:
+                    pg.mixer.Sound.play(pg.mixer.Sound("assets/audio/matarObstaculo.wav"))
                     hits_saltar_serpiente[0].kill()
                     self.score += 20
 
@@ -612,7 +720,21 @@ class Game:
                     self.player.vida = 0
                     self.kill_all()
                     self.playing = False
-
+                    
+        # Accion cada que una lanza golpea al personaje
+        hits_lanza= pg.sprite.spritecollide(self.player, self.lanza, False)
+        if hits_lanza:
+            if self.player.vel.x >= 0 \
+                    and self.player.rect.right >= hits_lanza[0].rect.left:
+                self.player.vel.x = -15
+                self.player.vel.y = -12
+                vida = self.player.disminuirVida(LANZA_DMG)
+                hits_lanza[0].kill()
+                if vida <= 0:
+                    self.player.vida = 0
+                    self.kill_all()
+                    self.playing = False
+                    
         # Se determina que las serpientes siempre se posicionaran encima de las plataformas
         for serpiente in self.serpientes:
             if serpiente.vel.y > 0:
@@ -660,6 +782,7 @@ class Game:
         if self.player.vel.y > 0:
             if hits_saltar_soldado:
                 if self.player.rect.bottom >= hits_saltar_soldado[0].rect.top:
+                    pg.mixer.Sound.play(pg.mixer.Sound("assets/audio/matarObstaculo.wav"))
                     hits_saltar_soldado[0].kill()
                     self.score += 20
 
@@ -696,6 +819,7 @@ class Game:
         if self.player.vel.y > 0:
             if hits_saltar_boss:
                 if self.player.rect.bottom >= hits_saltar_boss[0].rect.top:
+                    pg.mixer.Sound.play(pg.mixer.Sound("assets/audio/matarObstaculo.wav"))
                     self.player.vel.y = -12
                     vida_boss = self.boss.disminuirVida()
                     print(vida_boss)
@@ -882,18 +1006,21 @@ def mainArcade():
     pg.mixer.music.load("assets/audio/bg_opcion2.wav")
     pg.mixer.music.set_volume(0.5)
     pg.mixer.music.play(-1)
-    g = Game(0, 0)
+    g = Game(0, 1)
     while g.running:
         g.new()
-    g1 = Game(1, 0)
+    g1 = Game(1, 1)
     while g1.running:
         g1.new()
-    g2 = Game(2, 0)
+    g2 = Game(2, 1)
     while g2.running:
         g2.new()
-    g3 = Game(3, 0)
+    g3 = Game(3, 1)
     while g3.running:
         g3.new()
+    gameOverFinal()
+    propiedades = Propiedades.get_instance()
+    print(str(propiedades.puntaje))
     pg.mixer.quit()
 
 
@@ -923,7 +1050,7 @@ if __name__ == "__main__":
         life = results['life']
         game_time = results['game_time']
         musica = results['musica']
-        print(escenario)
+        """print(escenario)
         print(personajes)
         print(modo_juego)
         print(dificultad)
@@ -931,7 +1058,7 @@ if __name__ == "__main__":
         print(speed_player)
         print(life)
         print(game_time)
-        print(musica)
+        print(musica)"""
 
     while True:
         propiedades = Propiedades.get_instance()

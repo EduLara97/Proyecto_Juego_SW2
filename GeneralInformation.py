@@ -4,10 +4,17 @@ SKY_BLUE = 7, 242, 212
 ORANGE = 239, 127, 26
 BLACK = 0, 0, 0
 ORANGE_LIGTH = 255, 183, 87
+<<<<<<< HEAD
 blue = 0, 0, 255
 yellow = 255, 255 , 0
 plomo = 232, 224, 224
 red=255,0,0
+=======
+blue = (0, 0, 255)
+plomo = (232, 224, 224)
+red = 255, 0, 0
+
+>>>>>>> c03474d60d3b9791213bff8ea7f9711b86fe3832
 
 # game options/settings
 TITLE = "RUN INKA RUN GAME"
@@ -95,7 +102,7 @@ class Propiedades:
                 self.player_grav = 0.8
                 self.player_jump = 15
                 self.vida_personaje = 5
-
+                self.puntaje = 0
 
         def propiedades_personaje(self, vida, velocidad):
                 self.vida_personaje = vida
@@ -123,3 +130,4 @@ SOLDADO_PROP = (60, 80)
 SOLDADO_FUERZA = 2
 BOSS_FUERZA = 3
 BOOS_VIDA = 5
+LANZA_DMG = 2
