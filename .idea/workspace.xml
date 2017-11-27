@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="509d578e-0465-4c52-820c-2a70442ec07b" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Main.py" afterPath="$PROJECT_DIR$/Main.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -12,7 +13,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Proyecto_Juego_SW2$Main.coverage" NAME="Main Coverage Results" MODIFIED="1511762595812" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Proyecto_Juego_SW2$Main.coverage" NAME="Main Coverage Results" MODIFIED="1511764371934" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PlayPlatform$platform_scroller__1_.coverage" NAME="platform_scroller (1) Coverage Results" MODIFIED="1506626742310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../pygames-master/pygame" />
     <SUITE FILE_PATH="coverage/PlayPlatform$Main.coverage" NAME="Main Coverage Results" MODIFIED="1511734442681" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PlayPlatform$sprites.coverage" NAME="sprites Coverage Results" MODIFIED="1508631676039" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../pygames-master/pygame" />
@@ -29,26 +30,41 @@
       <file leaf-file-name="Main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="445">
-              <caret line="501" column="44" lean-forward="false" selection-start-line="501" selection-start-column="44" selection-end-line="501" selection-end-column="44" />
+            <state relative-caret-position="615">
+              <caret line="751" column="0" lean-forward="false" selection-start-line="751" selection-start-column="0" selection-end-line="751" selection-end-column="0" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
-                <element signature="e#12400#14202#0" expanded="false" />
-                <element signature="e#14242#15022#0" expanded="false" />
-                <element signature="e#15068#16073#0" expanded="false" />
-                <element signature="e#16117#17122#0" expanded="false" />
-                <element signature="e#17153#17684#0" expanded="false" />
-                <element signature="e#17727#18014#0" expanded="false" />
-                <element signature="e#21984#22486#0" expanded="false" />
-                <element signature="e#22515#22929#0" expanded="false" />
-                <element signature="e#22961#32401#0" expanded="false" />
-                <element signature="e#32433#33026#0" expanded="false" />
-                <element signature="e#33056#33425#0" expanded="false" />
-                <element signature="e#33468#33844#0" expanded="false" />
-                <element signature="e#33882#34191#0" expanded="false" />
-                <element signature="e#34251#34474#0" expanded="false" />
-                <element signature="e#34520#35912#0" expanded="false" />
-                <element signature="e#35946#36416#0" expanded="false" />
+                <element signature="e#7665#7747#0" expanded="false" />
+                <element signature="e#7829#7980#0" expanded="false" />
+                <element signature="e#8061#8231#0" expanded="false" />
+                <element signature="e#8283#8717#0" expanded="false" />
+                <element signature="e#8753#8903#0" expanded="false" />
+                <element signature="e#8955#9426#0" expanded="false" />
+                <element signature="e#9476#9968#0" expanded="false" />
+                <element signature="e#9988#10732#0" expanded="false" />
+                <element signature="e#10760#11381#0" expanded="false" />
+                <element signature="e#11406#12350#0" expanded="false" />
+                <element signature="e#12393#14195#0" expanded="false" />
+                <element signature="e#14228#15008#0" expanded="false" />
+                <element signature="e#15055#16060#0" expanded="false" />
+                <element signature="e#16104#17109#0" expanded="false" />
+                <element signature="e#17140#17671#0" expanded="false" />
+                <element signature="e#17714#18001#0" expanded="false" />
+                <element signature="e#18029#18761#0" expanded="false" />
+                <element signature="e#18789#20101#0" expanded="false" />
+                <element signature="e#20140#20309#0" expanded="false" />
+                <element signature="e#20371#21941#0" expanded="false" />
+                <element signature="e#21970#22472#0" expanded="false" />
+                <element signature="e#22501#22915#0" expanded="false" />
+                <element signature="e#32693#33286#0" expanded="false" />
+                <element signature="e#33316#33685#0" expanded="false" />
+                <element signature="e#33728#34104#0" expanded="false" />
+                <element signature="e#34142#34451#0" expanded="false" />
+                <element signature="e#34511#34734#0" expanded="false" />
+                <element signature="e#34780#36172#0" expanded="false" />
+                <element signature="e#36206#36676#0" expanded="false" />
+                <element signature="e#36701#37168#0" expanded="false" />
+                <element signature="e#37206#37474#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -115,8 +131,19 @@
         <entry file="file://$PROJECT_DIR$/GeneralInformation.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="607">
-              <caret line="93" column="32" lean-forward="false" selection-start-line="93" selection-start-column="32" selection-end-line="93" selection-end-column="32" />
-              <folding />
+              <caret line="97" column="32" lean-forward="false" selection-start-line="97" selection-start-column="32" selection-end-line="97" selection-end-column="32" />
+              <folding>
+                <marker date="1511762990939" expanded="true" signature="344:6788" ph="..." />
+                <marker date="1511762990939" expanded="true" signature="345:1577" ph="..." />
+                <marker date="1511762990939" expanded="true" signature="1589:2866" ph="..." />
+                <marker date="1511762990939" expanded="true" signature="2878:4326" ph="..." />
+                <marker date="1511762990939" expanded="true" signature="4338:5624" ph="..." />
+                <marker date="1511762990939" expanded="true" signature="5636:6787" ph="..." />
+                <marker date="1511762990939" expanded="true" signature="6927:7920" ph="..." />
+                <marker date="1511762990939" expanded="true" signature="7006:7139" ph="..." />
+                <marker date="1511762990939" expanded="true" signature="7169:7400" ph="..." />
+                <marker date="1511762990939" expanded="true" signature="7459:7920" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -239,6 +266,17 @@
               <item name="Proyecto_Juego_SW2" type="b2602c69:ProjectViewProjectNode" />
               <item name="Proyecto_Juego_SW2" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Proyecto_Juego_SW2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Proyecto_Juego_SW2" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Proyecto_Juego_SW2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Proyecto_Juego_SW2" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="audio" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -252,11 +290,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Edwin\Documents\ULIMA\Ingenieria de software 2\proyectoPygame-Django\Prueba_Juego2\Proyecto_Juego_SW2\assets\audio" />
       <recent name="C:\Users\Edwin\Documents\ULIMA\Ingenieria de software 2\proyectoPygame-Django\Prueba_Juego2\Proyecto_Juego_SW2" />
       <recent name="C:\Users\Edwin\PycharmProjects\PlayPlatform\assets\images\objetos" />
       <recent name="C:\Users\Edwin\PycharmProjects\PlayPlatform\assets\images\personajes" />
       <recent name="C:\Users\Edwin\PycharmProjects\PlayPlatform\assets\fuentes" />
-      <recent name="C:\Users\Edwin\PycharmProjects\PlayPlatform\assets\images\terrenos" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Edwin\PycharmProjects\PlayPlatform\assets\images\personajes" />
@@ -421,7 +459,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="58" />
+      <option name="time" value="59" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -722,33 +760,59 @@
     <entry file="file://$PROJECT_DIR$/GeneralInformation.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="607">
-          <caret line="93" column="32" lean-forward="false" selection-start-line="93" selection-start-column="32" selection-end-line="93" selection-end-column="32" />
-          <folding />
+          <caret line="97" column="32" lean-forward="false" selection-start-line="97" selection-start-column="32" selection-end-line="97" selection-end-column="32" />
+          <folding>
+            <marker date="1511762990939" expanded="true" signature="344:6788" ph="..." />
+            <marker date="1511762990939" expanded="true" signature="345:1577" ph="..." />
+            <marker date="1511762990939" expanded="true" signature="1589:2866" ph="..." />
+            <marker date="1511762990939" expanded="true" signature="2878:4326" ph="..." />
+            <marker date="1511762990939" expanded="true" signature="4338:5624" ph="..." />
+            <marker date="1511762990939" expanded="true" signature="5636:6787" ph="..." />
+            <marker date="1511762990939" expanded="true" signature="6927:7920" ph="..." />
+            <marker date="1511762990939" expanded="true" signature="7006:7139" ph="..." />
+            <marker date="1511762990939" expanded="true" signature="7169:7400" ph="..." />
+            <marker date="1511762990939" expanded="true" signature="7459:7920" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="501" column="44" lean-forward="false" selection-start-line="501" selection-start-column="44" selection-end-line="501" selection-end-column="44" />
+        <state relative-caret-position="615">
+          <caret line="751" column="0" lean-forward="false" selection-start-line="751" selection-start-column="0" selection-end-line="751" selection-end-column="0" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#12400#14202#0" expanded="false" />
-            <element signature="e#14242#15022#0" expanded="false" />
-            <element signature="e#15068#16073#0" expanded="false" />
-            <element signature="e#16117#17122#0" expanded="false" />
-            <element signature="e#17153#17684#0" expanded="false" />
-            <element signature="e#17727#18014#0" expanded="false" />
-            <element signature="e#21984#22486#0" expanded="false" />
-            <element signature="e#22515#22929#0" expanded="false" />
-            <element signature="e#22961#32401#0" expanded="false" />
-            <element signature="e#32433#33026#0" expanded="false" />
-            <element signature="e#33056#33425#0" expanded="false" />
-            <element signature="e#33468#33844#0" expanded="false" />
-            <element signature="e#33882#34191#0" expanded="false" />
-            <element signature="e#34251#34474#0" expanded="false" />
-            <element signature="e#34520#35912#0" expanded="false" />
-            <element signature="e#35946#36416#0" expanded="false" />
+            <element signature="e#7665#7747#0" expanded="false" />
+            <element signature="e#7829#7980#0" expanded="false" />
+            <element signature="e#8061#8231#0" expanded="false" />
+            <element signature="e#8283#8717#0" expanded="false" />
+            <element signature="e#8753#8903#0" expanded="false" />
+            <element signature="e#8955#9426#0" expanded="false" />
+            <element signature="e#9476#9968#0" expanded="false" />
+            <element signature="e#9988#10732#0" expanded="false" />
+            <element signature="e#10760#11381#0" expanded="false" />
+            <element signature="e#11406#12350#0" expanded="false" />
+            <element signature="e#12393#14195#0" expanded="false" />
+            <element signature="e#14228#15008#0" expanded="false" />
+            <element signature="e#15055#16060#0" expanded="false" />
+            <element signature="e#16104#17109#0" expanded="false" />
+            <element signature="e#17140#17671#0" expanded="false" />
+            <element signature="e#17714#18001#0" expanded="false" />
+            <element signature="e#18029#18761#0" expanded="false" />
+            <element signature="e#18789#20101#0" expanded="false" />
+            <element signature="e#20140#20309#0" expanded="false" />
+            <element signature="e#20371#21941#0" expanded="false" />
+            <element signature="e#21970#22472#0" expanded="false" />
+            <element signature="e#22501#22915#0" expanded="false" />
+            <element signature="e#32693#33286#0" expanded="false" />
+            <element signature="e#33316#33685#0" expanded="false" />
+            <element signature="e#33728#34104#0" expanded="false" />
+            <element signature="e#34142#34451#0" expanded="false" />
+            <element signature="e#34511#34734#0" expanded="false" />
+            <element signature="e#34780#36172#0" expanded="false" />
+            <element signature="e#36206#36676#0" expanded="false" />
+            <element signature="e#36701#37168#0" expanded="false" />
+            <element signature="e#37206#37474#0" expanded="false" />
           </folding>
         </state>
       </provider>

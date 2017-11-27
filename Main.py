@@ -161,6 +161,7 @@ def msg_boton(msg, color, posx, posy, ancho, alto, tamano_letra="micro"):
     textRect.center = (posx + (ancho/2), posy + (alto/2))
     screen.blit(textSur, textRect)
 
+
 def message_to_screen(msg, color, y_displace=0, tamano_letra="pequena"):
 
     textSur, textRect = text_objetos(msg, color, tamano_letra)
@@ -257,6 +258,7 @@ def pantalla_info():
         pg.display.update()
         reloj.tick(5)
 
+
 def intro_menu():
     intro = True
     i2, i3, i4, i5 = 0, 0, 0, 0
@@ -284,7 +286,6 @@ def intro_menu():
         #message_to_screen("Escoger un modo de juego", WHITE, -160, "pequena")
         pg.display.update()
         reloj.tick(5)        
-        
 
 
 def intro_modo(modo_juego):
@@ -335,7 +336,8 @@ def intro_modo(modo_juego):
         message_to_screen("Escoger un modo de juego", BLACK, -160, "pequena")
         pg.display.update()
         reloj.tick(5)
-        
+
+
 def intro_ranking(intro):
     response = requests.get(posturl)
     if response.status_code == 200:
@@ -359,6 +361,7 @@ def intro_ranking(intro):
             i2 = i2+25"""
         pg.display.update()
         reloj.tick(5)
+
 
 def intro_escenario(intro, escenarios):
     i2 = 0
@@ -469,7 +472,6 @@ def gameOver(score):
             "Presiona C para volver a jugar", BLACK, 25, "pequena")
         pg.display.update()
         reloj.tick(5)
-
 
 
 def gameOverFinal():
@@ -600,6 +602,7 @@ class Game:
         if self.player.vel.y > 0:
             if hits_saltar_serpiente:
                 if self.player.rect.bottom >= hits_saltar_serpiente[0].rect.top:
+                    pg.mixer.Sound.play(pg.mixer.Sound("assets/audio/matarObstaculo.wav"))
                     hits_saltar_serpiente[0].kill()
                     self.score += 20
 
@@ -618,7 +621,7 @@ class Game:
                     self.kill_all()
                     self.playing = False
                     
-        #Accion cada que una lanza golpea al personaje
+        # Accion cada que una lanza golpea al personaje
         hits_lanza= pg.sprite.spritecollide(self.player, self.lanza, False)
         if hits_lanza:
             if self.player.vel.x >= 0 \
@@ -679,6 +682,7 @@ class Game:
         if self.player.vel.y > 0:
             if hits_saltar_soldado:
                 if self.player.rect.bottom >= hits_saltar_soldado[0].rect.top:
+                    pg.mixer.Sound.play(pg.mixer.Sound("assets/audio/matarObstaculo.wav"))
                     hits_saltar_soldado[0].kill()
                     self.score += 20
 
@@ -715,6 +719,7 @@ class Game:
         if self.player.vel.y > 0:
             if hits_saltar_boss:
                 if self.player.rect.bottom >= hits_saltar_boss[0].rect.top:
+                    pg.mixer.Sound.play(pg.mixer.Sound("assets/audio/matarObstaculo.wav"))
                     self.player.vel.y = -12
                     vida_boss = self.boss.disminuirVida()
                     print(vida_boss)
