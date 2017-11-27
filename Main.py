@@ -170,7 +170,6 @@ def seleccionarMenu(mx, my):
         return 0
 
 
-
 def msg_boton(msg, color, posx, posy, ancho, alto, tamano_letra="micro"):
 
     textSur, textRect = text_objetos(msg, color, tamano_letra)
@@ -303,7 +302,7 @@ def intro_menu():
                 pg.quit()
                 quit()
             if event.type == pg.MOUSEBUTTONDOWN:
-                modo = seleccionarModo(mx, my)
+                modo = seleccionarMenu(mx, my)
                 if modo > 0: return modo
         screen.blit(bg_intro, (0, 0))
         screen.blit(sprites_image_sheet[i2], (300, -30))
