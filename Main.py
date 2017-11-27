@@ -298,18 +298,25 @@ def intro_modo(modo_juego):
         reloj.tick(5)
         
 def intro_ranking(intro):
+    response = requests.get(posturl)
+    if response.status_code == 200:
+        data = response.json()
+        nombre = results['playerName']
+        score = results['acumScore']
     while intro:
         i2 = 0
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
                 quit()
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_c:
+                    intro = False
         screen.blit(bg_intro, (0, 0))
         message_to_screen("TOP 10", BLACK, -160, "pequena")
         message_to_screen("Jugador    Puntaje", BLACK, -60, "pequena")
-        #cursor.execute("SELECT * FROM ranking ORDER BY puntos DESC LIMIT 10")
-        """for row in cursor:
-            message_to_screen(str(row[1:]), BLACK, -20+i2, "pequena")
+        """for row in data:
+            message_to_screen(row, BLACK, -20+i2, "pequena")
             i2 = i2+25"""
         pg.display.update()
         reloj.tick(5)
@@ -418,6 +425,7 @@ def gameOver(score):
         screen.blit(bg_intro, (0, 0))
         message_to_screen("VICTORIA", ORANGE, -100, "mediano")
         message_to_screen("Score: " + str(score), BLACK, -60, "pequena")
+       #data = json.dumps({'playerName':'Bot', 'acumScore':str(score)})
         r = requests.post(posturl, data=payload)        
         message_to_screen(
             "Presiona C para volver a jugar", BLACK, 25, "pequena")
