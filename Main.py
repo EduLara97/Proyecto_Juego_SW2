@@ -16,7 +16,7 @@ URL_IMAGE = "http://res.cloudinary.com/dfktnvqxe/image/upload/v1511719844/escena
 IMAGE_STR = urlopen(URL_IMAGE).read()
 IMAGE_FILE = io.BytesIO(IMAGE_STR)
 
-game_folder = path.dirname(__file__)
+game_folder = path.dirname("")
 img_folder = path.join(game_folder, "assets/images")
 img_enemigos_folder = path.join(img_folder, "enemigos")
 img_escenarios_folder = path.join(img_folder, "escenarios")
@@ -548,7 +548,7 @@ def transformarApiToArray(str):
 class Game:
     def __init__(self, escena, perso):
         # initialize game window, etc
-        self.dir = path.dirname(__file__)
+        self.dir = path.dirname("")
         self.platforms = pg.sprite.Group()
         self.all_sprites = pg.sprite.Group()
         self.coins = pg.sprite.Group()
@@ -880,7 +880,7 @@ class Game:
                     waiting = False
 
     def draw_text(self, text, size, color, x, y):
-        font = pg.font.Font(self.font_name, size)
+        font = pg.font.SysFont("comicsansms", size)
         text_surface = font.render(text, True, color)
         text_rect = text_surface.get_rect()
         text_rect.midtop = (x, y)
@@ -950,16 +950,17 @@ def mainArcade():
     pg.mixer.music.load("assets/audio/bg_opcion2.wav")
     pg.mixer.music.set_volume(0.5)
     pg.mixer.music.play(-1)
-    g = Game(0, 1)
+    g = Game(0, 0)
+    g1 = Game(1, 0)
+    g2 = Game(2, 0)
+    g3 = Game(3, 0)
+
     while g.running:
         g.new()
-    g1 = Game(1, 1)
     while g1.running:
         g1.new()
-    g2 = Game(2, 1)
     while g2.running:
         g2.new()
-    g3 = Game(3, 1)
     while g3.running:
         g3.new()
     gameOverFinal()
@@ -992,17 +993,8 @@ if __name__ == "__main__":
         intro_background = results['intro_background']
         speed_player = results['speed_player']
         life = results['life']
-        game_time = results['game_time']
+        #game_time = results['game_time']
         musica = results['musica']
-        """print(escenario)
-        print(personajes)
-        print(modo_juego)
-        print(dificultad)
-        print(intro_background)
-        print(speed_player)
-        print(life)
-        print(game_time)
-        print(musica)"""
 
     while True:
         propiedades = Propiedades.get_instance()

@@ -2,7 +2,6 @@ from random import randrange
 
 import pygame as pg
 from pygame import *
-from utils.States import AnimatedState, StaticState
 from GeneralInformation import *
 
 vec = pg.math.Vector2
