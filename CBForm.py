@@ -84,8 +84,8 @@ class EditText(FormComponent):
     # Cambiar el color de los bordes, se modifican con el atributo Focus
     def load_border_color(self):
         if self.alert:
-            return Color.RED
-        return Color.YELLOW if self.focus else Color.BLACK
+            return (255, 0, 0)
+        return (247, 177, 33) if self.focus else (0, 0, 0)
 
     # Validar que el input no esté vacío
     def is_empty(self):
@@ -99,7 +99,7 @@ class EditText(FormComponent):
         margin = 5
         size = 40
         font = pygame.font.SysFont(None, size)
-        title = font.render(self.value, True, Color.BLACK)
+        title = font.render(self.value, True, (0, 0, 0))
         self.rect = pygame.draw.rect(self.form.screen, self.load_border_color(),(self.x,self.y,self.width,self.height),self.border)
         self.form.screen.blit(title, (self.x + margin, self.y + margin))
 
@@ -193,7 +193,7 @@ class Button(FormComponent):
 
     # Cambiar el color de los bordes, se modifican con el atributo Focus
     def load_border_color(self):
-        return Color.YELLOW  if self.focus else Color.BLACK
+        return (247, 177, 33)  if self.focus else (0, 0, 0)
 
     # Evalua si el botón fue clickeado
     def collidepoint(self, mouse_position):
@@ -215,7 +215,7 @@ class Button(FormComponent):
 
 class Title(FormComponent):
     # Constructor
-    def __init__(self, x=0, y=0, value='', color=Color.YELLOW, h='H1', border = 0):
+    def __init__(self, x=0, y=0, value='', color=(247, 177, 33), h='H1', border = 0):
         self.x = x
         self.y = y
         self.h = self.get_h(h)
@@ -244,7 +244,7 @@ class Title(FormComponent):
         font = pygame.font.SysFont(None, self.h)
         title = font.render(self.value, True, self.color)
         if not self.border == 0:
-            pygame.draw.rect(self.form.screen, Color.YELLOW,(0,self.y - 10,self.form.screen.get_rect().width,75),2)
+            pygame.draw.rect(self.form.screen, (247, 177, 33),(0,self.y - 10,self.form.screen.get_rect().width,75),2)
         self.form.screen.blit(title, (self.x, self.y))
 
 # Título que parpadea
@@ -297,7 +297,7 @@ class DialogManager():
 
 class Dialog():
 
-    def __init__(self, x=0, y=0, value='', color=Color.BLACK):
+    def __init__(self, x=0, y=0, value='', color=(0, 0, 0)):
         self.x = x
         self.y = y
         self.h = 30
@@ -327,7 +327,7 @@ class Dialog():
 
 class PrettyTitle():
     # Constructor
-    def __init__(self, x=0, y=0, value='',options=[], color=Color.YELLOW, h='H1'):
+    def __init__(self, x=0, y=0, value='',options=[], color=(247, 177, 33), h='H1'):
         self.x = x
         self.y = y
         self.h = self.get_h(h)
@@ -359,7 +359,7 @@ class PrettyTitle():
 class Label(FormComponent):
 
     # Constructor
-    def __init__(self, x=0, y=0, value='', size=40, color=Color.YELLOW):
+    def __init__(self, x=0, y=0, value='', size=40, color=(247, 177, 33)):
         self.x = x
         self.y = y
         self.value = value

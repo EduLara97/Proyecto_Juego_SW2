@@ -286,9 +286,12 @@ def pantalla_info(escenario):
 
 def botones(texto, superficie, estado, pos, tam, ided=None):
     cursor = pg.mouse.get_pos()
-
+    click = pg.mouse.get_pressed()
+    
     if pos[0] + tam[0] > cursor[0] > tam[0] and pos[1] + tam[1] > cursor[1] > tam[1] and pos[1] + tam[1] < cursor[1] + \
             tam[1]:
+        if click[0] == 1 and ided == "salir":
+            pg.quit()
         boton = pg.draw.rect(superficie, estado[1], (pos[0], pos[1], tam[0], tam[1]))
     else:
         boton = pg.draw.rect(superficie, estado[0], (pos[0], pos[1], tam[0], tam[1]))
