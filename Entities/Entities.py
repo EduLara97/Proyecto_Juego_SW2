@@ -104,7 +104,7 @@ class Player(pg.sprite.Sprite):
                 self.rect.bottom = bottom
 
         # show idle animation
-        if not self.walking and now - self.last_update > 200:
+        elif not self.walking and now - self.last_update > 200:
                 self.last_update = now
                 self.current_frame = (self.current_frame + 1) % len(self.standing_frames)
                 bottom = self.rect.bottom

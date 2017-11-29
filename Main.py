@@ -271,7 +271,7 @@ def pantalla_info(escenario):
         message_to_screen("Información de la cultura", ORANGE, -200, "mediano")
         for linea in range(8):
             contenido = archivo.readline()
-            texto = fuente.render(contenido, 1, (255, 255, 255))
+            texto = fuente.render(contenido, 1, ORANGE)
             screen.blit(texto, (70, 150 + linea * 30))
         archivo.close()
 
@@ -287,7 +287,7 @@ def pantalla_info(escenario):
 def botones(texto, superficie, estado, pos, tam, ided=None):
     cursor = pg.mouse.get_pos()
     click = pg.mouse.get_pressed()
-    
+
     if pos[0] + tam[0] > cursor[0] > tam[0] and pos[1] + tam[1] > cursor[1] > tam[1] and pos[1] + tam[1] < cursor[1] + \
             tam[1]:
         if click[0] == 1 and ided == "salir":
