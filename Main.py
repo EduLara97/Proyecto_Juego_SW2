@@ -267,6 +267,7 @@ def pantalla_info():
                 if event.key == pg.K_c:
                     pausado = False
         screen.blit(bg_intro, (0, 0))
+        archivo = open()
         message_to_screen("Información de la cultura", ORANGE, -100, "mediano")
         message_to_screen("Aqui se mostrara información acerca de la cultura", BLACK, 25, "pequena")
         message_to_screen("Presiona C para continuar", BLACK, 125, "pequena")
@@ -373,24 +374,26 @@ def intro_ranking():
     response = requests.get(posturl)
     if response.status_code == 200:
         data = response.json()
-        for i in range(10):
+        print(data)
+        for i in range(2):
             nombre.append(data[i]['playerName'])
             score.append(data[i]['acumScore'])
-    while intro:
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                pg.quit()
-                quit()
-            if event.type == pg.KEYDOWN:
-                if event.key == pg.K_c:
-                    intro = False
-        screen.blit(bg_intro, (0, 0))
-        message_to_screen("TOP 10", ORANGE, -160, "mediano")
-        message_to_screen("Jugador    Puntaje", BLACK, -60, "pequena")
-        for i in range(10):
-            message_to_screen(nombre[i] + " : " + str(score[i]), BLACK, -20*-(i+1), "pequena")
-        pg.display.update()
-        reloj.tick(5)
+        while intro:
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    pg.quit()
+                    quit()
+                if event.type == pg.KEYDOWN:
+                    if event.key == pg.K_c:
+                        intro = False
+            screen.blit(bg_intro, (0, 0))
+            message_to_screen("TOP 10", ORANGE, -160, "mediano")
+            message_to_screen("Jugador    Puntaje", BLACK, -60, "pequena")
+            for i in range(2):
+                message_to_screen(nombre[i] + " : " + str(score[i]), BLACK, -20*-(i+1), "pequena")
+            pg.display.update()
+            reloj.tick(5)
+
 
 
 def intro_escenario(intro, escenarios):
