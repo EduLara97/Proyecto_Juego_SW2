@@ -12,7 +12,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Proyecto_Juego_SW2$Main.coverage" NAME="Main Coverage Results" MODIFIED="1511921473105" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Proyecto_Juego_SW2$Main.coverage" NAME="Main Coverage Results" MODIFIED="1511935726314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PlayPlatform$platform_scroller__1_.coverage" NAME="platform_scroller (1) Coverage Results" MODIFIED="1506626742310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../pygames-master/pygame" />
     <SUITE FILE_PATH="coverage/PlayPlatform$Main.coverage" NAME="Main Coverage Results" MODIFIED="1511734442681" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PlayPlatform$sprites.coverage" NAME="sprites Coverage Results" MODIFIED="1508631676039" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../pygames-master/pygame" />
@@ -29,27 +29,61 @@
       <file leaf-file-name="Main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
-              <caret line="269" column="23" lean-forward="false" selection-start-line="269" selection-start-column="23" selection-end-line="269" selection-end-column="23" />
+            <state relative-caret-position="124">
+              <caret line="275" column="62" lean-forward="false" selection-start-line="275" selection-start-column="62" selection-end-line="275" selection-end-column="62" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
-                <element signature="e#8087#8238#0" expanded="false" />
-                <element signature="e#8319#8489#0" expanded="false" />
-                <element signature="e#8541#8975#0" expanded="false" />
-                <element signature="e#9011#9161#0" expanded="false" />
-                <element signature="e#9213#9684#0" expanded="false" />
-                <element signature="e#9734#10226#0" expanded="false" />
-                <element signature="e#17180#18186#0" expanded="false" />
-                <element signature="e#18217#18777#0" expanded="false" />
-                <element signature="e#18820#19107#0" expanded="false" />
-                <element signature="e#19135#19871#0" expanded="false" />
-                <element signature="e#19899#21211#0" expanded="false" />
-                <element signature="e#21250#21419#0" expanded="false" />
-                <element signature="e#24433#34147#0" expanded="false" />
-                <element signature="e#35656#35965#0" expanded="false" />
-                <element signature="e#36296#37688#0" expanded="false" />
-                <element signature="e#37722#38192#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="info_paracas.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/info_paracas.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="info_tiahuanaco.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/info_tiahuanaco.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="info_wari.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/info_wari.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CBForm.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CBForm.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-6100">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="info_mochica.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/info_mochica.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="49" lean-forward="false" selection-start-line="1" selection-start-column="49" selection-end-line="1" selection-end-column="49" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -65,9 +99,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>type</find>
-      <find>aqui</find>
-      <find>print</find>
       <find>draw_text</find>
       <find>self.escenario</find>
       <find>perso_wari</find>
@@ -95,6 +126,9 @@
       <find>events</find>
       <find>intro_ranking</find>
       <find>pausa()</find>
+      <find>info</find>
+      <find>SysFont</find>
+      <find>pantalla_info</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -111,6 +145,10 @@
         <option value="$PROJECT_DIR$/../../pygames-master/pygame/sprite_sheets/player.py" />
         <option value="$PROJECT_DIR$/GeneralInformation.py" />
         <option value="$PROJECT_DIR$/Entities/Entities.py" />
+        <option value="$PROJECT_DIR$/info_mochica.txt" />
+        <option value="$PROJECT_DIR$/info_paracas.txt" />
+        <option value="$PROJECT_DIR$/info_tiahuanaco.txt" />
+        <option value="$PROJECT_DIR$/info_wari.txt" />
         <option value="$PROJECT_DIR$/Main.py" />
       </list>
     </option>
@@ -333,7 +371,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32715008" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3979764" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43338954" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18549748" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -364,34 +402,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/utils/States.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="25" column="61" lean-forward="false" selection-start-line="25" selection-start-column="61" selection-end-line="25" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Entities/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../pygames-master/pygame/platform_jumper.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="15" column="57" lean-forward="false" selection-start-line="15" selection-start-column="57" selection-end-line="15" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Desktop/Ejecutable/ejecutable.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="526">
@@ -614,14 +624,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CBForm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GeneralInformation.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -664,28 +666,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/CBForm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6100">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/info_mochica.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="49" lean-forward="false" selection-start-line="1" selection-start-column="49" selection-end-line="1" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/info_paracas.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/info_tiahuanaco.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/info_wari.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="269" column="23" lean-forward="false" selection-start-line="269" selection-start-column="23" selection-end-line="269" selection-end-column="23" />
+        <state relative-caret-position="124">
+          <caret line="275" column="62" lean-forward="false" selection-start-line="275" selection-start-column="62" selection-end-line="275" selection-end-column="62" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
-            <element signature="e#8087#8238#0" expanded="false" />
-            <element signature="e#8319#8489#0" expanded="false" />
-            <element signature="e#8541#8975#0" expanded="false" />
-            <element signature="e#9011#9161#0" expanded="false" />
-            <element signature="e#9213#9684#0" expanded="false" />
-            <element signature="e#9734#10226#0" expanded="false" />
-            <element signature="e#17180#18186#0" expanded="false" />
-            <element signature="e#18217#18777#0" expanded="false" />
-            <element signature="e#18820#19107#0" expanded="false" />
-            <element signature="e#19135#19871#0" expanded="false" />
-            <element signature="e#19899#21211#0" expanded="false" />
-            <element signature="e#21250#21419#0" expanded="false" />
-            <element signature="e#24433#34147#0" expanded="false" />
-            <element signature="e#35656#35965#0" expanded="false" />
-            <element signature="e#36296#37688#0" expanded="false" />
-            <element signature="e#37722#38192#0" expanded="false" />
           </folding>
         </state>
       </provider>

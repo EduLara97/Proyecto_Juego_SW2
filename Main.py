@@ -1,6 +1,5 @@
 import pygame as pg
 from pygame import *
-# from Entities.Entities import Character, Platform, Roca
 import io
 from Entities.Entities import *
 from GeneralInformation import *
@@ -8,9 +7,9 @@ from urllib.request import urlopen
 import random
 import requests
 from CBForm import *
-from os import *
+from os import path
 
-posturl="http://runinkarun.herokuapp.com/score/api"
+posturl = "http://runinkarun.herokuapp.com/score/api"
 
 URL_IMAGE = "http://res.cloudinary.com/dfktnvqxe/image/upload/v1511719844/escenario_fondo_v2_ikkq4e.jpg"
 IMAGE_STR = urlopen(URL_IMAGE).read()
@@ -39,7 +38,7 @@ medianofont = pg.font.SysFont("comicsansms", 50)
 largofont = pg.font.SysFont("comicsansms", 80)
 
 # Se realiza la carga del fondo (background) que tendran todas las pantallas de la intro
-#bg_intro = pg.image.load("assets/images/intro/escenario_fondo_v2.jpg").convert()
+# bg_intro = pg.image.load("assets/images/intro/escenario_fondo_v2.jpg").convert()
 bg_intro = pg.image.load(IMAGE_FILE).convert()
 bg_intro = pg.transform.scale(bg_intro, SIZE)
 
@@ -76,7 +75,6 @@ title_single = pg.transform.scale(title_single, (300, 300))
 title_ranking = pg.image.load("assets/images/intro/ranking.gif").convert()
 title_ranking = pg.transform.scale(title_ranking, (300, 300))
 
-
 # el sprite sheet de las imagenes del modo single se pasan a un array de imagenes, donde
 # se contiene cada una de las secciones que conformaban el sprite sheet
 mode_single_sheet = pg.image.load("assets/images/intro/mode_single_sheet.png").convert_alpha()
@@ -94,7 +92,7 @@ sprites_mode_arcade_sheet = []
 for i in range(int(width_mode_arcade_sheet / 200)):
     sprites_mode_arcade_sheet \
         .append(pg.transform.scale(mode_arcade_sheet.subsurface(i * 200, 0, 200, 200), (300, 300)))
-        
+
 # el sprite sheet de las imagenes del modo arcade se pasan a un array de imagenes, donde
 # se contiene cada una de las secciones que conformaban el sprite sheet
 mode_ranking_sheet = pg.image.load("assets/images/intro/ranking.png").convert_alpha()
@@ -102,7 +100,7 @@ width_mode_ranking_sheet = mode_ranking_sheet.get_width()
 sprites_mode_ranking_sheet = []
 for i in range(int(width_mode_ranking_sheet / 200)):
     sprites_mode_ranking_sheet \
-        .append(pg.transform.scale(mode_ranking_sheet.subsurface(i * 200, 0, 200, 200), (300, 300)))       
+        .append(pg.transform.scale(mode_ranking_sheet.subsurface(i * 200, 0, 200, 200), (300, 300)))
 
 # En esta sección se realiza la carga de los escenarios que podran estar incluidos en el juego,
 # estas son imagenes unicas (no sprite sheets), ya que solo van a ir en la intro del modo soigle
@@ -138,10 +136,14 @@ lista_perso = ["inca_mochica.png",
                "inca_wari.png"]
 
 # lista de las plataformas que se podran apreciar por cada cultura (imagenes unicas)
-lista_plataformas =["plataforma_mochica.png",
-                    "plataforma_paracas.png",
-                    "plataforma_tiahuanaco.png",
-                    "plataforma_chavin.png"]
+lista_plataformas = ["plataforma_mochica.png",
+                     "plataforma_paracas.png",
+                     "plataforma_tiahuanaco.png",
+                     "plataforma_chavin.png"]
+lista_informacion = ["info_mochica.txt",
+                     "info_paracas.txt",
+                     "info_tiahuanaco.txt",
+                     "info_wari.txt"]
 
 # lista de los escenarios de cada nivel (imagenes unicas), la carga de estas ya se realizo
 # anteriormente en este programa
@@ -150,35 +152,33 @@ lista_escenarios = [bg_moche,
                     bg_tiahua,
                     bg_wari]
 
-
-Boton1 = [300,250]
-TamBoton = [200,80]
+Boton1 = [300, 250]
+TamBoton = [200, 80]
 ColorBoton1 = [plomo, red]
-Boton2 = [300,400]
+Boton2 = [300, 400]
 ColorBoton2 = [plomo, blue]
 Boton3 = [300, 500]
 ColorBoton3 = [plomo, BLACK]
 
+
 def seleccionarMenu(mx, my):
-    if 300 <= mx <=500 and 250 <= my <= 330:
+    if 300 <= mx <= 500 and 250 <= my <= 330:
         return 1
-    elif 300 <= mx <=500 and 400 <= my <=480:
+    elif 300 <= mx <= 500 and 400 <= my <= 480:
         return 2
-    elif 300 <= mx <=500 and 500 <= my <=580:
+    elif 300 <= mx <= 500 and 500 <= my <= 580:
         return 3
     else:
         return 0
 
 
 def msg_boton(msg, color, posx, posy, ancho, alto, tamano_letra="micro"):
-
     textSur, textRect = text_objetos(msg, color, tamano_letra)
-    textRect.center = (posx + (ancho/2), posy + (alto/2))
+    textRect.center = (posx + (ancho / 2), posy + (alto / 2))
     screen.blit(textSur, textRect)
 
 
 def message_to_screen(msg, color, y_displace=0, tamano_letra="pequena"):
-
     textSur, textRect = text_objetos(msg, color, tamano_letra)
     textRect.center = (display_ancho / 2), (display_altura / 2) + y_displace
     screen.blit(textSur, textRect)
@@ -256,9 +256,12 @@ def pausa():
         reloj.tick(60)
 
 
-def pantalla_info():
+def pantalla_info(escenario):
     pausado = True
+    fuente = pg.font.SysFont("aracadeclassic", 35)
     while pausado:
+        archivo = open(lista_informacion[escenario])
+        # contenido = archivo.read()
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
@@ -267,18 +270,28 @@ def pantalla_info():
                 if event.key == pg.K_c:
                     pausado = False
         screen.blit(bg_intro, (0, 0))
-        archivo = open()
-        message_to_screen("Información de la cultura", ORANGE, -100, "mediano")
-        message_to_screen("Aqui se mostrara información acerca de la cultura", BLACK, 25, "pequena")
-        message_to_screen("Presiona C para continuar", BLACK, 125, "pequena")
+        message_to_screen("Información de la cultura", ORANGE, -200, "mediano")
+        for linea in range(8):
+            contenido = archivo.readline()
+            texto = fuente.render(contenido, 1, (255, 255, 255))
+            screen.blit(texto, (70, 150 + linea * 30))
+        archivo.close()
+
+        """print(linea)
+        message_to_screen(linea.strip(), BLACK, 25, "pequena")"""
+
+        message_to_screen("Presiona C para continuar", BLACK, 200, "pequena")
+
         pg.display.update()
         reloj.tick(5)
-        
-def botones(texto, superficie, estado, pos, tam, ided= None):    
+
+
+def botones(texto, superficie, estado, pos, tam, ided=None):
     cursor = pg.mouse.get_pos()
     click = pg.mouse.get_pressed()
-    
-    if pos[0] + tam[0] > cursor[0] > tam[0] and pos[1] + tam[1] > cursor[1] > tam[1] and pos[1] + tam[1] < cursor[1] + tam[1]:
+
+    if pos[0] + tam[0] > cursor[0] > tam[0] and pos[1] + tam[1] > cursor[1] > tam[1] and pos[1] + tam[1] < cursor[1] + \
+            tam[1]:
         if click[0] == 1:
             if ided == "intro_modo":
                 intro_modo(transformarApiToArray(modo_juego))
@@ -290,8 +303,9 @@ def botones(texto, superficie, estado, pos, tam, ided= None):
     else:
         boton = pg.draw.rect(superficie, estado[0], (pos[0], pos[1], tam[0], tam[1]))
 
-    msg_boton(texto, WHITE, pos[0], pos[1], tam[0], tam[1])    
+    msg_boton(texto, WHITE, pos[0], pos[1], tam[0], tam[1])
     return boton
+
 
 def intro_menu():
     intro = True
@@ -312,7 +326,7 @@ def intro_menu():
         botones("nuevo", screen, ColorBoton1, Boton1, TamBoton, ided="intro_modo")
         botones("ranking", screen, ColorBoton2, Boton2, TamBoton, ided="intro_ranking")
         botones("salir", screen, ColorBoton3, Boton3, TamBoton, ided="salir")
-        
+
         pg.display.update()
         reloj.tick(5)
 
@@ -359,7 +373,6 @@ def intro_modo(modo_juego):
                 elif mod == "arcade":
                     screen.blit(title_arcade, (70, 80))
 
-
         screen.blit(sprites_image_sheet[i2], (300, -30))
         i2 = (i2 + 1) % 2
         message_to_screen("Escoger un modo de juego", BLACK, -160, "pequena")
@@ -390,10 +403,9 @@ def intro_ranking():
             message_to_screen("TOP 10", ORANGE, -160, "mediano")
             message_to_screen("Jugador    Puntaje", BLACK, -60, "pequena")
             for i in range(2):
-                message_to_screen(nombre[i] + " : " + str(score[i]), BLACK, -20*-(i+1), "pequena")
+                message_to_screen(nombre[i] + " : " + str(score[i]), BLACK, -20 * -(i + 1), "pequena")
             pg.display.update()
             reloj.tick(5)
-
 
 
 def intro_escenario(intro, escenarios):
@@ -600,7 +612,7 @@ class Game:
             x = 0
 
         # Camara que seguira el personaje durante el juego
-        self.camera= Camera(0, 0)
+        self.camera = Camera(0, 0)
         self.run()
 
     def run(self):
@@ -613,21 +625,20 @@ class Game:
             self.events()
             self.update()
             self.draw()
-            
-    #Lanzar proyectil del boss
+
+    # Lanzar proyectil del boss
     def proyectil(self):
-        out=False
-        way=True
+        out = False
+        way = True
         if self.player.pos.x < self.boss.pos.x:
-            posx=self.boss.pos.x-3
+            posx = self.boss.pos.x - 3
         else:
-            posx=self.boss.pos.x+3
-            way=False
-              
-        posy=self.boss.pos.y*2/3
+            posx = self.boss.pos.x + 3
+            way = False
+
+        posy = self.boss.pos.y * 2 / 3
         self.screen.blit(self.sprites_lanza, (posx, posy))
-        
-        
+
     def update(self):
         # Esta es la sección donde se defininen todos los accionares dentro del juego, por ejemplo
         # si el personaje choca contra una roca, este se detiene y no puede seguir avanzando
@@ -667,9 +678,9 @@ class Game:
                     self.player.vida = 0
                     self.kill_all()
                     self.playing = False
-                    
+
         # Accion cada que una lanza golpea al personaje
-        hits_lanza= pg.sprite.spritecollide(self.player, self.lanza, False)
+        hits_lanza = pg.sprite.spritecollide(self.player, self.lanza, False)
         if hits_lanza:
             if self.player.vel.x >= 0 \
                     and self.player.rect.right >= hits_lanza[0].rect.left:
@@ -681,7 +692,7 @@ class Game:
                     self.player.vida = 0
                     self.kill_all()
                     self.playing = False
-                    
+
         # Se determina que las serpientes siempre se posicionaran encima de las plataformas
         for serpiente in self.serpientes:
             if serpiente.vel.y > 0:
@@ -795,11 +806,11 @@ class Game:
         if hit_roca:
             if self.player.vel.x > 0:
                 if self.player.rect.right >= hit_roca[0].rect.left:
-                    #print("CHOCA DERECHA")
+                    # print("CHOCA DERECHA")
                     self.player.pos.x -= abs(self.player.vel.x)
             elif self.player.vel.x < 0:
                 if self.player.rect.left <= hit_roca[0].rect.right:
-                    #print("CHOCA IZQUIERDA")
+                    # print("CHOCA IZQUIERDA")
                     self.player.pos.x += abs(self.player.vel.x)
 
         hits_coin = pg.sprite.spritecollide(self.player, self.coins, False)
@@ -812,7 +823,7 @@ class Game:
         hits_cartel = pg.sprite.spritecollide(self.player, self.carteles, False)
         if hits_cartel:
             if self.player.rect.center[0] >= hits_cartel[0].rect.center[0] and self.show_cartel:
-                pantalla_info()
+                pantalla_info(self.escenario)
                 self.show_cartel = False
 
         hits_checkpoint = pg.sprite.spritecollide(self.player, self.checkpoints, False)
@@ -823,7 +834,6 @@ class Game:
         # If player reaches top 1/4 of screen
         if self.player.rect.left <= 0:
             self.player.pos.x += abs(self.player.vel.x)
-
 
         if self.player.rect.top > HEIGHT:
             self.kill_all()
@@ -891,7 +901,7 @@ class Game:
 
     def construir(self, x, y, col):
         if col == "P":
-            p = Platform( lista_plataformas[self.escenario], x, y, 50, 50)
+            p = Platform(lista_plataformas[self.escenario], x, y, 50, 50)
             self.platforms.add(p)
             self.all_sprites.add(p)
         elif col == "F":
@@ -982,12 +992,13 @@ def mainSingle(escena, perso):
         g.new()
     pg.mixer.quit()
 
+
 if __name__ == "__main__":
     url = "http://runinkarun.herokuapp.com/api"
     response = requests.get(url)
 
     if response.status_code == 200:
-        results = response.json()[len(response.json())-1]
+        results = response.json()[len(response.json()) - 1]
         print(results)
         escenario = results['escenario']
         personajes = results['personaje']
@@ -996,7 +1007,7 @@ if __name__ == "__main__":
         intro_background = results['intro_background']
         speed_player = results['speed_player']
         life = results['life']
-        #game_time = results['game_time']
+        # game_time = results['game_time']
         musica = results['musica']
 
     while True:
