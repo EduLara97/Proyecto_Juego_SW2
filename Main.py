@@ -261,14 +261,12 @@ def pantalla_info(escenario):
     fuente = pg.font.SysFont("aracadeclassic", 35)
     while pausado:
         archivo = open(lista_informacion[escenario])
-        # contenido = archivo.read()
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 pg.quit()
                 quit()
-            if event.type == pg.KEYDOWN:
-                if event.key == pg.K_c:
-                    pausado = False
+            if event.type == pg.KEYDOWN and event.key == pg.K_c:
+                pausado = False
         screen.blit(bg_intro, (0, 0))
         message_to_screen("Información de la cultura", ORANGE, -200, "mediano")
         for linea in range(8):
@@ -288,17 +286,9 @@ def pantalla_info(escenario):
 
 def botones(texto, superficie, estado, pos, tam, ided=None):
     cursor = pg.mouse.get_pos()
-    click = pg.mouse.get_pressed()
 
     if pos[0] + tam[0] > cursor[0] > tam[0] and pos[1] + tam[1] > cursor[1] > tam[1] and pos[1] + tam[1] < cursor[1] + \
             tam[1]:
-        if click[0] == 1:
-            if ided == "intro_modo":
-                intro_modo(transformarApiToArray(modo_juego))
-            elif ided == "intro_ranking":
-                intro_ranking()
-            elif ided == "salir":
-                quit()
         boton = pg.draw.rect(superficie, estado[1], (pos[0], pos[1], tam[0], tam[1]))
     else:
         boton = pg.draw.rect(superficie, estado[0], (pos[0], pos[1], tam[0], tam[1]))
@@ -387,8 +377,8 @@ def intro_ranking():
     response = requests.get(posturl)
     if response.status_code == 200:
         data = response.json()
-        print(data)
-        for i in range(2):
+        num = min(len(data), 10)
+        for i in range(num):
             nombre.append(data[i]['playerName'])
             score.append(data[i]['acumScore'])
         while intro:
@@ -402,7 +392,7 @@ def intro_ranking():
             screen.blit(bg_intro, (0, 0))
             message_to_screen("TOP 10", ORANGE, -160, "mediano")
             message_to_screen("Jugador    Puntaje", BLACK, -60, "pequena")
-            for i in range(2):
+            for i in range(num):
                 message_to_screen(nombre[i] + " : " + str(score[i]), BLACK, -20 * -(i + 1), "pequena")
             pg.display.update()
             reloj.tick(5)
@@ -488,8 +478,6 @@ def intro_final(intro):
 
 def into_juego(escenario, persons):
     intro = True
-    # modo = intro_modo(intro, modo_juego)
-    # ranking = intro_ranking(intro)
     escenario = intro_escenario(intro, escenario)
     personaje = intro_personaje(intro, persons)
     intro_final(intro)
@@ -547,8 +535,7 @@ def gameOverFinal():
         pg.display.update()
         reloj.tick(5)
     payload = {"playerName": edit_text.value, "acumScore": str(propiedades.puntaje)}
-    # data = json.dumps({'playerName':'Bot', 'acumScore':str(score)})
-    r = requests.post(posturl, data=payload)
+    requests.post(posturl, data=payload)
 
 
 def transformarApiToArray(str):
@@ -628,8 +615,6 @@ class Game:
 
     # Lanzar proyectil del boss
     def proyectil(self):
-        out = False
-        way = True
         if self.player.pos.x < self.boss.pos.x:
             posx = self.boss.pos.x - 3
         else:
@@ -657,41 +642,36 @@ class Game:
         # Se determina el accionar cuando se salta encima de la serpiente, en este caso
         # la serpiente morira
         hits_saltar_serpiente = pg.sprite.spritecollide(self.player, self.serpientes, False)
-        if self.player.vel.y > 0:
-            if hits_saltar_serpiente:
-                if self.player.rect.bottom >= hits_saltar_serpiente[0].rect.top:
-                    pg.mixer.Sound.play(pg.mixer.Sound("assets/audio/matarObstaculo.wav"))
-                    hits_saltar_serpiente[0].kill()
-                    self.score += 20
+        if self.player.vel.y > 0 and hits_saltar_serpiente \
+                and self.player.rect.bottom >= hits_saltar_serpiente[0].rect.top:
+            pg.mixer.Sound.play(pg.mixer.Sound("assets/audio/matarObstaculo.wav"))
+            hits_saltar_serpiente[0].kill()
+            self.score += 20
 
         # Se determina el accionar cada vez que la serpiente choque de costado con el inca
         # cada golpe disminuira cierta cantidad de vida al personaje, cuando la vida llegue a
         # 0, el personaje morira y el juego terminara
         hits_serpiente = pg.sprite.spritecollide(self.player, self.serpientes, False)
-        if hits_serpiente:
-            if self.player.vel.x >= 0 \
-                    and self.player.rect.right >= hits_serpiente[0].rect.left:
-                self.player.vel.x = -15
-                self.player.vel.y = -12
-                vida = self.player.disminuirVida(SERPIENTE_FUERZA)
-                if vida <= 0:
-                    self.player.vida = 0
-                    self.kill_all()
-                    self.playing = False
+        if hits_serpiente and self.player.vel.x >= 0 and self.player.rect.right >= hits_serpiente[0].rect.left:
+            self.player.vel.x = -15
+            self.player.vel.y = -12
+            vida = self.player.disminuirVida(SERPIENTE_FUERZA)
+            if vida <= 0:
+                self.player.vida = 0
+                self.kill_all()
+                self.playing = False
 
         # Accion cada que una lanza golpea al personaje
         hits_lanza = pg.sprite.spritecollide(self.player, self.lanza, False)
-        if hits_lanza:
-            if self.player.vel.x >= 0 \
-                    and self.player.rect.right >= hits_lanza[0].rect.left:
-                self.player.vel.x = -15
-                self.player.vel.y = -12
-                vida = self.player.disminuirVida(LANZA_DMG)
-                hits_lanza[0].kill()
-                if vida <= 0:
-                    self.player.vida = 0
-                    self.kill_all()
-                    self.playing = False
+        if hits_lanza and self.player.vel.x >= 0 and self.player.rect.right >= hits_lanza[0].rect.left:
+            self.player.vel.x = -15
+            self.player.vel.y = -12
+            vida = self.player.disminuirVida(LANZA_DMG)
+            hits_lanza[0].kill()
+            if vida <= 0:
+                self.player.vida = 0
+                self.kill_all()
+                self.playing = False
 
         # Se determina que las serpientes siempre se posicionaran encima de las plataformas
         for serpiente in self.serpientes:
@@ -737,25 +717,24 @@ class Game:
         # Se determina que cuando el personaje salte sobre algun soldado, este soldado morira
         # y además seran sumados 20 puntos al score del jugador
         hits_saltar_soldado = pg.sprite.spritecollide(self.player, self.soldados, False)
-        if self.player.vel.y > 0:
-            if hits_saltar_soldado:
-                if self.player.rect.bottom >= hits_saltar_soldado[0].rect.top:
-                    pg.mixer.Sound.play(pg.mixer.Sound("assets/audio/matarObstaculo.wav"))
-                    hits_saltar_soldado[0].kill()
-                    self.score += 20
+        if self.player.vel.y > 0 \
+                and hits_saltar_soldado \
+                and self.player.rect.bottom >= hits_saltar_soldado[0].rect.top:
+            pg.mixer.Sound.play(pg.mixer.Sound("assets/audio/matarObstaculo.wav"))
+            hits_saltar_soldado[0].kill()
+            self.score += 20
 
         # Se determina que cuando
         hits_soldado = pg.sprite.spritecollide(self.player, self.soldados, False)
-        if hits_soldado:
-            if self.player.vel.x >= 0 \
+        if hits_soldado and self.player.vel.x >= 0 \
                     and self.player.rect.right >= hits_soldado[0].rect.left:
-                self.player.vel.x = -15
-                self.player.vel.y = -12
-                vida = self.player.disminuirVida(SOLDADO_FUERZA)
-                if vida <= 0:
-                    self.player.vida = 0
-                    self.kill_all()
-                    self.playing = False
+            self.player.vel.x = -15
+            self.player.vel.y = -12
+            vida = self.player.disminuirVida(SOLDADO_FUERZA)
+            if vida <= 0:
+                self.player.vida = 0
+                self.kill_all()
+                self.playing = False
 
         if self.boss.vel.y > 0:
             hits = pg.sprite.spritecollide(self.boss, self.platforms, False)
@@ -774,57 +753,50 @@ class Game:
             self.boss.cambiarMovimiento()
 
         hits_saltar_boss = pg.sprite.spritecollide(self.player, self.bosses, False)
-        if self.player.vel.y > 0:
-            if hits_saltar_boss:
-                if self.player.rect.bottom >= hits_saltar_boss[0].rect.top:
-                    pg.mixer.Sound.play(pg.mixer.Sound("assets/audio/matarObstaculo.wav"))
-                    self.player.vel.y = -12
-                    vida_boss = self.boss.disminuirVida()
-                    print(vida_boss)
-                    if vida_boss <= 0:
-                        hits_saltar_boss[0].kill()
-                        self.score += 40
-                        gameOver(self.score)
-                        self.playing = False
-                        self.running = False
+        if self.player.vel.y > 0 and hits_saltar_boss \
+                and self.player.rect.bottom >= hits_saltar_boss[0].rect.top:
+            pg.mixer.Sound.play(pg.mixer.Sound("assets/audio/matarObstaculo.wav"))
+            self.player.vel.y = -12
+            vida_boss = self.boss.disminuirVida()
+            if vida_boss <= 0:
+                hits_saltar_boss[0].kill()
+                self.score += 40
+                gameOver(self.score)
+                self.playing = False
+                self.running = False
 
         hits_boss = pg.sprite.spritecollide(self.player, self.bosses, False)
-        if hits_boss:
-            if self.player.vel.x >= 0 \
-                    and self.player.rect.right >= hits_boss[0].rect.left \
-                    and self.player.rect.bottom >= hits_boss[0].rect.bottom:
-                self.player.vel.x = -15
-                self.player.vel.y = -12
-                vida = self.player.disminuirVida(BOSS_FUERZA)
-                if vida <= 0:
-                    self.player.vida = 0
-                    self.kill_all()
-                    self.playing = False
+        if hits_boss and self.player.vel.x >= 0 \
+                and self.player.rect.right >= hits_boss[0].rect.left \
+                and self.player.rect.bottom >= hits_boss[0].rect.bottom:
+            self.player.vel.x = -15
+            self.player.vel.y = -12
+            vida = self.player.disminuirVida(BOSS_FUERZA)
+            if vida <= 0:
+                self.player.vida = 0
+                self.kill_all()
+                self.playing = False
 
         # Cuando choque de costado con el personaje pasara esto
         hit_roca = pg.sprite.spritecollide(self.player, self.rocones, False)
         if hit_roca:
             if self.player.vel.x > 0:
                 if self.player.rect.right >= hit_roca[0].rect.left:
-                    # print("CHOCA DERECHA")
                     self.player.pos.x -= abs(self.player.vel.x)
-            elif self.player.vel.x < 0:
-                if self.player.rect.left <= hit_roca[0].rect.right:
-                    # print("CHOCA IZQUIERDA")
-                    self.player.pos.x += abs(self.player.vel.x)
+            elif self.player.vel.x < 0 and self.player.rect.left <= hit_roca[0].rect.right:
+                self.player.pos.x += abs(self.player.vel.x)
 
         hits_coin = pg.sprite.spritecollide(self.player, self.coins, False)
-        if hits_coin:
-            if self.player.rect.right >= hits_coin[0].rect.center[0]:
-                hits_coin[0].kill()
-                pg.mixer.Sound.play(pg.mixer.Sound("assets/audio/coin_sound.wav"))
-                self.score += 10
+        if hits_coin and self.player.rect.right >= hits_coin[0].rect.center[0]:
+            hits_coin[0].kill()
+            pg.mixer.Sound.play(pg.mixer.Sound("assets/audio/coin_sound.wav"))
+            self.score += 10
 
         hits_cartel = pg.sprite.spritecollide(self.player, self.carteles, False)
-        if hits_cartel:
-            if self.player.rect.center[0] >= hits_cartel[0].rect.center[0] and self.show_cartel:
-                pantalla_info(self.escenario)
-                self.show_cartel = False
+        if hits_cartel and self.player.rect.center[0] >= hits_cartel[0].rect.center[0] \
+                and self.show_cartel:
+            pantalla_info(self.escenario)
+            self.show_cartel = False
 
         hits_checkpoint = pg.sprite.spritecollide(self.player, self.checkpoints, False)
         if hits_checkpoint:
@@ -960,6 +932,7 @@ class Game:
 
 
 def mainArcade():
+    pg.mixer.init()
     pg.mixer.music.load("assets/audio/bg_opcion2.wav")
     pg.mixer.music.set_volume(0.5)
     pg.mixer.music.play(-1)
@@ -977,8 +950,6 @@ def mainArcade():
     while g3.running:
         g3.new()
     gameOverFinal()
-    propiedades = Propiedades.get_instance()
-    print(str(propiedades.puntaje))
     pg.mixer.quit()
 
 
@@ -999,7 +970,6 @@ if __name__ == "__main__":
 
     if response.status_code == 200:
         results = response.json()[len(response.json()) - 1]
-        print(results)
         escenario = results['escenario']
         personajes = results['personaje']
         modo_juego = results['modo_juego']
@@ -1007,17 +977,14 @@ if __name__ == "__main__":
         intro_background = results['intro_background']
         speed_player = results['speed_player']
         life = results['life']
-        # game_time = results['game_time']
         musica = results['musica']
 
     while True:
         propiedades = Propiedades.get_instance()
         propiedades.propiedades_personaje(life, speed_player)
         num = intro_menu()
-        print(str(num))
         if num == 1:
             modo = intro_modo(transformarApiToArray(modo_juego))
-            print(str(modo))
             if modo == 1:
                 ese, perso = into_juego(transformarApiToArray(escenario),
                                         transformarApiToArray(personajes))

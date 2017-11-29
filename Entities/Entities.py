@@ -90,8 +90,7 @@ class Player(pg.sprite.Sprite):
             self.walking = False
 
         # show walk animation
-        if self.walking:
-            if now - self.last_update > 200:
+        if self.walking and now - self.last_update > 200:
                 self.last_update = now
                 self.current_frame = (self.current_frame + 1) % \
                                      len(self.walk_frames_l)
@@ -105,8 +104,7 @@ class Player(pg.sprite.Sprite):
                 self.rect.bottom = bottom
 
         # show idle animation
-        if not self.walking:
-            if now - self.last_update > 200:
+        if not self.walking and now - self.last_update > 200:
                 self.last_update = now
                 self.current_frame = (self.current_frame + 1) % len(self.standing_frames)
                 bottom = self.rect.bottom
@@ -151,7 +149,6 @@ class Serpiente(pg.sprite.Sprite):
 
     def cambiarMovimiento(self):
         self.movimiento = not self.movimiento
-        # return self.movimiento
 
     def update(self):
         self.animate()
@@ -258,8 +255,7 @@ class Soldado(pg.sprite.Sprite):
             self.walking = False
 
         # show walk animation
-        if self.walking:
-            if now - self.last_update > 200:
+        if self.walking and now - self.last_update > 200:
                 self.last_update = now
                 self.current_frame = (self.current_frame + 1) % \
                                      len(self.walk_frames_l)
@@ -273,8 +269,7 @@ class Soldado(pg.sprite.Sprite):
                 self.rect.bottom = bottom
 
         # show idle animation
-        if not self.walking:
-            if now - self.last_update > 200:
+        if not self.walking and now - self.last_update > 200:
                 self.last_update = now
                 self.current_frame = (self.current_frame + 1) % len(self.standing_frames)
                 bottom = self.rect.bottom
@@ -340,8 +335,7 @@ class Boss(pg.sprite.Sprite):
             self.walking = False
 
         # show walk animation
-        if self.walking:
-            if now - self.last_update > 200:
+        if self.walking and now - self.last_update > 200:
                 self.last_update = now
                 self.current_frame = (self.current_frame + 1) % \
                                      len(self.walk_frames_l)
@@ -355,8 +349,7 @@ class Boss(pg.sprite.Sprite):
                 self.rect.bottom = bottom
 
         # show idle animation
-        if not self.walking:
-            if now - self.last_update > 200:
+        if not self.walking and now - self.last_update > 200:
                 self.last_update = now
                 self.current_frame = (self.current_frame + 1) % len(self.standing_frames)
                 bottom = self.rect.bottom
@@ -419,36 +412,6 @@ class Checkpoint(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-
-    """def update(self):
-        self.animate()
-    
-    def animate(self):
-        now = pg.time.get_ticks()
-        # show walk animation
-        if self.walking:
-            if now - self.last_update > 200:
-                self.last_update = now
-                self.current_frame = (self.current_frame + 1) % \
-                                     len(self.walk_frames_l)
-                bottom = self.rect.bottom
-                if self.vel.x > 0:
-                    self.image = self.walk_frames_r[self.current_frame]
-                else:
-                    self.image = self.walk_frames_l[self.current_frame]
-
-                self.rect = self.image.get_rect()
-                self.rect.bottom = bottom
-
-        # show idle animation
-        if not self.walking:
-            if now - self.last_update > 200:
-                self.last_update = now
-                self.current_frame = (self.current_frame + 1) % len(self.standing_frames)
-                bottom = self.rect.bottom
-                self.image = self.standing_frames[self.current_frame]
-                self.rect = self.image.get_rect()
-                self.rect.bottom = bottom"""
 
 
 class Rocon(pg.sprite.Sprite):

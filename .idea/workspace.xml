@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="509d578e-0465-4c52-820c-2a70442ec07b" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.scannerwork/report-task.txt" afterPath="$PROJECT_DIR$/.scannerwork/report-task.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Entities/Entities.py" afterPath="$PROJECT_DIR$/Entities/Entities.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Main.py" afterPath="$PROJECT_DIR$/Main.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -12,7 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/Proyecto_Juego_SW2$Main.coverage" NAME="Main Coverage Results" MODIFIED="1511935726314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Proyecto_Juego_SW2$Main.coverage" NAME="Main Coverage Results" MODIFIED="1511938614507" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PlayPlatform$platform_scroller__1_.coverage" NAME="platform_scroller (1) Coverage Results" MODIFIED="1506626742310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../pygames-master/pygame" />
     <SUITE FILE_PATH="coverage/PlayPlatform$Main.coverage" NAME="Main Coverage Results" MODIFIED="1511734442681" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PlayPlatform$sprites.coverage" NAME="sprites Coverage Results" MODIFIED="1508631676039" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../pygames-master/pygame" />
@@ -29,10 +31,37 @@
       <file leaf-file-name="Main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="275" column="62" lean-forward="false" selection-start-line="275" selection-start-column="62" selection-end-line="275" selection-end-column="62" />
+            <state relative-caret-position="629">
+              <caret line="995" column="0" lean-forward="false" selection-start-line="995" selection-start-column="0" selection-end-line="995" selection-end-column="0" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Entities.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Entities/Entities.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="280">
+              <caret line="93" column="20" lean-forward="false" selection-start-line="93" selection-start-column="20" selection-end-line="93" selection-end-column="20" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+                <element signature="e#1204#2071#0" expanded="false" />
+                <element signature="e#2101#2385#0" expanded="false" />
+                <element signature="e#2417#2953#0" expanded="false" />
+                <element signature="e#4278#7308#0" expanded="false" />
+                <element signature="e#4318#4746#0" expanded="false" />
+                <element signature="e#4783#5545#0" expanded="false" />
+                <element signature="e#6135#7308#0" expanded="false" />
+                <element signature="e#7388#7787#0" expanded="false" />
+                <element signature="e#7824#8562#0" expanded="false" />
+                <element signature="e#8594#9039#0" expanded="false" />
+                <element signature="e#9082#9119#0" expanded="false" />
+                <element signature="e#9152#10301#0" expanded="false" />
+                <element signature="e#11602#12047#0" expanded="false" />
+                <element signature="e#12090#12127#0" expanded="false" />
+                <element signature="e#12160#13309#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -99,9 +128,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>draw_text</find>
-      <find>self.escenario</find>
-      <find>perso_wari</find>
       <find>anchEs</find>
       <find>sprites_mode_sigle_sheet</find>
       <find>sprite</find>
@@ -124,10 +150,13 @@
       <find>posturl</find>
       <find>pausa</find>
       <find>events</find>
-      <find>intro_ranking</find>
       <find>pausa()</find>
       <find>info</find>
       <find>SysFont</find>
+      <find>botones</find>
+      <find>ranking</find>
+      <find>intro_ranking</find>
+      <find>print</find>
       <find>pantalla_info</find>
     </findStrings>
   </component>
@@ -144,11 +173,11 @@
         <option value="$PROJECT_DIR$/utils/States.py" />
         <option value="$PROJECT_DIR$/../../pygames-master/pygame/sprite_sheets/player.py" />
         <option value="$PROJECT_DIR$/GeneralInformation.py" />
-        <option value="$PROJECT_DIR$/Entities/Entities.py" />
         <option value="$PROJECT_DIR$/info_mochica.txt" />
         <option value="$PROJECT_DIR$/info_paracas.txt" />
         <option value="$PROJECT_DIR$/info_tiahuanaco.txt" />
         <option value="$PROJECT_DIR$/info_wari.txt" />
+        <option value="$PROJECT_DIR$/Entities/Entities.py" />
         <option value="$PROJECT_DIR$/Main.py" />
       </list>
     </option>
@@ -212,6 +241,11 @@
               <item name="Proyecto_Juego_SW2" type="b2602c69:ProjectViewProjectNode" />
               <item name="Proyecto_Juego_SW2" type="462c0819:PsiDirectoryNode" />
               <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Proyecto_Juego_SW2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Proyecto_Juego_SW2" type="462c0819:PsiDirectoryNode" />
+              <item name="Entities" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -371,7 +405,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32715008" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43338954" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33558178" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18549748" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -639,33 +673,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Entities/Entities.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="20" lean-forward="false" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
-          <folding>
-            <element signature="e#1204#2071#0" expanded="false" />
-            <element signature="e#2101#2385#0" expanded="false" />
-            <element signature="e#2417#2953#0" expanded="false" />
-            <element signature="e#2986#4159#0" expanded="false" />
-            <element signature="e#4302#7365#0" expanded="false" />
-            <element signature="e#4342#4770#0" expanded="false" />
-            <element signature="e#4807#5569#0" expanded="false" />
-            <element signature="e#5612#5682#0" expanded="false" />
-            <element signature="e#6192#7365#0" expanded="false" />
-            <element signature="e#7405#10382#0" expanded="false" />
-            <element signature="e#7445#7844#0" expanded="false" />
-            <element signature="e#7881#8619#0" expanded="false" />
-            <element signature="e#8651#9096#0" expanded="false" />
-            <element signature="e#9139#9176#0" expanded="false" />
-            <element signature="e#9209#10382#0" expanded="false" />
-            <element signature="e#11683#12128#0" expanded="false" />
-            <element signature="e#12171#12208#0" expanded="false" />
-            <element signature="e#12241#13414#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CBForm.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-6100">
@@ -706,10 +713,35 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Entities/Entities.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="93" column="20" lean-forward="false" selection-start-line="93" selection-start-column="20" selection-end-line="93" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#1204#2071#0" expanded="false" />
+            <element signature="e#2101#2385#0" expanded="false" />
+            <element signature="e#2417#2953#0" expanded="false" />
+            <element signature="e#4278#7308#0" expanded="false" />
+            <element signature="e#4318#4746#0" expanded="false" />
+            <element signature="e#4783#5545#0" expanded="false" />
+            <element signature="e#6135#7308#0" expanded="false" />
+            <element signature="e#7388#7787#0" expanded="false" />
+            <element signature="e#7824#8562#0" expanded="false" />
+            <element signature="e#8594#9039#0" expanded="false" />
+            <element signature="e#9082#9119#0" expanded="false" />
+            <element signature="e#9152#10301#0" expanded="false" />
+            <element signature="e#11602#12047#0" expanded="false" />
+            <element signature="e#12090#12127#0" expanded="false" />
+            <element signature="e#12160#13309#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="275" column="62" lean-forward="false" selection-start-line="275" selection-start-column="62" selection-end-line="275" selection-end-column="62" />
+        <state relative-caret-position="629">
+          <caret line="995" column="0" lean-forward="false" selection-start-line="995" selection-start-column="0" selection-end-line="995" selection-end-column="0" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
